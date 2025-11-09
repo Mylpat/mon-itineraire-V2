@@ -1,0 +1,7 @@
+{
+  "name": "JyVais",
+  "description": "Une application pour générer des itinéraires personnalisés avec des étapes, des modes de transport, et afficher le résultat sur une carte avec un lien partageable et un QR code.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
