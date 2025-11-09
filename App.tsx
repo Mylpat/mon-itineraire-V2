@@ -16,8 +16,6 @@ const initialItineraryRequest: ItineraryRequest = {
   currentLocation: null,
 };
 
-const logoBase64 = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAYQAAAGECAMAAACsv048AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAPUExURf/69f/28//49v/z8P/08AAAAAGp6JgAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAIQSURBVHja7d1BjoAgEAVQEwTAwP3/p5bA1sJQCyrh7p5dO9+NEdk/IkCAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAIECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIEVgAFTgAB3/BjaAAAAABJRU5ErkJggg==';
-
 export default function App(): React.ReactElement {
   const [itineraryRequest, setItineraryRequest] = useState<ItineraryRequest>(initialItineraryRequest);
   const [itineraryResponse, setItineraryResponse] = useState<ItineraryResponse | null>(null);
@@ -135,11 +133,7 @@ export default function App(): React.ReactElement {
     <div className="min-h-screen font-sans p-4 sm:p-6 md:p-8 text-blue-900">
       <div className="max-w-4xl mx-auto">
         <header className="text-center mb-8">
-          <div className="flex justify-center items-center gap-4">
-              <img src={logoBase64} alt="Logo JyVais" className="h-14 w-14 sm:h-16 sm:w-16 rounded-2xl"/>
-              <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-blue-900">JyVais</h1>
-              <img src={logoBase64} alt="Logo JyVais" className="h-14 w-14 sm:h-16 sm:w-16 rounded-2xl"/>
-          </div>
+          <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-blue-900">JyVais</h1>
           <p className="mt-2 text-lg text-blue-800">
             Planifiez, visualisez et partagez vos trajets en toute simplicité.
           </p>
