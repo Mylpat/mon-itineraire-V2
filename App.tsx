@@ -157,13 +157,12 @@ export default function App(): React.ReactElement {
     <div className="min-h-screen font-sans p-4 sm:p-6 md:p-8 text-blue-900">
       <div className="max-w-4xl mx-auto">
         <header className="mb-8">
-            <div className="flex justify-between items-start">
-                <div className="flex-1"></div>
-                <div className="flex-1 text-center">
+            <div className="flex flex-col items-center gap-4 text-center">
+                <div>
                     <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-blue-900">JyVais</h1>
                     <p className="mt-2 text-lg text-blue-800">{t.tagline}</p>
                 </div>
-                <div className="flex-1 flex justify-end">
+                <div className="flex-shrink-0">
                     <LanguageSwitcher currentLang={language} onLangChange={handleLangChange} />
                 </div>
             </div>

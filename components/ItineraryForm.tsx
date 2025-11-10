@@ -151,33 +151,35 @@ export default function ItineraryForm({ request, onChange, onGenerate, isLoading
           }
 
           return (
-            <div key={index} className="flex items-center space-x-2">
-              <label htmlFor={`parcours-${index}`} className="font-semibold text-gray-600 w-28 text-right shrink-0">{label}</label>
-              <div className="relative flex-grow">
-                <input
-                  type="text"
-                  id={`parcours-${index}`}
-                  value={point}
-                  onChange={(e) => handleParcoursChange(index, e.target.value)}
-                  placeholder={placeholder}
-                  className="w-full px-4 py-2 bg-white/80 border border-sky-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition pr-10"
-                  required={isStart || isDestination}
-                />
-                {isStart && (
-                  <button type="button" onClick={handleGeolocate} className="absolute inset-y-0 right-0 px-3 flex items-center text-blue-600 hover:text-blue-800 transition" title={t.useCurrentLocation}>
-                    <LocationIcon className="h-5 w-5" />
-                  </button>
+            <div key={index} className="flex flex-col sm:flex-row sm:items-center sm:space-x-2">
+              <label htmlFor={`parcours-${index}`} className="font-semibold text-gray-600 sm:w-36 sm:text-right shrink-0 mb-1 sm:mb-0">{label}</label>
+              <div className="flex items-center space-x-1 flex-grow">
+                <div className="relative flex-grow">
+                  <input
+                    type="text"
+                    id={`parcours-${index}`}
+                    value={point}
+                    onChange={(e) => handleParcoursChange(index, e.target.value)}
+                    placeholder={placeholder}
+                    className="w-full px-4 py-2 bg-white/80 border border-sky-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition pr-10"
+                    required={isStart || isDestination}
+                  />
+                  {isStart && (
+                    <button type="button" onClick={handleGeolocate} className="absolute inset-y-0 right-0 px-3 flex items-center text-blue-600 hover:text-blue-800 transition" title={t.useCurrentLocation}>
+                      <LocationIcon className="h-5 w-5" />
+                    </button>
+                  )}
+                </div>
+                <button type="button" onClick={() => moveStep(index, 'up')} disabled={isStart} className="p-1 text-blue-600 disabled:text-gray-300 hover:text-blue-800 transition"><ArrowUpIcon className="h-5 w-5"/></button>
+                <button type="button" onClick={() => moveStep(index, 'down')} disabled={isDestination} className="p-1 text-blue-600 disabled:text-gray-300 hover:text-blue-800 transition"><ArrowDownIcon className="h-5 w-5"/></button>
+                {isStep && (
+                  <button type="button" onClick={() => handleRemoveStep(index)} className="p-1 text-red-500 hover:text-red-700 transition"><TrashIcon className="h-5 w-5" /></button>
                 )}
               </div>
-              <button type="button" onClick={() => moveStep(index, 'up')} disabled={isStart} className="p-1 text-blue-600 disabled:text-gray-300 hover:text-blue-800 transition"><ArrowUpIcon className="h-5 w-5"/></button>
-              <button type="button" onClick={() => moveStep(index, 'down')} disabled={isDestination} className="p-1 text-blue-600 disabled:text-gray-300 hover:text-blue-800 transition"><ArrowDownIcon className="h-5 w-5"/></button>
-              {isStep && (
-                <button type="button" onClick={() => handleRemoveStep(index)} className="p-1 text-red-500 hover:text-red-700 transition"><TrashIcon className="h-5 w-5" /></button>
-              )}
             </div>
           );
         })}
-        <div className="pl-32 flex items-center gap-4">
+        <div className="sm:pl-40 flex items-center gap-4">
           <button type="button" onClick={handleAddStep} className="flex items-center space-x-2 text-blue-800 font-semibold hover:text-blue-900 transition py-2 px-3 bg-sky-200 hover:bg-sky-300 rounded-lg">
             <PlusIcon className="h-5 w-5" />
             <span>{t.addStep}</span>
