@@ -12,7 +12,6 @@ export const translations = {
     transportModes: {
       CAR: 'Voiture',
       PEDESTRIAN: 'Piéton',
-      TRANSIT: 'Transport en commun',
     },
     parcoursLabel: "Parcours *",
     parcoursStart: "Départ",
@@ -87,7 +86,6 @@ export const translations = {
     transportModes: {
       CAR: 'Car',
       PEDESTRIAN: 'Pedestrian',
-      TRANSIT: 'Public transit',
     },
     parcoursLabel: "Route *",
     parcoursStart: "Start",
@@ -159,7 +157,6 @@ export const translations = {
     transportModes: {
       CAR: 'Auto',
       PEDESTRIAN: 'Fußgänger',
-      TRANSIT: 'Öffentliche Verkehrsmittel',
     },
     parcoursLabel: "Strecke *",
     parcoursStart: "Start",
@@ -226,7 +223,6 @@ export const translations = {
     transportModes: {
       CAR: 'Auto',
       PEDESTRIAN: 'A piedi',
-      TRANSIT: 'Trasporto pubblico',
     },
     parcoursLabel: "Percorso *",
     parcoursStart: "Partenza",
@@ -293,7 +289,6 @@ export const translations = {
     transportModes: {
       CAR: 'Auto',
       PEDESTRIAN: 'Te voet',
-      TRANSIT: 'Openbaar vervoer',
     },
     parcoursLabel: "Route *",
     parcoursStart: "Start",

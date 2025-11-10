@@ -1,7 +1,6 @@
 export enum TransportMode {
   CAR = 'CAR',
   PEDESTRIAN = 'PEDESTRIAN',
-  TRANSIT = 'TRANSIT',
 }
 
 export interface Coordinates {

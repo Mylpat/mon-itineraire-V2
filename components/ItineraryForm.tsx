@@ -5,7 +5,6 @@ import type { ItineraryRequest } from '../types';
 import { translations } from '../lib/i18n';
 import CarIcon from './icons/CarIcon';
 import WalkIcon from './icons/WalkIcon';
-import BusIcon from './icons/BusIcon';
 import LocationIcon from './icons/LocationIcon';
 import PlusIcon from './icons/PlusIcon';
 import TrashIcon from './icons/TrashIcon';
@@ -94,7 +93,6 @@ export default function ItineraryForm({ request, onChange, onGenerate, isLoading
   const transportOptions = [
     { value: TransportMode.CAR, label: t.transportModes.CAR, icon: <CarIcon className="h-5 w-5" /> },
     { value: TransportMode.PEDESTRIAN, label: t.transportModes.PEDESTRIAN, icon: <WalkIcon className="h-5 w-5" /> },
-    { value: TransportMode.TRANSIT, label: t.transportModes.TRANSIT, icon: <BusIcon className="h-5 w-5" /> },
   ];
 
   return (

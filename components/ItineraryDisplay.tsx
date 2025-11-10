@@ -25,7 +25,6 @@ export default function ItineraryDisplay({ response, request, onSave, isUpdate, 
   const travelModeMapping: { [key in TransportMode]: string } = {
     [TransportMode.CAR]: 'driving',
     [TransportMode.PEDESTRIAN]: 'walking',
-    [TransportMode.TRANSIT]: 'transit',
   };
   const travelmode = travelModeMapping[transportMode];
 
