@@ -1,6 +1,8 @@
+
 import React, { useCallback } from 'react';
 import { TransportMode } from '../types';
 import type { ItineraryRequest } from '../types';
+import { translations } from '../lib/i18n';
 import CarIcon from './icons/CarIcon';
 import WalkIcon from './icons/WalkIcon';
 import BusIcon from './icons/BusIcon';
@@ -18,9 +20,10 @@ interface ItineraryFormProps {
   isLoading: boolean;
   onReset: () => void;
   isSavedItineraryLoaded: boolean;
+  t: typeof translations.fr;
 }
 
-export default function ItineraryForm({ request, onChange, onGenerate, isLoading, onReset, isSavedItineraryLoaded }: ItineraryFormProps): React.ReactElement {
+export default function ItineraryForm({ request, onChange, onGenerate, isLoading, onReset, isSavedItineraryLoaded, t }: ItineraryFormProps): React.ReactElement {
   const [error, setError] = React.useState<string | null>(null);
   const { name, transportMode, parcours, currentLocation } = request;
 
@@ -61,18 +64,18 @@ export default function ItineraryForm({ request, onChange, onGenerate, isLoading
           onChange({ ...request, parcours: newParcours, currentLocation: { latitude, longitude } });
         },
         () => {
-          alert("Impossible d'obtenir la position. Veuillez l'autoriser et réessayer, ou l'entrer manuellement.");
+          alert(t.geolocateError);
         }
       );
     } else {
-      alert("La géolocalisation n'est pas supportée par votre navigateur.");
+      alert(t.geolocateUnsupported);
     }
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!name || !parcours[0] || !parcours[parcours.length - 1]) {
-      setError('Veuillez remplir tous les champs obligatoires : nom, départ et destination.');
+      setError(t.formError);
       return;
     }
     setError(null);
@@ -80,35 +83,37 @@ export default function ItineraryForm({ request, onChange, onGenerate, isLoading
   };
   
   const handlePrepareReturn = () => {
-    const baseName = name.replace(/ - Retour$/, '').replace(/^Retour : /, '');
-    const newName = `${baseName} - Retour`;
+    const returnSuffixes = [translations.fr.returnTripSuffix, translations.en.returnTripSuffix].join('|');
+    const regex = new RegExp(` - (${returnSuffixes})$`);
+    const baseName = name.replace(regex, '');
+    const newName = `${baseName} - ${t.returnTripSuffix}`;
     const reversedParcours = [...parcours].reverse();
     onChange({ ...request, name: newName, parcours: reversedParcours });
   };
 
   const transportOptions = [
-    { value: TransportMode.CAR, label: 'Voiture', icon: <CarIcon className="h-5 w-5" /> },
-    { value: TransportMode.PEDESTRIAN, label: 'Piéton', icon: <WalkIcon className="h-5 w-5" /> },
-    { value: TransportMode.TRANSIT, label: 'Transport en commun', icon: <BusIcon className="h-5 w-5" /> },
+    { value: TransportMode.CAR, label: t.transportModes.CAR, icon: <CarIcon className="h-5 w-5" /> },
+    { value: TransportMode.PEDESTRIAN, label: t.transportModes.PEDESTRIAN, icon: <WalkIcon className="h-5 w-5" /> },
+    { value: TransportMode.TRANSIT, label: t.transportModes.TRANSIT, icon: <BusIcon className="h-5 w-5" /> },
   ];
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
-          <label htmlFor="name" className="block text-sm font-medium text-blue-800 mb-1">Nom de l'itinéraire *</label>
+          <label htmlFor="name" className="block text-sm font-medium text-blue-800 mb-1">{t.itineraryNameLabel}</label>
           <input
             type="text"
             id="name"
             value={name}
             onChange={(e) => onChange({ ...request, name: e.target.value })}
-            placeholder="Ex: Vacances en Bretagne"
+            placeholder={t.itineraryNamePlaceholder}
             className="w-full px-4 py-2 bg-white/80 border border-sky-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
             required
           />
         </div>
         <div>
-          <label htmlFor="transportMode" className="block text-sm font-medium text-blue-800 mb-1">Moyen de transport *</label>
+          <label htmlFor="transportMode" className="block text-sm font-medium text-blue-800 mb-1">{t.transportModeLabel}</label>
           <div className="relative">
             <select
               id="transportMode"
@@ -126,7 +131,7 @@ export default function ItineraryForm({ request, onChange, onGenerate, isLoading
       </div>
       
       <div className="space-y-3">
-        <h3 className="text-md font-medium text-blue-800">Parcours *</h3>
+        <h3 className="text-md font-medium text-blue-800">{t.parcoursLabel}</h3>
         {parcours.map((point, index) => {
           const isStart = index === 0;
           const isDestination = index === parcours.length - 1;
@@ -135,19 +140,19 @@ export default function ItineraryForm({ request, onChange, onGenerate, isLoading
           let label = '';
           let placeholder = '';
           if (isStart) {
-            label = 'Départ';
-            placeholder = 'Adresse de départ';
+            label = t.parcoursStart;
+            placeholder = t.parcoursStartPlaceholder;
           } else if (isDestination) {
-            label = 'Arrivée';
-            placeholder = 'Adresse de destination';
+            label = t.parcoursEnd;
+            placeholder = t.parcoursEndPlaceholder;
           } else {
-            label = `Étape ${index}`;
-            placeholder = `Adresse de l'étape ${index}`;
+            label = `${t.parcoursStep} ${index}`;
+            placeholder = `${t.parcoursStepPlaceholder} ${index}`;
           }
 
           return (
             <div key={index} className="flex items-center space-x-2">
-              <label htmlFor={`parcours-${index}`} className="font-semibold text-gray-600 w-20 text-right shrink-0">{label}</label>
+              <label htmlFor={`parcours-${index}`} className="font-semibold text-gray-600 w-28 text-right shrink-0">{label}</label>
               <div className="relative flex-grow">
                 <input
                   type="text"
@@ -159,7 +164,7 @@ export default function ItineraryForm({ request, onChange, onGenerate, isLoading
                   required={isStart || isDestination}
                 />
                 {isStart && (
-                  <button type="button" onClick={handleGeolocate} className="absolute inset-y-0 right-0 px-3 flex items-center text-blue-600 hover:text-blue-800 transition" title="Utiliser ma position actuelle">
+                  <button type="button" onClick={handleGeolocate} className="absolute inset-y-0 right-0 px-3 flex items-center text-blue-600 hover:text-blue-800 transition" title={t.useCurrentLocation}>
                     <LocationIcon className="h-5 w-5" />
                   </button>
                 )}
@@ -172,10 +177,10 @@ export default function ItineraryForm({ request, onChange, onGenerate, isLoading
             </div>
           );
         })}
-        <div className="pl-24 flex items-center gap-4">
+        <div className="pl-32 flex items-center gap-4">
           <button type="button" onClick={handleAddStep} className="flex items-center space-x-2 text-blue-800 font-semibold hover:text-blue-900 transition py-2 px-3 bg-sky-200 hover:bg-sky-300 rounded-lg">
             <PlusIcon className="h-5 w-5" />
-            <span>Ajouter une étape</span>
+            <span>{t.addStep}</span>
           </button>
           {isSavedItineraryLoaded && (
             <button 
@@ -184,7 +189,7 @@ export default function ItineraryForm({ request, onChange, onGenerate, isLoading
                 className="flex items-center space-x-2 text-orange-800 font-semibold hover:text-orange-900 transition py-2 px-3 bg-orange-200 hover:bg-orange-300 rounded-lg"
             >
                 <ReturnIcon className="h-5 w-5" />
-                <span>Préparer le retour</span>
+                <span>{t.prepareReturn}</span>
             </button>
         )}
         </div>
@@ -194,10 +199,10 @@ export default function ItineraryForm({ request, onChange, onGenerate, isLoading
 
       <div className="flex flex-col sm:flex-row gap-4 pt-2">
         <button type="submit" disabled={isLoading} className="flex-grow w-full flex justify-center items-center bg-blue-900 text-white font-bold py-3 px-4 rounded-lg hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-transform transform hover:scale-105 disabled:bg-gray-400 disabled:scale-100">
-          {isLoading ? 'Génération...' : "Générer l'itinéraire"}
+          {isLoading ? t.generating : t.generate}
         </button>
         <button type="button" onClick={onReset} className="flex-shrink-0 bg-gray-200 text-gray-800 font-bold py-3 px-6 rounded-lg hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 transition">
-          Réinitialiser
+          {t.reset}
         </button>
       </div>
     </form>
