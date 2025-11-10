@@ -3,9 +3,9 @@ import React from 'react';
 export default function FranceFlagIcon({ className }: { className?: string }): React.ReactElement {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3 2" className={className}>
-      <rect width="1" height="2" fill="#0055A4"/>
-      <rect x="1" width="1" height="2" fill="#FFFFFF"/>
-      <rect x="2" width="1" height="2" fill="#EF4135"/>
+      <path fill="#002395" d="M0 0h1v2H0z"/>
+      <path fill="#fff" d="M1 0h1v2H1z"/>
+      <path fill="#ED2939" d="M2 0h1v2H2z"/>
     </svg>
   );
 }

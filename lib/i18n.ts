@@ -349,6 +349,14 @@ export const translations = {
 
 export type Language = keyof typeof translations;
 
+export const languageNames: { [key in Language]: string } = {
+  fr: 'Français',
+  en: 'English',
+  de: 'Deutsch',
+  it: 'Italiano',
+  nl: 'Nederlands',
+};
+
 export const getTranslator = (lang: Language) => {
   return translations[lang];
 }
