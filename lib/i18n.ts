@@ -48,7 +48,7 @@ export const translations = {
     saveItinerary: "Sauvegarder l'itinéraire",
     updateItinerary: "Modifier sauvegarde",
     // Saved Itineraries
-    savedItinerariesTitle: "Mes itinéraires Sauvegardés",
+    savedItinerariesTitle: "Mes itinéraires sauvegardés",
     searchPlaceholder: "Rechercher...",
     sortByName: "Trier par nom",
     noItinerariesFound: "Aucun itinéraire trouvé.",
@@ -259,7 +259,7 @@ export const translations = {
     mailtoBody: (routeName: string, mapUrl: string) => `Ciao,\n\nEcco il link per l'itinerario "${routeName}":\n${mapUrl}`,
     saveItinerary: "Salva Itinerario",
     updateItinerary: "Aggiorna Salvataggio",
-    savedItinerariesTitle: "I miei itinerari Salvati",
+    savedItinerariesTitle: "I miei itinerari salvati",
     searchPlaceholder: "Cerca...",
     sortByName: "Ordina per nome",
     noItinerariesFound: "Nessun itinerario trovato.",
