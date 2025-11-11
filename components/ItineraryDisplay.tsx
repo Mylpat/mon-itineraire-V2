@@ -39,18 +39,18 @@ export default function ItineraryDisplay({ response, request, onSave, isUpdate, 
   constructedMapUrl.searchParams.append('travelmode', travelmode);
   const mapUrl = constructedMapUrl.toString();
   
-  const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(mapUrl)}&size=150x150&bgcolor=f0f9ff`;
+  const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(mapUrl)}&size=150x150&bgcolor=ffffff&color=1e293b&qzone=1`;
 
   const mailtoLink = `mailto:?subject=${encodeURIComponent(t.mailtoSubject)} ${encodeURIComponent(routeName)}&body=${encodeURIComponent(t.mailtoBody(routeName, mapUrl))}`;
 
   return (
-    <div className="mt-6 pt-6 border-t border-sky-300">
-      <h2 className="text-3xl font-bold text-center mb-4 sm:mb-6">{t.yourItinerary} : {routeName}</h2>
+    <div className="mt-8 pt-8 border-t border-white/50">
+      <h2 className="text-3xl font-bold text-center mb-6 sm:mb-8">{t.yourItinerary} : {routeName}</h2>
       
-      <div className="space-y-4 sm:space-y-6">
-        <div className="bg-white/80 p-6 rounded-lg shadow-md">
-            <h3 className="text-xl font-semibold mb-4 border-b pb-2 border-sky-200">{t.itineraryReadyTitle}</h3>
-            <div className="mt-4 text-blue-800 space-y-4">
+      <div className="space-y-6">
+        <div className="bg-white/50 backdrop-blur-xl p-6 rounded-2xl shadow-lg border border-white/40">
+            <h3 className="text-xl font-semibold mb-4 border-b pb-2 border-white/50">{t.itineraryReadyTitle}</h3>
+            <div className="mt-4 text-slate-700 space-y-4">
                 <p className="text-lg">
                     {t.itineraryReadyBody1}
                 </p>
@@ -60,22 +60,22 @@ export default function ItineraryDisplay({ response, request, onSave, isUpdate, 
             </div>
         </div>
         
-        <div className="bg-white/80 p-6 rounded-lg shadow-md">
+        <div className="bg-white/50 backdrop-blur-xl p-6 rounded-2xl shadow-lg border border-white/40">
             <div className="flex flex-col md:flex-row items-center gap-6">
                 <div className="text-center flex-shrink-0">
-                    <img src={qrCodeUrl} alt="QR Code pour l'itinéraire" className="rounded-lg border-4 border-white shadow-sm mx-auto" />
-                    <p className="text-sm mt-2 text-blue-800">{t.qrCodeText}</p>
+                    <img src={qrCodeUrl} alt="QR Code pour l'itinéraire" className="rounded-xl border-4 border-white shadow-sm mx-auto" />
+                    <p className="text-sm mt-2 text-slate-600">{t.qrCodeText}</p>
                 </div>
                 <div className="w-full space-y-3">
-                    <a href={mapUrl} target="_blank" rel="noopener noreferrer" className="block w-full text-center bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition">
+                    <a href={mapUrl} target="_blank" rel="noopener noreferrer" className="block w-full text-center bg-blue-600 text-white font-bold py-2 px-4 rounded-xl hover:bg-blue-500 transition shadow-md">
                         {t.openInMapsButton}
                     </a>
-                    <a href={mailtoLink} className="block w-full text-center bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700 transition">
+                    <a href={mailtoLink} className="block w-full text-center bg-green-600 text-white font-bold py-2 px-4 rounded-xl hover:bg-green-500 transition shadow-md">
                        {t.sendByEmail}
                     </a>
                     <button
                       onClick={onSave}
-                      className="flex items-center justify-center gap-2 w-full text-center bg-gray-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-gray-700 transition"
+                      className="flex items-center justify-center gap-2 w-full text-center bg-slate-600 text-white font-bold py-2 px-4 rounded-xl hover:bg-slate-500 transition shadow-md"
                     >
                       <SaveIcon className="h-5 w-5" />
                       {isUpdate ? t.updateItinerary : t.saveItinerary}

@@ -1,3 +1,4 @@
+
 import React, { useState, useMemo } from 'react';
 import type { SavedItinerary } from '../types';
 import { translations } from '../lib/i18n';
@@ -48,9 +49,9 @@ export default function SavedItineraries({ itineraries, onView, onDelete, t }: S
   };
 
   return (
-    <div className="p-6 sm:p-8 bg-white/70 backdrop-blur-sm rounded-2xl shadow-lg">
+    <div className="p-6 sm:p-8 bg-white/40 backdrop-blur-xl rounded-[28px] shadow-2xl shadow-blue-500/10 border border-white/50">
       <div className="mb-4">
-        <h2 className="text-2xl font-bold text-blue-900 mb-4">{t.savedItinerariesTitle}</h2>
+        <h2 className="text-2xl font-bold text-slate-900 mb-4">{t.savedItinerariesTitle}</h2>
         <div className="flex items-center gap-2">
             <input
                 type="text"
@@ -60,9 +61,9 @@ export default function SavedItineraries({ itineraries, onView, onDelete, t }: S
                     setSearchTerm(e.target.value);
                     setCurrentPage(1); // Reset to first page on new search
                 }}
-                className="flex-grow px-3 py-1.5 bg-white/80 border border-sky-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition text-sm"
+                className="flex-grow px-3 py-2 bg-slate-100/50 border border-white/50 rounded-xl focus:ring-2 focus:ring-sky-400 focus:border-sky-400 outline-none transition text-sm placeholder:text-slate-500"
             />
-            <button onClick={toggleSortOrder} title={t.sortByName} className="p-2 text-blue-600 hover:bg-blue-100 rounded-full transition">
+            <button onClick={toggleSortOrder} title={t.sortByName} className="p-2 text-slate-600 hover:bg-slate-200/50 rounded-full transition">
                 {sortOrder === 'asc' ? <SortAscendingIcon className="h-5 w-5" /> : <SortDescendingIcon className="h-5 w-5" />}
             </button>
         </div>
@@ -73,42 +74,42 @@ export default function SavedItineraries({ itineraries, onView, onDelete, t }: S
           const stepsText = stepsCount > 0 ? ` (${stepsCount} ${stepsCount > 1 ? t.stepPlural : t.stepSingular})` : '';
 
           return (
-            <div key={it.id} className="flex items-center justify-between p-3 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200">
+            <div key={it.id} className="flex items-center justify-between p-3 bg-white/40 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 border border-white/30">
               <button
                 onClick={() => onView(it)}
-                className="font-semibold text-blue-800 truncate text-left hover:underline focus:outline-none focus:ring-1 focus:ring-blue-300 rounded-sm p-1 -m-1"
+                className="font-semibold text-slate-800 truncate text-left hover:underline focus:outline-none focus:ring-1 focus:ring-sky-300 rounded-sm p-1 -m-1"
                 title={`${it.request.name}${stepsText}`}
               >
                 {it.request.name}
-                {stepsText && <span className="font-normal text-gray-600">{stepsText}</span>}
+                {stepsText && <span className="font-normal text-slate-600">{stepsText}</span>}
               </button>
               <div className="flex items-center space-x-1 sm:space-x-2 flex-shrink-0">
-                <button onClick={() => onView(it)} title={t.viewAndLoad} className="p-2 text-blue-600 hover:bg-blue-100 rounded-full transition"><EyeIcon className="h-5 w-5"/></button>
-                <button onClick={() => onDelete(it.id)} title={t.delete} className="p-2 text-red-600 hover:bg-red-100 rounded-full transition"><TrashIcon className="h-5 w-5"/></button>
+                <button onClick={() => onView(it)} title={t.viewAndLoad} className="p-2 text-sky-600 hover:bg-sky-100/50 rounded-full transition"><EyeIcon className="h-5 w-5"/></button>
+                <button onClick={() => onDelete(it.id)} title={t.delete} className="p-2 text-red-600 hover:bg-red-100/50 rounded-full transition"><TrashIcon className="h-5 w-5"/></button>
               </div>
             </div>
           );
         }) : (
-            <p className="text-center text-gray-500 pt-10">{t.noItinerariesFound}</p>
+            <p className="text-center text-slate-500 pt-10">{t.noItinerariesFound}</p>
         )}
       </div>
 
       {totalPages > 1 && (
-        <div className="flex justify-between items-center mt-4 pt-4 border-t border-sky-200">
+        <div className="flex justify-between items-center mt-4 pt-4 border-t border-white/50">
             <button 
                 onClick={() => handlePageChange(currentPage - 1)} 
                 disabled={currentPage === 1}
-                className="px-4 py-2 text-sm font-semibold bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed transition"
+                className="px-4 py-2 text-sm font-semibold bg-slate-200/80 text-slate-800 rounded-xl hover:bg-slate-300/80 disabled:bg-slate-100/50 disabled:text-slate-400 disabled:cursor-not-allowed transition"
             >
                 {t.previousPage}
             </button>
-            <span className="text-sm text-gray-600">
+            <span className="text-sm text-slate-600">
                 {t.page} {currentPage} {t.of} {totalPages}
             </span>
             <button 
                 onClick={() => handlePageChange(currentPage + 1)} 
                 disabled={currentPage === totalPages}
-                className="px-4 py-2 text-sm font-semibold bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed transition"
+                className="px-4 py-2 text-sm font-semibold bg-slate-200/80 text-slate-800 rounded-xl hover:bg-slate-300/80 disabled:bg-slate-100/50 disabled:text-slate-400 disabled:cursor-not-allowed transition"
             >
                 {t.nextPage}
             </button>

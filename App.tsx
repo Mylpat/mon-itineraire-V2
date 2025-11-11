@@ -155,29 +155,29 @@ export default function App(): React.ReactElement {
   const isSavedItineraryLoaded = !!loadedItineraryId;
 
   return (
-    <div className="min-h-screen font-sans p-3 sm:p-4 md:p-6 text-blue-900">
+    <div className="min-h-screen font-sans p-3 sm:p-4 md:p-8 text-slate-800">
       <div className="max-w-4xl mx-auto">
-        <header className="mb-6">
-            <div className="flex justify-between items-center">
+        <header className="mb-8 text-center">
+            <div className="grid grid-cols-3 items-center">
                 <div className="flex-1"></div> {/* Spacer */}
-                <div className="text-center px-4">
-                    <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-blue-900">JyVais</h1>
+                <div className="text-center">
+                    <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-slate-900">JyVais</h1>
                 </div>
                 <div className="flex-1 flex justify-end">
                     <LanguageSwitcher currentLang={language} onLangChange={handleLangChange} />
                 </div>
             </div>
-            <p className="text-lg text-blue-800 text-center">{t.tagline}</p>
+            <p className="text-lg text-slate-600">{t.tagline}</p>
         </header>
 
         {successMessage && (
-          <div className="mb-4 p-4 bg-green-100 text-green-800 border border-green-300 rounded-lg text-center" role="alert">
+          <div className="mb-6 p-4 bg-green-500/20 text-green-800 border border-green-500/30 rounded-2xl text-center" role="alert">
             <p className="font-semibold">{successMessage}</p>
           </div>
         )}
 
-        <main className="space-y-6">
-          <div className="bg-white/70 backdrop-blur-sm p-6 sm:p-8 rounded-2xl shadow-lg">
+        <main className="space-y-8">
+          <div className="bg-white/40 backdrop-blur-xl p-6 sm:p-8 rounded-[28px] shadow-2xl shadow-blue-500/10 border border-white/50">
             <ItineraryForm
               request={itineraryRequest}
               onChange={handleRequestChange}
@@ -189,15 +189,15 @@ export default function App(): React.ReactElement {
             />
 
             {isLoading && (
-              <div className="mt-6 flex flex-col items-center justify-center text-center">
-                <SpinnerIcon className="h-12 w-12 animate-spin text-blue-900" />
+              <div className="mt-8 flex flex-col items-center justify-center text-center">
+                <SpinnerIcon className="h-12 w-12 animate-spin text-slate-700" />
                 <p className="mt-4 text-lg font-semibold">{t.loadingTitle}</p>
-                <p className="text-blue-800">{t.loadingSubtitle}</p>
+                <p className="text-slate-600">{t.loadingSubtitle}</p>
               </div>
             )}
 
             {error && (
-              <div className="mt-6 p-4 bg-red-100 text-red-800 border border-red-300 rounded-lg text-center">
+              <div className="mt-8 p-4 bg-red-500/20 text-red-800 border border-red-500/30 rounded-2xl text-center">
                 <p className="font-bold">{t.generationErrorTitle}</p>
                 <p>{error}</p>
               </div>
@@ -224,7 +224,7 @@ export default function App(): React.ReactElement {
           )}
         </main>
         
-        <footer className="text-center mt-6 text-sm text-blue-700/80">
+        <footer className="text-center mt-8 text-sm text-slate-500">
             <p>{t.poweredBy}</p>
         </footer>
       </div>
