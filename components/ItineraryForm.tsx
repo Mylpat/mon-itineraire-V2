@@ -6,10 +6,8 @@ import { translations } from '../lib/i18n';
 import CarIcon from './icons/CarIcon';
 import WalkIcon from './icons/WalkIcon';
 import LocationIcon from './icons/LocationIcon';
-import PlusIcon from './icons/PlusIcon';
 import TrashIcon from './icons/TrashIcon';
 import DragHandleIcon from './icons/DragHandleIcon';
-import ReturnIcon from './icons/ReturnIcon';
 
 interface ItineraryFormProps {
   request: ItineraryRequest;
@@ -123,7 +121,7 @@ export default function ItineraryForm({ request, onChange, onGenerate, isLoading
             value={name}
             onChange={(e) => onChange({ ...request, name: e.target.value })}
             placeholder={t.itineraryNamePlaceholder}
-            className="w-full px-4 py-2 bg-white/80 border border-sky-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
+            className="w-full px-4 py-1.5 bg-white/80 border border-sky-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
             required
           />
         </div>
@@ -134,7 +132,7 @@ export default function ItineraryForm({ request, onChange, onGenerate, isLoading
               id="transportMode"
               value={transportMode}
               onChange={(e) => onChange({ ...request, transportMode: e.target.value as TransportMode })}
-              className="w-full appearance-none px-4 py-2 bg-white/80 border border-sky-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
+              className="w-full appearance-none px-4 py-1.5 bg-white/80 border border-sky-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
             >
               {transportOptions.map(opt => <option key={opt.value} value={opt.value}>{opt.label}</option>)}
             </select>
@@ -189,7 +187,7 @@ export default function ItineraryForm({ request, onChange, onGenerate, isLoading
                     value={point}
                     onChange={(e) => handleParcoursChange(index, e.target.value)}
                     placeholder={placeholder}
-                    className="w-full px-4 py-2 bg-white/80 border border-sky-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition pr-10"
+                    className="w-full px-4 py-1.5 bg-white/80 border border-sky-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition pr-10"
                     required={isStart || isDestination}
                   />
                   {isStart && (
@@ -206,17 +204,15 @@ export default function ItineraryForm({ request, onChange, onGenerate, isLoading
           );
         })}
         <div className="sm:pl-28 flex items-center gap-4">
-          <button type="button" onClick={handleAddStep} className="flex items-center space-x-2 text-blue-800 font-semibold hover:text-blue-900 transition py-2 px-3 bg-sky-200 hover:bg-sky-300 rounded-lg">
-            <PlusIcon className="h-5 w-5" />
+          <button type="button" onClick={handleAddStep} className="text-blue-800 font-semibold hover:text-blue-900 transition py-2 px-3 bg-sky-200 hover:bg-sky-300 rounded-lg">
             <span>{t.addStep}</span>
           </button>
           {isSavedItineraryLoaded && (
             <button 
                 type="button" 
                 onClick={handlePrepareReturn} 
-                className="flex items-center space-x-2 text-orange-800 font-semibold hover:text-orange-900 transition py-2 px-3 bg-orange-200 hover:bg-orange-300 rounded-lg"
+                className="text-orange-800 font-semibold hover:text-orange-900 transition py-2 px-3 bg-orange-200 hover:bg-orange-300 rounded-lg"
             >
-                <ReturnIcon className="h-5 w-5" />
                 <span>{t.prepareReturn}</span>
             </button>
         )}
