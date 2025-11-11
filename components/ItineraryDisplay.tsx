@@ -45,11 +45,11 @@ export default function ItineraryDisplay({ response, request, onSave, isUpdate, 
 
   return (
     <div className="mt-8 pt-8 border-t border-white/50">
-      <h2 className="text-3xl font-bold text-center mb-6 sm:mb-8">{t.yourItinerary} : {routeName}</h2>
+      <h2 className="text-3xl font-bold text-center text-blue-900 mb-6 sm:mb-8">{t.yourItinerary} : {routeName}</h2>
       
       <div className="space-y-6">
         <div className="bg-white/50 backdrop-blur-xl p-6 rounded-2xl shadow-lg border border-white/40">
-            <h3 className="text-xl font-semibold mb-4 border-b pb-2 border-white/50">{t.itineraryReadyTitle}</h3>
+            <h3 className="text-xl font-semibold text-blue-900 mb-4 border-b pb-2 border-white/50">{t.itineraryReadyTitle}</h3>
             <div className="mt-4 text-slate-700 space-y-4">
                 <p className="text-lg">
                     {t.itineraryReadyBody1}

@@ -161,7 +161,7 @@ export default function App(): React.ReactElement {
             <div className="grid grid-cols-3 items-center">
                 <div className="flex-1"></div> {/* Spacer */}
                 <div className="text-center">
-                    <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-slate-900">JyVais</h1>
+                    <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-blue-900">JyVais</h1>
                 </div>
                 <div className="flex-1 flex justify-end">
                     <LanguageSwitcher currentLang={language} onLangChange={handleLangChange} />

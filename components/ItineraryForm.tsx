@@ -206,14 +206,14 @@ export default function ItineraryForm({ request, onChange, onGenerate, isLoading
           );
         })}
         <div className="sm:pl-[124px] flex items-center gap-4 pt-2">
-          <button type="button" onClick={handleAddStep} className="text-slate-800 font-semibold hover:text-slate-900 transition py-2 px-3 bg-transparent hover:bg-sky-200/50 rounded-lg">
+          <button type="button" onClick={handleAddStep} className="text-slate-800 font-semibold hover:text-slate-900 transition py-2 px-3 bg-sky-100 hover:bg-sky-200 rounded-lg border border-sky-200 shadow-sm">
             {t.addStep}
           </button>
           {isSavedItineraryLoaded && (
             <button 
                 type="button" 
                 onClick={handlePrepareReturn} 
-                className="text-slate-800 font-semibold hover:text-slate-900 transition py-2 px-3 bg-transparent hover:bg-orange-200/50 rounded-lg"
+                className="text-slate-800 font-semibold hover:text-slate-900 transition py-2 px-3 bg-orange-100 hover:bg-orange-200 rounded-lg border border-orange-200 shadow-sm"
             >
                 {t.prepareReturn}
             </button>
