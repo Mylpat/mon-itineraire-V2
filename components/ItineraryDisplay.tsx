@@ -43,10 +43,10 @@ export default function ItineraryDisplay({ response, request, onSave, isUpdate, 
   const mailtoLink = `mailto:?subject=${encodeURIComponent(t.mailtoSubject)} ${encodeURIComponent(routeName)}&body=${encodeURIComponent(t.mailtoBody(routeName, mapUrl))}`;
 
   return (
-    <div className="mt-8 pt-8 border-t border-sky-300 space-y-8">
+    <div className="mt-6 pt-6 border-t border-sky-300 space-y-6">
       <h2 className="text-3xl font-bold text-center">{t.yourItinerary} : {routeName}</h2>
       
-      <div className="space-y-8">
+      <div className="space-y-6">
         <div className="bg-white/80 p-6 rounded-lg shadow-md">
             <h3 className="text-xl font-semibold mb-4 border-b pb-2 border-sky-200">{t.itineraryReadyTitle}</h3>
             <div className="mt-4 text-blue-800 space-y-4">

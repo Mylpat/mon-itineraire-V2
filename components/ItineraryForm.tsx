@@ -1,5 +1,5 @@
 
-import React, { useCallback } from 'react';
+import React from 'react';
 import { TransportMode } from '../types';
 import type { ItineraryRequest } from '../types';
 import { translations } from '../lib/i18n';
@@ -8,8 +8,7 @@ import WalkIcon from './icons/WalkIcon';
 import LocationIcon from './icons/LocationIcon';
 import PlusIcon from './icons/PlusIcon';
 import TrashIcon from './icons/TrashIcon';
-import ArrowUpIcon from './icons/ArrowUpIcon';
-import ArrowDownIcon from './icons/ArrowDownIcon';
+import DragHandleIcon from './icons/DragHandleIcon';
 import ReturnIcon from './icons/ReturnIcon';
 
 interface ItineraryFormProps {
@@ -24,6 +23,7 @@ interface ItineraryFormProps {
 
 export default function ItineraryForm({ request, onChange, onGenerate, isLoading, onReset, isSavedItineraryLoaded, t }: ItineraryFormProps): React.ReactElement {
   const [error, setError] = React.useState<string | null>(null);
+  const [draggedIndex, setDraggedIndex] = React.useState<number | null>(null);
   const { name, transportMode, parcours, currentLocation } = request;
 
   const handleParcoursChange = (index: number, value: string) => {
@@ -43,15 +43,32 @@ export default function ItineraryForm({ request, onChange, onGenerate, isLoading
     const newParcours = parcours.filter((_, i) => i !== index);
     onChange({ ...request, parcours: newParcours });
   };
-    
-  const moveStep = useCallback((index: number, direction: 'up' | 'down') => {
-    const newParcours = [...parcours];
-    const targetIndex = direction === 'up' ? index - 1 : index + 1;
-    if (targetIndex < 0 || targetIndex >= newParcours.length) return;
-    [newParcours[index], newParcours[targetIndex]] = [newParcours[targetIndex], newParcours[index]];
-    onChange({ ...request, parcours: newParcours });
-  }, [parcours, onChange, request]);
 
+  const handleDragStart = (e: React.DragEvent<HTMLDivElement>, index: number) => {
+    setDraggedIndex(index);
+    e.dataTransfer.effectAllowed = 'move';
+  };
+
+  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+  };
+
+  const handleDrop = (e: React.DragEvent<HTMLDivElement>, dropIndex: number) => {
+    e.preventDefault();
+    if (draggedIndex === null || draggedIndex === dropIndex) {
+      setDraggedIndex(null);
+      return;
+    }
+    const newParcours = [...parcours];
+    const [draggedItem] = newParcours.splice(draggedIndex, 1);
+    newParcours.splice(dropIndex, 0, draggedItem);
+    onChange({ ...request, parcours: newParcours });
+    setDraggedIndex(null);
+  };
+
+  const handleDragEnd = () => {
+    setDraggedIndex(null);
+  };
 
   const handleGeolocate = () => {
     if (navigator.geolocation) {
@@ -96,8 +113,8 @@ export default function ItineraryForm({ request, onChange, onGenerate, isLoading
   ];
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <form onSubmit={handleSubmit} className="space-y-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <label htmlFor="name" className="block text-sm font-medium text-blue-800 mb-1">{t.itineraryNameLabel}</label>
           <input
@@ -129,7 +146,7 @@ export default function ItineraryForm({ request, onChange, onGenerate, isLoading
       </div>
       
       <div className="space-y-3">
-        <h3 className="text-md font-medium text-blue-800">{t.parcoursLabel}</h3>
+        <h3 className="block text-sm font-medium text-blue-800">{t.parcoursLabel}</h3>
         {parcours.map((point, index) => {
           const isStart = index === 0;
           const isDestination = index === parcours.length - 1;
@@ -149,9 +166,22 @@ export default function ItineraryForm({ request, onChange, onGenerate, isLoading
           }
 
           return (
-            <div key={index} className="flex flex-col sm:flex-row sm:items-center sm:space-x-2">
-              <label htmlFor={`parcours-${index}`} className="font-semibold text-gray-600 sm:w-36 sm:text-right shrink-0 mb-1 sm:mb-0">{label}</label>
+            <div 
+              key={index} 
+              className={`flex flex-col sm:flex-row sm:items-center sm:space-x-2 transition-opacity ${draggedIndex === index ? 'opacity-50' : ''}`}
+              onDragOver={handleDragOver}
+              onDrop={(e) => handleDrop(e, index)}
+            >
+              <label htmlFor={`parcours-${index}`} className="font-normal text-xs text-gray-600 sm:w-24 sm:text-right shrink-0 mb-1 sm:mb-0">{label}</label>
               <div className="flex items-center space-x-1 flex-grow">
+                <div 
+                  className="p-1 cursor-move touch-none"
+                  draggable
+                  onDragStart={(e) => handleDragStart(e, index)}
+                  onDragEnd={handleDragEnd}
+                >
+                  <DragHandleIcon className="h-5 w-5 text-gray-400 hover:text-gray-600"/>
+                </div>
                 <div className="relative flex-grow">
                   <input
                     type="text"
@@ -168,8 +198,6 @@ export default function ItineraryForm({ request, onChange, onGenerate, isLoading
                     </button>
                   )}
                 </div>
-                <button type="button" onClick={() => moveStep(index, 'up')} disabled={isStart} className="p-1 text-blue-600 disabled:text-gray-300 hover:text-blue-800 transition"><ArrowUpIcon className="h-5 w-5"/></button>
-                <button type="button" onClick={() => moveStep(index, 'down')} disabled={isDestination} className="p-1 text-blue-600 disabled:text-gray-300 hover:text-blue-800 transition"><ArrowDownIcon className="h-5 w-5"/></button>
                 {isStep && (
                   <button type="button" onClick={() => handleRemoveStep(index)} className="p-1 text-red-500 hover:text-red-700 transition"><TrashIcon className="h-5 w-5" /></button>
                 )}
@@ -177,7 +205,7 @@ export default function ItineraryForm({ request, onChange, onGenerate, isLoading
             </div>
           );
         })}
-        <div className="sm:pl-40 flex items-center gap-4">
+        <div className="sm:pl-28 flex items-center gap-4">
           <button type="button" onClick={handleAddStep} className="flex items-center space-x-2 text-blue-800 font-semibold hover:text-blue-900 transition py-2 px-3 bg-sky-200 hover:bg-sky-300 rounded-lg">
             <PlusIcon className="h-5 w-5" />
             <span>{t.addStep}</span>

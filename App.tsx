@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import ItineraryForm from './components/ItineraryForm';
 import ItineraryDisplay from './components/ItineraryDisplay';
@@ -154,14 +155,19 @@ export default function App(): React.ReactElement {
   const isSavedItineraryLoaded = !!loadedItineraryId;
 
   return (
-    <div className="min-h-screen font-sans p-4 sm:p-6 md:p-8 text-blue-900">
+    <div className="min-h-screen font-sans p-3 sm:p-4 md:p-6 text-blue-900">
       <div className="max-w-4xl mx-auto">
-        <header className="mb-8 flex flex-col md:flex-row justify-between items-center gap-4">
-            <div className="text-center md:text-left">
-                <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-blue-900">JyVais</h1>
-                <p className="mt-2 text-lg text-blue-800">{t.tagline}</p>
+        <header className="mb-6">
+            <div className="flex justify-between items-center">
+                <div className="flex-1"></div> {/* Spacer */}
+                <div className="text-center px-4">
+                    <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-blue-900">JyVais</h1>
+                </div>
+                <div className="flex-1 flex justify-end">
+                    <LanguageSwitcher currentLang={language} onLangChange={handleLangChange} />
+                </div>
             </div>
-            <LanguageSwitcher currentLang={language} onLangChange={handleLangChange} />
+            <p className="text-lg text-blue-800 text-center">{t.tagline}</p>
         </header>
 
         {successMessage && (
@@ -170,7 +176,7 @@ export default function App(): React.ReactElement {
           </div>
         )}
 
-        <main className="space-y-8">
+        <main className="space-y-6">
           <div className="bg-white/70 backdrop-blur-sm p-6 sm:p-8 rounded-2xl shadow-lg">
             <ItineraryForm
               request={itineraryRequest}
@@ -183,7 +189,7 @@ export default function App(): React.ReactElement {
             />
 
             {isLoading && (
-              <div className="mt-8 flex flex-col items-center justify-center text-center">
+              <div className="mt-6 flex flex-col items-center justify-center text-center">
                 <SpinnerIcon className="h-12 w-12 animate-spin text-blue-900" />
                 <p className="mt-4 text-lg font-semibold">{t.loadingTitle}</p>
                 <p className="text-blue-800">{t.loadingSubtitle}</p>
@@ -191,7 +197,7 @@ export default function App(): React.ReactElement {
             )}
 
             {error && (
-              <div className="mt-8 p-4 bg-red-100 text-red-800 border border-red-300 rounded-lg text-center">
+              <div className="mt-6 p-4 bg-red-100 text-red-800 border border-red-300 rounded-lg text-center">
                 <p className="font-bold">{t.generationErrorTitle}</p>
                 <p>{error}</p>
               </div>
@@ -218,7 +224,7 @@ export default function App(): React.ReactElement {
           )}
         </main>
         
-        <footer className="text-center mt-8 text-sm text-blue-700/80">
+        <footer className="text-center mt-6 text-sm text-blue-700/80">
             <p>{t.poweredBy}</p>
         </footer>
       </div>

@@ -1,3 +1,4 @@
+
 import React, { useState, useRef, useEffect } from 'react';
 import type { Language } from '../lib/i18n';
 import { languageNames } from '../lib/i18n';
@@ -43,18 +44,18 @@ export default function LanguageSwitcher({ currentLang, onLangChange }: Language
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 w-full bg-white/70 backdrop-blur-sm text-blue-900 font-semibold py-2 pl-3 pr-4 rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+        className="flex items-center justify-center sm:justify-start gap-2 bg-white/70 backdrop-blur-sm text-blue-900 font-semibold rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition w-10 h-10 sm:w-auto sm:py-2 sm:pl-3 sm:pr-4"
         aria-haspopup="true"
         aria-expanded={isOpen}
       >
-        <CurrentFlag className="h-5 w-5 rounded-full" />
+        <CurrentFlag className="h-5 w-5 rounded-full shrink-0" />
         <span className="hidden sm:inline">{languageNames[currentLang]}</span>
-        <svg className="w-4 h-4 text-blue-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
+        <svg className="w-4 h-4 text-blue-800 hidden sm:inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
       </button>
 
       {isOpen && (
         <div
-          className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10 ring-1 ring-black ring-opacity-5"
+          className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 ring-1 ring-black ring-opacity-5"
           role="menu"
           aria-orientation="vertical"
         >
