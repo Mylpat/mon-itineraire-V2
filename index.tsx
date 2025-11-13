@@ -39,42 +39,35 @@ interface SavedItinerary {
 // ==========================================================================================
 const translations = {
   fr: {
-    // Header
-    tagline: "Planifiez, visualisez et partagez vos trajets en toute simplicité.",
-    // Success Messages
+    tagline: "Créez vos itinéraires Google Maps en toute simplicité",
     saveSuccess: "Itinéraire sauvegardé avec succès !",
     updateSuccess: "Sauvegarde modifiée avec succès !",
-    // Itinerary Form
-    itineraryNameLabel: "Nom de l'itinéraire *",
-    itineraryNamePlaceholder: "Ex: Vacances en Bretagne",
-    transportModeLabel: "Moyen de transport *",
-    transportModes: {
-      CAR: 'Voiture',
-      PEDESTRIAN: 'Piéton',
-    },
-    parcoursLabel: "Parcours *",
+    itineraryNameLabel: "Nom de l'itinéraire",
+    itineraryNamePlaceholder: "Ex: Voyage à Paris",
+    transportModeLabel: "Moyen de transport",
+    transportModes: { CAR: 'Voiture', PEDESTRIAN: 'Piéton' },
+    parcoursLabel: "Itinéraire (départ, étapes, destination)",
+    parcoursSublabel: "Utilisez les poignées (⋮⋮) pour réorganiser tous les points de l'itinéraire",
     parcoursStart: "Départ",
-    parcoursStartPlaceholder: "Adresse de départ",
-    parcoursEnd: "Arrivée",
-    parcoursEndPlaceholder: "Adresse de destination",
+    parcoursStartPlaceholder: "Ex: Paris, France",
+    parcoursEnd: "Destination",
+    parcoursEndPlaceholder: "Ex: Lyon, France",
     parcoursStep: "Étape",
     parcoursStepPlaceholder: "Adresse de l'étape",
     useCurrentLocation: "Utiliser ma position actuelle",
-    currentLocationText: (lat: string, lon: string) => `Ma position actuelle (${lat}, ${lon})`,
+    currentLocationText: (lat: string, lon: string) => `${lat}, ${lon}`,
     geolocateError: "Impossible d'obtenir la position. Veuillez l'autoriser et réessayer, ou l'entrer manuellement.",
     geolocateUnsupported: "La géolocalisation n'est pas supportée par votre navigateur.",
     formError: "Veuillez remplir tous les champs obligatoires : nom, départ et destination.",
-    addStep: "Ajouter une étape",
+    addStep: "Ajouter une étape intermédiaire",
     prepareReturn: "Préparer le retour",
     returnTripSuffix: "Retour",
     generate: "Générer l'itinéraire",
     generating: "Génération...",
     reset: "Réinitialiser",
-    // Loading/Error
     loadingTitle: "Génération de votre itinéraire en cours...",
     loadingSubtitle: "L'IA prépare le meilleur chemin pour vous.",
     generationErrorTitle: "Erreur de génération",
-    // Itinerary Display
     yourItinerary: "Votre itinéraire",
     itineraryReadyTitle: "Votre itinéraire est prêt !",
     itineraryReadyBody1: "Pour consulter les instructions détaillées et naviguer, veuillez ouvrir l'itinéraire directement dans Google Maps.",
@@ -86,7 +79,6 @@ const translations = {
     mailtoBody: (routeName: string, mapUrl: string) => `Bonjour,\n\nVoici le lien vers l'itinéraire "${routeName}":\n${mapUrl}`,
     saveItinerary: "Sauvegarder l'itinéraire",
     updateItinerary: "Modifier sauvegarde",
-    // Saved Itineraries
     savedItinerariesTitle: "Mes itinéraires sauvegardés",
     searchPlaceholder: "Rechercher...",
     sortByName: "Trier par nom",
@@ -99,9 +91,7 @@ const translations = {
     nextPage: "Suivant",
     page: "Page",
     of: "sur",
-    // Footer
     poweredBy: "Propulsé par Gemini & Google Maps",
-    // Gemini Service
     geminiSystemInstruction: "Tu es un assistant de voyage dont le seul rôle est de traiter une demande d'itinéraire en utilisant l'outil Google Maps. NE GÉNÈRE AUCUN TEXTE en réponse. Ta réponse doit être vide. L'interface utilisateur affichera les messages nécessaires.",
     geminiUserQueryIntro: "Je veux un itinéraire nommé",
     geminiUserQueryFrom: "pour aller de",
@@ -109,44 +99,38 @@ const translations = {
     geminiUserQueryWithTransport: "en",
     geminiUserQueryVia: "en passant par les étapes suivantes dans cet ordre :",
     geminiApiError: "La génération de l'itinéraire a échoué. Veuillez vérifier votre connexion ou réessayer plus tard.",
+    createItineraryTitle: "Créer un itinéraire",
   },
   en: {
-    // Header
-    tagline: "Plan, visualize, and share your journeys with ease.",
-    // Success Messages
+    tagline: "Create your Google Maps routes with ease.",
     saveSuccess: "Itinerary saved successfully!",
     updateSuccess: "Save updated successfully!",
-    // Itinerary Form
-    itineraryNameLabel: "Itinerary Name *",
-    itineraryNamePlaceholder: "Ex: Road trip in California",
-    transportModeLabel: "Means of transport *",
-    transportModes: {
-      CAR: 'Car',
-      PEDESTRIAN: 'Pedestrian',
-    },
-    parcoursLabel: "Route *",
+    itineraryNameLabel: "Itinerary Name",
+    itineraryNamePlaceholder: "Ex: Trip to Paris",
+    transportModeLabel: "Means of transport",
+    transportModes: { CAR: 'Car', PEDESTRIAN: 'Pedestrian' },
+    parcoursLabel: "Itinerary (start, steps, destination)",
+    parcoursSublabel: "Use the handles (⋮⋮) to reorganize all points of the itinerary",
     parcoursStart: "Start",
-    parcoursStartPlaceholder: "Starting address",
+    parcoursStartPlaceholder: "Ex: Paris, France",
     parcoursEnd: "Destination",
-    parcoursEndPlaceholder: "Destination address",
+    parcoursEndPlaceholder: "Ex: Lyon, France",
     parcoursStep: "Step",
     parcoursStepPlaceholder: "Address of step",
     useCurrentLocation: "Use my current location",
-    currentLocationText: (lat: string, lon: string) => `My current location (${lat}, ${lon})`,
+    currentLocationText: (lat: string, lon: string) => `${lat}, ${lon}`,
     geolocateError: "Could not get location. Please authorize it and try again, or enter it manually.",
     geolocateUnsupported: "Geolocation is not supported by your browser.",
     formError: "Please fill in all required fields: name, start, and destination.",
-    addStep: "Add a step",
+    addStep: "Add an intermediate step",
     prepareReturn: "Prepare return trip",
     returnTripSuffix: "Return",
     generate: "Generate Itinerary",
     generating: "Generating...",
     reset: "Reset",
-    // Loading/Error
     loadingTitle: "Generating your itinerary...",
     loadingSubtitle: "The AI is preparing the best path for you.",
     generationErrorTitle: "Generation Error",
-    // Itinerary Display
     yourItinerary: "Your itinerary",
     itineraryReadyTitle: "Your itinerary is ready!",
     itineraryReadyBody1: "To view detailed instructions and navigate, please open the itinerary directly in Google Maps.",
@@ -158,7 +142,6 @@ const translations = {
     mailtoBody: (routeName: string, mapUrl: string) => `Hello,\n\nHere is the link for the itinerary "${routeName}":\n${mapUrl}`,
     saveItinerary: "Save Itinerary",
     updateItinerary: "Update Save",
-    // Saved Itineraries
     savedItinerariesTitle: "My saved itineraries",
     searchPlaceholder: "Search...",
     sortByName: "Sort by name",
@@ -171,41 +154,38 @@ const translations = {
     nextPage: "Next",
     page: "Page",
     of: "of",
-    // Footer
     poweredBy: "Powered by Gemini & Google Maps",
-    // Gemini Service
-    geminiSystemInstruction: "You are a travel assistant whose only role is to process an itinerary request using the Google Maps tool. DO NOT GENERATE ANY TEXT in response. Your response should be empty. The user interface will display the necessary messages.",
+    geminiSystemInstruction: "You are a travel assistant whose only role is to process an itinerary request using the Google Maps tool. DO NOT GENERATE ANY TEXT in response. Your response must be empty. The user interface will display the necessary messages.",
     geminiUserQueryIntro: "I want an itinerary named",
     geminiUserQueryFrom: "to go from",
     geminiUserQueryTo: "to",
     geminiUserQueryWithTransport: "by",
     geminiUserQueryVia: "passing through the following steps in this order:",
     geminiApiError: "Itinerary generation failed. Please check your connection or try again later.",
+    createItineraryTitle: "Create an itinerary",
   },
   de: {
-    tagline: "Planen, visualisieren und teilen Sie Ihre Reisen mit Leichtigkeit.",
+    tagline: "Erstellen Sie Ihre Google Maps-Routen ganz einfach.",
     saveSuccess: "Route erfolgreich gespeichert!",
     updateSuccess: "Speicherung erfolgreich aktualisiert!",
-    itineraryNameLabel: "Name der Route *",
-    itineraryNamePlaceholder: "Bsp: Reise nach München",
-    transportModeLabel: "Transportmittel *",
-    transportModes: {
-      CAR: 'Auto',
-      PEDESTRIAN: 'Fußgänger',
-    },
-    parcoursLabel: "Strecke *",
+    itineraryNameLabel: "Name der Route",
+    itineraryNamePlaceholder: "Bsp: Reise nach Paris",
+    transportModeLabel: "Transportmittel",
+    transportModes: { CAR: 'Auto', PEDESTRIAN: 'Fußgänger' },
+    parcoursLabel: "Route (Start, Etappen, Ziel)",
+    parcoursSublabel: "Verwenden Sie die Griffe (⋮⋮), um alle Punkte der Route neu anzuordnen",
     parcoursStart: "Start",
-    parcoursStartPlaceholder: "Startadresse",
+    parcoursStartPlaceholder: "Bsp: Paris, Frankreich",
     parcoursEnd: "Ziel",
-    parcoursEndPlaceholder: "Zieladresse",
+    parcoursEndPlaceholder: "Bsp: Lyon, Frankreich",
     parcoursStep: "Etappe",
     parcoursStepPlaceholder: "Adresse der Etappe",
     useCurrentLocation: "Meinen aktuellen Standort verwenden",
-    currentLocationText: (lat: string, lon: string) => `Mein aktueller Standort (${lat}, ${lon})`,
+    currentLocationText: (lat: string, lon: string) => `${lat}, ${lon}`,
     geolocateError: "Standort konnte nicht abgerufen werden. Bitte genehmigen Sie ihn und versuchen Sie es erneut, oder geben Sie ihn manuell ein.",
     geolocateUnsupported: "Geolokalisierung wird von Ihrem Browser nicht unterstützt.",
     formError: "Bitte füllen Sie alle erforderlichen Felder aus: Name, Start und Ziel.",
-    addStep: "Etappe hinzufügen",
+    addStep: "Zwischenstopp hinzufügen",
     prepareReturn: "Rückfahrt vorbereiten",
     returnTripSuffix: "Rückfahrt",
     generate: "Route generieren",
@@ -216,8 +196,8 @@ const translations = {
     generationErrorTitle: "Fehler bei der Generierung",
     yourItinerary: "Ihre Route",
     itineraryReadyTitle: "Ihre Route ist fertig!",
-    itineraryReadyBody1: "Um detaillierte Anweisungen anzuzeigen und zu navigieren, öffnen Sie die Route bitte direkt in Google Maps.",
-    itineraryReadyBody2: "Sie können die Schaltfläche",
+    itineraryReadyBody1: "Um detaillierte Anweisungen anzuzeigen und zu navigeren, öffnen Sie die Route bitte direkt in Google Maps.",
+    itineraryReadyBody2: "Sie können die Schaltfläche verwenden",
     openInMapsButton: "In Google Maps öffnen",
     qrCodeText: "Scannen, um auf Ihrem Handy zu öffnen.",
     sendByEmail: "Per E-Mail senden",
@@ -238,38 +218,37 @@ const translations = {
     page: "Seite",
     of: "von",
     poweredBy: "Unterstützt von Gemini & Google Maps",
-    geminiSystemInstruction: "Sie sind ein Reiseassistent, dessen einzige Aufgabe darin besteht, eine Routenanfrage mit dem Google Maps-Tool zu bearbeiten. GENERIEREN SIE KEINEN TEXT als Antwort. Ihre Antwort sollte leer sein. Die Benutzeroberfläche zeigt die erforderlichen Nachrichten an.",
+    geminiSystemInstruction: "Du bist ein Reiseassistent, dessen einzige Aufgabe es ist, eine Routenanfrage mit dem Google Maps-Tool zu bearbeiten. GENERIERE KEINEN TEXT als Antwort. Deine Antwort muss leer sein. Die Benutzeroberfläche zeigt die erforderlichen Nachrichten an.",
     geminiUserQueryIntro: "Ich möchte eine Route namens",
     geminiUserQueryFrom: "um von",
     geminiUserQueryTo: "nach",
     geminiUserQueryWithTransport: "mit",
     geminiUserQueryVia: "über die folgenden Etappen in dieser Reihenfolge:",
     geminiApiError: "Die Generierung der Route ist fehlgeschlagen. Bitte überprüfen Sie Ihre Verbindung oder versuchen Sie es später erneut.",
+    createItineraryTitle: "Route erstellen",
   },
   it: {
-    tagline: "Pianifica, visualizza e condividi i tuoi viaggi con facilità.",
+    tagline: "Crea i tuoi percorsi su Google Maps con facilità.",
     saveSuccess: "Itinerario salvato con successo!",
     updateSuccess: "Salvataggio aggiornato con successo!",
-    itineraryNameLabel: "Nome itinerario *",
-    itineraryNamePlaceholder: "Es: Gita a Venezia",
-    transportModeLabel: "Mezzo di trasporto *",
-    transportModes: {
-      CAR: 'Auto',
-      PEDESTRIAN: 'A piedi',
-    },
-    parcoursLabel: "Percorso *",
+    itineraryNameLabel: "Nome itinerario",
+    itineraryNamePlaceholder: "Es: Viaggio a Parigi",
+    transportModeLabel: "Mezzo di trasporto",
+    transportModes: { CAR: 'Auto', PEDESTRIAN: 'A piedi' },
+    parcoursLabel: "Itinerario (partenza, tappe, destinazione)",
+    parcoursSublabel: "Usa le maniglie (⋮⋮) per riorganizzare tutti i punti dell'itinerario",
     parcoursStart: "Partenza",
-    parcoursStartPlaceholder: "Indirizzo di partenza",
+    parcoursStartPlaceholder: "Es: Parigi, Francia",
     parcoursEnd: "Destinazione",
-    parcoursEndPlaceholder: "Indirizzo di destinazione",
+    parcoursEndPlaceholder: "Es: Lione, Francia",
     parcoursStep: "Tappa",
     parcoursStepPlaceholder: "Indirizzo della tappa",
     useCurrentLocation: "Usa la mia posizione attuale",
-    currentLocationText: (lat: string, lon: string) => `La mia posizione attuale (${lat}, ${lon})`,
-    geolocateError: "Impossibile ottenere la posizione. Si prega di autorizzarla e riprovare, o inserirla manually.",
+    currentLocationText: (lat: string, lon: string) => `${lat}, ${lon}`,
+    geolocateError: "Impossibile ottenere la posizione. Si prega di autorizzarla e riprovare, o inserirla manualmente.",
     geolocateUnsupported: "La geolocalizzazione non è supportata dal tuo browser.",
     formError: "Si prega di compilare tutti i campi obbligatori: nome, partenza e destinazione.",
-    addStep: "Aggiungi una tappa",
+    addStep: "Aggiungi una tappa intermedia",
     prepareReturn: "Prepara il ritorno",
     returnTripSuffix: "Ritorno",
     generate: "Genera Itinerario",
@@ -302,38 +281,37 @@ const translations = {
     page: "Pagina",
     of: "di",
     poweredBy: "Realizzato con Gemini & Google Maps",
-    geminiSystemInstruction: "Sei un assistente di viaggio il cui unico ruolo è elaborare una richiesta di itinerario utilizzando lo strumento di Google Maps. NON GENERARE ALCUN TESTO in risposta. La tua risposta dovrebbe essere vuota. L'interfaccia utente visualizzerà i messaggi necessari.",
+    geminiSystemInstruction: "Sei un assistente di viaggio il cui unico ruolo è elaborare una richiesta di itinerario utilizzando lo strumento di Google Maps. NON GENERARE ALCUN TESTO in risposta. La tua risposta deve essere vuota. L'interfaccia utente visualizzerà i messaggi necessari.",
     geminiUserQueryIntro: "Voglio un itinerario chiamato",
     geminiUserQueryFrom: "per andare da",
     geminiUserQueryTo: "a",
     geminiUserQueryWithTransport: "con",
     geminiUserQueryVia: "passando per le seguenti tappe in questo ordine:",
     geminiApiError: "La generazione dell'itinerario non è riuscita. Controlla la tua connessione o riprova più tardi.",
+    createItineraryTitle: "Crea un itinerario",
   },
   nl: {
-    tagline: "Plan, visualiseer en deel uw reizen met gemak.",
+    tagline: "Maak eenvoudig uw Google Maps-routes.",
     saveSuccess: "Route succesvol opgeslagen!",
     updateSuccess: "Opslag succesvol bijgewerkt!",
-    itineraryNameLabel: "Naam van de route *",
-    itineraryNamePlaceholder: "Bijv: Weekend in Amsterdam",
-    transportModeLabel: "Vervoermiddel *",
-    transportModes: {
-      CAR: 'Auto',
-      PEDESTRIAN: 'Te voet',
-    },
-    parcoursLabel: "Route *",
+    itineraryNameLabel: "Naam van de route",
+    itineraryNamePlaceholder: "Bijv: Reis naar Parijs",
+    transportModeLabel: "Vervoermiddel",
+    transportModes: { CAR: 'Auto', PEDESTRIAN: 'Te voet' },
+    parcoursLabel: "Route (start, etappes, bestemming)",
+    parcoursSublabel: "Gebruik de handvatten (⋮⋮) om alle punten van de route te reorganiseren",
     parcoursStart: "Start",
-    parcoursStartPlaceholder: "Startadres",
+    parcoursStartPlaceholder: "Bijv: Parijs, Frankrijk",
     parcoursEnd: "Bestemming",
-    parcoursEndPlaceholder: "Bestemmingsadres",
+    parcoursEndPlaceholder: "Bijv: Lyon, Frankrijk",
     parcoursStep: "Etappe",
     parcoursStepPlaceholder: "Adres van de etappe",
     useCurrentLocation: "Mijn huidige locatie gebruiken",
-    currentLocationText: (lat: string, lon: string) => `Mijn huidige locatie (${lat}, ${lon})`,
+    currentLocationText: (lat: string, lon: string) => `${lat}, ${lon}`,
     geolocateError: "Kon de locatie niet ophalen. Sta dit toe en probeer het opnieuw, of voer het handmatig in.",
     geolocateUnsupported: "Geolocatie wordt niet ondersteund door uw browser.",
     formError: "Vul alstublieft alle verplichte velden in: naam, start en bestemming.",
-    addStep: "Etappe toevoegen",
+    addStep: "Tussenstop toevoegen",
     prepareReturn: "Terugreis voorbereiden",
     returnTripSuffix: "Terugreis",
     generate: "Route genereren",
@@ -366,18 +344,18 @@ const translations = {
     page: "Pagina",
     of: "van",
     poweredBy: "Aangedreven door Gemini & Google Maps",
-    geminiSystemInstruction: "U bent een reisassistent wiens enige rol het is om een routeverzoek te verwerken met behulp van de Google Maps-tool. GENEREER GEEN TEKST als antwoord. Uw antwoord moet leeg zijn. De gebruikersinterface toont de benodigde berichten.",
+    geminiSystemInstruction: "Je bent een reisassistent wiens enige rol het is om een routeverzoek te verwerken met de Google Maps-tool. GENEREER GEEN TEKST als antwoord. Je antwoord moet leeg zijn. De gebruikersinterface zal de nodige berichten weergeven.",
     geminiUserQueryIntro: "Ik wil een route genaamd",
     geminiUserQueryFrom: "om van",
     geminiUserQueryTo: "naar",
     geminiUserQueryWithTransport: "met",
     geminiUserQueryVia: "via de volgende etappes in deze volgorde:",
     geminiApiError: "Het genereren van de route is mislukt. Controleer uw verbinding of probeer het later opnieuw.",
+    createItineraryTitle: "Een route maken",
   }
 };
-
 type Language = keyof typeof translations;
-
+const SUPPORTED_LANGUAGES: Language[] = ['fr', 'en', 'de', 'it', 'nl'];
 const languageNames: { [key in Language]: string } = {
   fr: 'Français',
   en: 'English',
@@ -385,10 +363,9 @@ const languageNames: { [key in Language]: string } = {
   it: 'Italiano',
   nl: 'Nederlands',
 };
-
 const getTranslator = (lang: Language) => {
   return translations[lang];
-}
+};
 
 // ==========================================================================================
 // FILE: services/geminiService.ts
@@ -411,7 +388,6 @@ function buildUserQuery(request: ItineraryRequest, lang: Language): string {
 
 async function generateItinerary(request: ItineraryRequest, lang: Language): Promise<ItineraryResponse> {
     const t = getTranslator(lang);
-
     let apiKey;
     try {
       apiKey = process.env.API_KEY;
@@ -445,7 +421,6 @@ async function generateItinerary(request: ItineraryRequest, lang: Language): Pro
         });
 
         const description = response.text;
-
         return { description, routeName: request.name };
 
     } catch (error) {
@@ -457,19 +432,50 @@ async function generateItinerary(request: ItineraryRequest, lang: Language): Pro
 // ==========================================================================================
 // FILE: components/icons/*.tsx (All icon components)
 // ==========================================================================================
+function LogoIcon({ className }: { className?: string }): React.ReactElement {
+    return (
+        <div className={`inline-flex items-center justify-center w-12 h-12 bg-white rounded-xl shadow-md ${className}`}>
+             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M7.5 5.5C8.32843 5.5 9 6.17157 9 7C9 7.82843 8.32843 8.5 7.5 8.5C6.67157 8.5 6 7.82843 6 7C6 6.17157 6.67157 5.5 7.5 5.5Z" stroke="#A855F7" strokeWidth="1.5"/>
+                <text x="7.5" y="7.25" textAnchor="middle" alignmentBaseline="central" fill="#A855F7" fontSize="3" fontWeight="bold">A</text>
+                <path d="M16.5 15.5C17.3284 15.5 18 16.1716 18 17C18 17.8284 17.3284 18.5 16.5 18.5C15.6716 18.5 15 17.8284 15 17C15 16.1716 15.6716 15.5 16.5 15.5Z" stroke="#A855F7" strokeWidth="1.5"/>
+                <text x="16.5" y="17.25" textAnchor="middle" alignmentBaseline="central" fill="#A855F7" fontSize="3" fontWeight="bold">B</text>
+                <path d="M7.5 8.5C9.66667 10.5 14.3333 13.5 16.5 15.5" stroke="#A855F7" strokeWidth="1.5" strokeLinecap="round" strokeDasharray="2 2"/>
+            </svg>
+        </div>
+    );
+}
+function DepartIcon({ className }: { className?: string }): React.ReactElement {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+      <path d="M12 12C13.6569 12 15 10.6569 15 9C15 7.34315 13.6569 6 12 6C10.3431 6 9 7.34315 9 9C9 10.6569 10.3431 12 12 12Z" stroke="#10B981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M12 12V18" stroke="#10B981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M9 15H15" stroke="#10B981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M12 22C16.4183 22 20 18.4183 20 14C20 9.58172 16.4183 6 12 6C7.58172 6 4 9.58172 4 14C4 18.4183 7.58172 22 12 22Z" stroke="#10B981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  )
+}
+function DestinationIcon({ className }: { className?: string }): React.ReactElement {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+      <path d="M6 3V21" stroke="#EC4899" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M6 3H17.4C17.96 3 18.24 3.66 17.82 4.08L14.82 7.08C14.4 7.5 14.4 8.16 14.82 8.58L17.82 11.58C18.24 12 17.96 12.66 17.4 12.66H6" stroke="#EC4899" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  );
+}
+function SendIcon({ className }: { className?: string }): React.ReactElement {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+      <path d="M22 2L11 13" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M22 2L15 22L11 13L2 9L22 2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  );
+}
 function ArrowDownIcon({ className }: { className?: string }): React.ReactElement {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" className={className} width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M12 5v14"/>
       <path d="m19 12-7 7-7-7"/>
-    </svg>
-  );
-}
-function ArrowUpIcon({ className }: { className?: string }): React.ReactElement {
-  return (
-    <svg xmlns="http://www.w3.org/2000/svg" className={className} width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="m5 12 7-7 7 7"/>
-      <path d="M12 19V5"/>
     </svg>
   );
 }
@@ -485,10 +491,13 @@ function CarIcon({ className }: { className?: string }): React.ReactElement {
 }
 function DragHandleIcon({ className }: { className?: string }): React.ReactElement {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" className={className} width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <line x1="8" y1="6" x2="16" y2="6" />
-      <line x1="8" y1="12" x2="16" y2="12" />
-      <line x1="8" y1="18" x2="16" y2="18" />
+    <svg xmlns="http://www.w3.org/2000/svg" className={className} width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+      <circle cx="9" cy="6" r="1.5" />
+      <circle cx="9" cy="12" r="1.5" />
+      <circle cx="9" cy="18" r="1.5" />
+      <circle cx="15" cy="6" r="1.5" />
+      <circle cx="15" cy="12" r="1.5" />
+      <circle cx="15" cy="18" r="1.5" />
     </svg>
   );
 }
@@ -500,47 +509,11 @@ function EyeIcon({ className }: { className?: string }): React.ReactElement {
     </svg>
   );
 }
-function FranceFlagIcon({ className }: { className?: string }): React.ReactElement {
-  return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3 2" className={className}>
-      <path fill="#002395" d="M0 0h1v2H0z"/>
-      <path fill="#fff" d="M1 0h1v2H1z"/>
-      <path fill="#ED2939" d="M2 0h1v2H2z"/>
-    </svg>
-  );
-}
-function GermanyFlagIcon({ className }: { className?: string }): React.ReactElement {
-  return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5 3" className={className}>
-      <path d="M0 0h5v3H0z"/>
-      <path fill="#D00" d="M0 1h5v2H0z"/>
-      <path fill="#FFCE00" d="M0 2h5v1H0z"/>
-    </svg>
-  );
-}
-function ItalyFlagIcon({ className }: { className?: string }): React.ReactElement {
-  return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3 2" className={className}>
-      <path fill="#009246" d="M0 0h1v2H0z"/>
-      <path fill="#fff" d="M1 0h1v2H1z"/>
-      <path fill="#CE2B37" d="M2 0h1v2H2z"/>
-    </svg>
-  );
-}
 function LocationIcon({ className }: { className?: string }): React.ReactElement {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" className={className} width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
       <circle cx="12" cy="10" r="3"/>
-    </svg>
-  );
-}
-function NetherlandsFlagIcon({ className }: { className?: string }): React.ReactElement {
-  return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3 2" className={className}>
-      <path fill="#21468B" d="M0 0h3v2H0z"/>
-      <path fill="#fff" d="M0 0h3v1.333H0z"/>
-      <path fill="#AE1C28" d="M0 0h3v.667H0z"/>
     </svg>
   );
 }
@@ -553,12 +526,12 @@ function PlusIcon({ className }: { className?: string }): React.ReactElement {
   );
 }
 function ReturnIcon({ className }: { className?: string }): React.ReactElement {
-  return (
-    <svg xmlns="http://www.w3.org/2000/svg" className={className} width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <polyline points="9 14 4 9 9 4"/>
-      <path d="M20 20v-7a4 4 0 0 0-4-4H4"/>
-    </svg>
-  );
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" className={className} width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="9 14 4 9 9 4"/>
+            <path d="M20 20v-7a4 4 0 0 0-4-4H4"/>
+        </svg>
+    );
 }
 function SaveIcon({ className }: { className?: string }): React.ReactElement {
   return (
@@ -606,6 +579,15 @@ function TrashIcon({ className }: { className?: string }): React.ReactElement {
     </svg>
   );
 }
+function FranceFlagIcon({ className }: { className?: string }): React.ReactElement {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3 2" className={className}>
+      <path fill="#002395" d="M0 0h1v2H0z"/>
+      <path fill="#fff" d="M1 0h1v2H1z"/>
+      <path fill="#ED2939" d="M2 0h1v2H2z"/>
+    </svg>
+  );
+}
 function UKFlagIcon({ className }: { className?: string }): React.ReactElement {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 30" className={className}>
@@ -618,17 +600,33 @@ function UKFlagIcon({ className }: { className?: string }): React.ReactElement {
     </svg>
   );
 }
-function WalkIcon({ className }: { className?: string }): React.ReactElement {
+function GermanyFlagIcon({ className }: { className?: string }): React.ReactElement {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" className={className} width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="12" cy="5" r="1"/>
-      <path d="M9 20l3-6"/>
-      <path d="M12 14l5 6"/>
-      <path d="m7 10 5 1 5-6"/>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5 3" className={className}>
+      <path d="M0 0h5v3H0z"/>
+      <path fill="#D00" d="M0 1h5v2H0z"/>
+      <path fill="#FFCE00" d="M0 2h5v1H0z"/>
     </svg>
   );
 }
-
+function ItalyFlagIcon({ className }: { className?: string }): React.ReactElement {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3 2" className={className}>
+      <path fill="#009246" d="M0 0h1v2H0z"/>
+      <path fill="#fff" d="M1 0h1v2H1z"/>
+      <path fill="#CE2B37" d="M2 0h1v2H2z"/>
+    </svg>
+  );
+}
+function NetherlandsFlagIcon({ className }: { className?: string }): React.ReactElement {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3 2" className={className}>
+      <path fill="#21468B" d="M0 0h3v2H0z"/>
+      <path fill="#fff" d="M0 0h3v1.333H0z"/>
+      <path fill="#AE1C28" d="M0 0h3v.667H0z"/>
+    </svg>
+  );
+}
 
 // ==========================================================================================
 // FILE: components/LanguageSwitcher.tsx
@@ -640,11 +638,9 @@ const flagComponents: { [key in Language]: React.FC<{ className?: string }> } = 
   it: ItalyFlagIcon,
   nl: NetherlandsFlagIcon,
 };
-
 function LanguageSwitcher({ currentLang, onLangChange }) {
   const [isOpen, setIsOpen] = useState(false);
   const wrapperRef = useRef<HTMLDivElement>(null);
-
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node)) {
@@ -652,25 +648,22 @@ function LanguageSwitcher({ currentLang, onLangChange }) {
       }
     }
     document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [wrapperRef]);
   
   const CurrentFlag = flagComponents[currentLang];
-
   return (
     <div className="relative" ref={wrapperRef}>
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center justify-center sm:justify-start gap-2 bg-white/70 backdrop-blur-sm text-blue-900 font-semibold rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition w-10 h-10 sm:w-auto sm:py-2 sm:pl-3 sm:pr-4"
+        className="flex items-center justify-center sm:justify-start gap-2 bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white font-semibold rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-white/50 transition w-12 h-12 sm:w-auto sm:h-auto sm:py-2 sm:pl-3 sm:pr-4"
         aria-haspopup="true"
         aria-expanded={isOpen}
       >
         <CurrentFlag className="h-5 w-5 rounded-full shrink-0" />
         <span className="hidden sm:inline">{languageNames[currentLang]}</span>
-        <svg className="w-4 h-4 text-blue-800 hidden sm:inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
+        <svg className="w-4 h-4 text-white hidden sm:inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
       </button>
 
       {isOpen && (
@@ -684,10 +677,7 @@ function LanguageSwitcher({ currentLang, onLangChange }) {
             return (
               <button
                 key={langCode}
-                onClick={() => {
-                  onLangChange(langCode);
-                  setIsOpen(false);
-                }}
+                onClick={() => { onLangChange(langCode); setIsOpen(false); }}
                 className="flex items-center gap-3 w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                 role="menuitem"
               >
@@ -708,7 +698,7 @@ function LanguageSwitcher({ currentLang, onLangChange }) {
 function ItineraryForm({ request, onChange, onGenerate, isLoading, onReset, isSavedItineraryLoaded, t }) {
   const [error, setError] = React.useState<string | null>(null);
   const [draggedIndex, setDraggedIndex] = React.useState<number | null>(null);
-  const { name, transportMode, parcours, currentLocation } = request;
+  const { name, transportMode, parcours } = request;
 
   const handleParcoursChange = (index: number, value: string) => {
     const newParcours = parcours.map((p, i) => i === index ? { ...p, value } : p);
@@ -759,7 +749,7 @@ function ItineraryForm({ request, onChange, onGenerate, isLoading, onReset, isSa
         (position) => {
           const { latitude, longitude } = position.coords;
           const newParcours = [...parcours];
-          const newText = t.currentLocationText(latitude.toFixed(4), longitude.toFixed(4));
+          const newText = t.currentLocationText(latitude.toFixed(6), longitude.toFixed(6));
           newParcours[0] = { ...newParcours[0], value: newText };
           onChange({ ...request, parcours: newParcours, currentLocation: { latitude, longitude } });
         },
@@ -771,6 +761,11 @@ function ItineraryForm({ request, onChange, onGenerate, isLoading, onReset, isSa
       alert(t.geolocateUnsupported);
     }
   };
+  
+  const handleTransportToggle = () => {
+    const newMode = transportMode === TransportMode.CAR ? TransportMode.PEDESTRIAN : TransportMode.CAR;
+    onChange({ ...request, transportMode: newMode });
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -781,60 +776,77 @@ function ItineraryForm({ request, onChange, onGenerate, isLoading, onReset, isSa
     setError(null);
     onGenerate(request);
   };
-  
+
   const handlePrepareReturn = () => {
-    const returnSuffixes = (Object.keys(translations) as Array<keyof typeof translations>)
+    const returnSuffixes = (Object.keys(translations) as Language[])
       .map(lang => translations[lang].returnTripSuffix)
+      .filter((value, index, self) => self.indexOf(value) === index)
       .join('|');
+      
     const regex = new RegExp(` - (${returnSuffixes})$`);
     const baseName = name.replace(regex, '');
+    
     const newName = `${baseName} - ${t.returnTripSuffix}`;
+    
     const reversedParcours = [...parcours].reverse();
+    
     onChange({ ...request, name: newName, parcours: reversedParcours });
   };
-
-  const transportOptions = [
-    { value: TransportMode.CAR, label: t.transportModes.CAR, icon: <CarIcon className="h-5 w-5" /> },
-    { value: TransportMode.PEDESTRIAN, label: t.transportModes.PEDESTRIAN, icon: <WalkIcon className="h-5 w-5" /> },
-  ];
   
-  const baseInputClass = "w-full px-4 py-2 bg-slate-100/50 border border-white/50 rounded-xl focus:ring-2 focus:ring-sky-400 focus:border-sky-400 outline-none transition placeholder:text-slate-500";
+  const prepareReturnButton = isSavedItineraryLoaded ? (
+      <button 
+          type="button" 
+          onClick={handlePrepareReturn} 
+          className="inline-flex items-center gap-2 text-slate-800 font-semibold hover:text-slate-900 transition py-2 px-4 bg-amber-300/50 hover:bg-amber-400/80 rounded-lg shadow-sm"
+      >
+          <ReturnIcon className="h-5 w-5" />
+          {t.prepareReturn}
+      </button>
+  ) : null;
+
+  const baseInputClass = "w-full px-4 py-3 text-lg bg-white/50 border-0 rounded-xl focus:ring-2 focus:ring-violet-400 outline-none transition placeholder:text-slate-600/80 text-slate-900";
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div>
-          <label htmlFor="name" className="block text-sm font-medium text-slate-700 mb-2">{t.itineraryNameLabel}</label>
-          <input
-            type="text"
-            id="name"
-            value={name}
-            onChange={(e) => onChange({ ...request, name: e.target.value })}
-            placeholder={t.itineraryNamePlaceholder}
-            className={baseInputClass}
-            required
-          />
+       <div className="flex items-center gap-3">
+            <LocationIcon className="h-6 w-6 text-slate-800" />
+            <h2 className="text-2xl font-bold text-slate-800">{t.createItineraryTitle}</h2>
         </div>
-        <div>
-          <label htmlFor="transportMode" className="block text-sm font-medium text-slate-700 mb-2">{t.transportModeLabel}</label>
-          <div className="relative">
-            <select
-              id="transportMode"
-              value={transportMode}
-              onChange={(e) => onChange({ ...request, transportMode: e.target.value as TransportMode })}
-              className={`${baseInputClass} appearance-none`}
-            >
-              {transportOptions.map(opt => <option key={opt.value} value={opt.value}>{opt.label}</option>)}
-            </select>
-            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-slate-600">
-               {transportOptions.find(o => o.value === transportMode)?.icon}
+
+      <div className="space-y-2">
+        <label htmlFor="name" className="block text-sm font-medium text-slate-700">{t.itineraryNameLabel}</label>
+        <div className="relative">
+            <input
+                type="text"
+                id="name"
+                value={name}
+                onChange={(e) => onChange({ ...request, name: e.target.value })}
+                placeholder={t.itineraryNamePlaceholder}
+                className={`${baseInputClass} pr-10`}
+                required
+            />
+            <div className="absolute inset-y-0 right-0 px-3 flex items-center pointer-events-none text-slate-500">
+                <svg className="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M12 21a9 9 0 100-18 9 9 0 000 18z" /><path strokeLinecap="round" strokeLinejoin="round" d="M12 3.532a9.001 9.001 0 010 16.936m0-16.936a9 9 0 000 16.936" /></svg>
             </div>
-          </div>
         </div>
       </div>
+
+      <div className="space-y-2">
+        <label htmlFor="transportMode" className="block text-sm font-medium text-slate-700">{t.transportModeLabel}</label>
+        <button type="button" onClick={handleTransportToggle} className={`${baseInputClass} flex items-center justify-between text-left`}>
+            <div className="flex items-center gap-3">
+                <span className="text-2xl">{transportMode === TransportMode.CAR ? '🚗' : '🚶‍♂️'}</span>
+                <span className="font-medium">{t.transportModes[transportMode]}</span>
+            </div>
+             <CarIcon className="h-6 w-6 text-slate-500" />
+        </button>
+      </div>
       
-      <div className="space-y-4">
-        <h3 className="block text-sm font-medium text-slate-700">{t.parcoursLabel}</h3>
+      <div className="space-y-3">
+        <div>
+            <h3 className="block text-sm font-medium text-slate-700">{t.parcoursLabel}</h3>
+            <p className="text-xs text-slate-600">{t.parcoursSublabel}</p>
+        </div>
         {parcours.map((point, index) => {
           const isStart = index === 0;
           const isDestination = index === parcours.length - 1;
@@ -854,68 +866,72 @@ function ItineraryForm({ request, onChange, onGenerate, isLoading, onReset, isSa
           }
 
           return (
-            <div 
-              key={point.id} 
-              className={`flex flex-col sm:flex-row sm:items-center sm:space-x-2 transition-opacity ${draggedIndex === index ? 'opacity-50' : ''}`}
+             <div
+              key={point.id}
+              className={`flex flex-col sm:flex-row sm:items-center sm:gap-2 transition-opacity ${draggedIndex === index ? 'opacity-50' : ''}`}
               onDragOver={handleDragOver}
               onDrop={(e) => handleDrop(e, index)}
             >
-              <label htmlFor={`parcours-${index}`} className="font-normal text-xs text-slate-600 sm:w-24 sm:text-right shrink-0 mb-1 sm:mb-0">{label}</label>
-              <div className="flex items-center space-x-1 flex-grow">
-                <div 
-                  className="p-1 cursor-move touch-none"
-                  draggable
-                  onDragStart={(e) => handleDragStart(e, index)}
-                  onDragEnd={handleDragEnd}
-                >
-                  <DragHandleIcon className="h-5 w-5 text-gray-400 hover:text-gray-600"/>
-                </div>
-                <div className="relative flex-grow">
-                  <input
-                    type="text"
-                    id={`parcours-${index}`}
-                    value={point.value}
-                    onChange={(e) => handleParcoursChange(index, e.target.value)}
-                    placeholder={placeholder}
-                    className={`${baseInputClass} pr-10`}
-                    required={isStart || isDestination}
-                  />
-                  {isStart && (
-                    <button type="button" onClick={handleGeolocate} className="absolute inset-y-0 right-0 px-3 flex items-center text-sky-600 hover:text-sky-800 transition" title={t.useCurrentLocation}>
-                      <LocationIcon className="h-5 w-5" />
-                    </button>
+              {/* Label on left for desktop, on top for mobile */}
+              <div className="flex items-center gap-2 font-semibold text-slate-700 mb-1 sm:mb-0 sm:w-32 sm:shrink-0">
+                  {isStart && <DepartIcon className="h-6 w-6" />}
+                  {isDestination && <DestinationIcon className="h-6 w-6" />}
+                  {isStep && <div className="w-6 h-6"></div>}
+                  <label htmlFor={`parcours-${index}`}>{label}</label>
+              </div>
+
+              {/* Drag handle + input + button on right for desktop, below for mobile */}
+              <div className="flex items-center gap-2 flex-grow">
+                  <div
+                      className="p-1 cursor-move touch-none"
+                      draggable
+                      onDragStart={(e) => handleDragStart(e, index)}
+                      onDragEnd={handleDragEnd}
+                  >
+                      <DragHandleIcon className="h-6 w-6 text-slate-500 hover:text-slate-700" />
+                  </div>
+                  <div className="relative flex-grow">
+                      <input
+                          type="text"
+                          id={`parcours-${index}`}
+                          value={point.value}
+                          onChange={(e) => handleParcoursChange(index, e.target.value)}
+                          placeholder={placeholder}
+                          className={`${baseInputClass} pr-12`}
+                          required={isStart || isDestination}
+                      />
+                      {isStart && (
+                          <button type="button" onClick={handleGeolocate} className="absolute inset-y-0 right-0 px-3 flex items-center text-purple-600 hover:text-purple-800 transition" title={t.useCurrentLocation}>
+                              <SendIcon className="h-5 w-5" />
+                          </button>
+                      )}
+                  </div>
+                  {isStep ? (
+                      <button type="button" onClick={() => handleRemoveStep(index)} className="p-1 text-red-500 hover:text-red-700 transition">
+                          <TrashIcon className="h-5 w-5" />
+                      </button>
+                  ) : (
+                      <div className="w-[28px] shrink-0"></div> // Spacer to align fields if no trash icon
                   )}
-                </div>
-                {isStep && (
-                  <button type="button" onClick={() => handleRemoveStep(index)} className="p-1 text-red-500 hover:text-red-700 transition"><TrashIcon className="h-5 w-5" /></button>
-                )}
               </div>
             </div>
           );
         })}
-        <div className="sm:pl-[124px] flex items-center gap-4 pt-2">
-          <button type="button" onClick={handleAddStep} className="text-slate-800 font-semibold hover:text-slate-900 transition py-2 px-3 bg-sky-100 hover:bg-sky-200 rounded-lg border border-sky-200 shadow-sm">
-            {t.addStep}
+        <div className="pl-12 flex items-center flex-wrap gap-4">
+          <button type="button" onClick={handleAddStep} className="inline-flex items-center gap-2 text-slate-800 font-semibold hover:text-slate-900 transition py-2 px-4 bg-white/50 hover:bg-white/80 rounded-lg shadow-sm">
+            <PlusIcon className="h-5 w-5" /> {t.addStep}
           </button>
-          {isSavedItineraryLoaded && (
-            <button 
-                type="button" 
-                onClick={handlePrepareReturn} 
-                className="text-slate-800 font-semibold hover:text-slate-900 transition py-2 px-3 bg-orange-100 hover:bg-orange-200 rounded-lg border border-orange-200 shadow-sm"
-            >
-                {t.prepareReturn}
-            </button>
-        )}
+          {prepareReturnButton}
         </div>
       </div>
       
       {error && <p className="text-red-600 text-sm text-center">{error}</p>}
 
-      <div className="flex flex-col sm:flex-row gap-4 pt-4">
-        <button type="submit" disabled={isLoading} className="flex-grow w-full flex justify-center items-center bg-blue-600 text-white font-bold py-3 px-4 rounded-xl hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-transform transform hover:scale-105 disabled:bg-gray-400 disabled:scale-100 shadow-lg shadow-blue-500/30">
+      <div className="flex flex-col sm:flex-row items-center gap-4 pt-4">
+        <button type="submit" disabled={isLoading} className="flex-grow w-full flex justify-center items-center bg-white text-purple-700 font-bold py-4 px-4 rounded-xl hover:bg-purple-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition-transform transform hover:scale-105 disabled:bg-gray-400 disabled:scale-100 shadow-lg">
           {isLoading ? t.generating : t.generate}
         </button>
-        <button type="button" onClick={onReset} className="flex-shrink-0 bg-slate-200/80 text-slate-800 font-bold py-3 px-6 rounded-xl hover:bg-slate-300/80 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 transition">
+        <button type="button" onClick={onReset} className="flex-shrink-0 bg-purple-200/20 text-white font-bold py-4 px-8 rounded-xl hover:bg-purple-200/40 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-400 transition">
           {t.reset}
         </button>
       </div>
@@ -958,32 +974,32 @@ function ItineraryDisplay({ response, request, onSave, isUpdate, t }) {
   const mailtoLink = `mailto:?subject=${encodeURIComponent(t.mailtoSubject)} ${encodeURIComponent(routeName)}&body=${encodeURIComponent(t.mailtoBody(routeName, mapUrl))}`;
 
   return (
-    <div className="mt-8 pt-8 border-t border-white/50">
-      <h2 className="text-3xl font-bold text-center text-blue-900 mb-6 sm:mb-8">{t.yourItinerary} : {routeName}</h2>
+    <div className="mt-8 pt-8 border-t border-white/20">
+      <h2 className="text-3xl font-bold text-center text-slate-800 mb-6 sm:mb-8">{t.yourItinerary} : {routeName}</h2>
       
       <div className="space-y-6">
-        <div className="bg-white/50 backdrop-blur-xl p-6 rounded-2xl shadow-lg border border-white/40">
-            <h3 className="text-xl font-semibold text-blue-900 mb-4 border-b pb-2 border-white/50">{t.itineraryReadyTitle}</h3>
+        <div className="bg-white/60 backdrop-blur-xl p-6 rounded-2xl shadow-lg border border-white/40">
+            <h3 className="text-xl font-semibold text-slate-900 mb-4 border-b pb-2 border-white/50">{t.itineraryReadyTitle}</h3>
             
             <div className="my-4 space-y-3 text-slate-800">
                 <div className="flex items-center gap-3">
-                    <LocationIcon className="h-6 w-6 text-green-600 shrink-0" />
+                    <DepartIcon className="h-6 w-6 text-green-600 shrink-0" />
                     <div>
                         <span className="text-xs font-semibold uppercase text-slate-500">{t.parcoursStart}</span>
                         <p className="font-medium">{start}</p>
                     </div>
                 </div>
                 {steps.map((step, index) => (
-                    <div key={index} className="flex items-center gap-3">
-                        <ArrowDownIcon className="h-5 w-5 text-slate-400 shrink-0 ml-0.5" />
-                        <div className="pl-0.5">
+                    <div key={index} className="flex items-center gap-3 pl-1">
+                        <ArrowDownIcon className="h-5 w-5 text-slate-400 shrink-0" />
+                        <div>
                             <span className="text-xs font-semibold uppercase text-slate-500">{`${t.parcoursStep} ${index + 1}`}</span>
                             <p className="font-medium">{step}</p>
                         </div>
                     </div>
                 ))}
                 <div className="flex items-center gap-3">
-                    <LocationIcon className="h-6 w-6 text-red-600 shrink-0" />
+                    <DestinationIcon className="h-6 w-6 text-red-600 shrink-0" />
                     <div>
                         <span className="text-xs font-semibold uppercase text-slate-500">{t.parcoursEnd}</span>
                         <p className="font-medium">{destination}</p>
@@ -992,16 +1008,16 @@ function ItineraryDisplay({ response, request, onSave, isUpdate, t }) {
             </div>
             
             <div className="mt-4 pt-4 border-t border-white/50 text-slate-700 space-y-4">
-                <p className="text-lg">
+                <p>
                     {t.itineraryReadyBody1}
                 </p>
-                <p className="text-md">
+                <p>
                     {t.itineraryReadyBody2} <span className="font-bold">"{t.openInMapsButton}"</span>, le <span className="font-bold">QR code</span> à scanner, ou le lien <span className="font-bold">envoyé par e-mail</span>.
                 </p>
             </div>
         </div>
         
-        <div className="bg-white/50 backdrop-blur-xl p-6 rounded-2xl shadow-lg border border-white/40">
+        <div className="bg-white/60 backdrop-blur-xl p-6 rounded-2xl shadow-lg border border-white/40">
             <div className="flex flex-col md:flex-row items-center gap-6">
                 <div className="text-center flex-shrink-0">
                     <img src={qrCodeUrl} alt="QR Code pour l'itinéraire" className="rounded-xl border-4 border-white shadow-sm mx-auto" />
@@ -1067,9 +1083,9 @@ function SavedItineraries({ itineraries, onView, onDelete, t }) {
   };
 
   return (
-    <div className="p-6 sm:p-8 bg-white/40 backdrop-blur-xl rounded-[28px] shadow-2xl shadow-blue-500/10 border border-white/50">
+    <div className="p-6 sm:p-8 bg-white/60 backdrop-blur-xl rounded-[28px] shadow-2xl shadow-violet-500/20 border border-white/30">
       <div className="mb-4">
-        <h2 className="text-2xl font-bold text-slate-900 mb-4">{t.savedItinerariesTitle}</h2>
+        <h2 className="text-2xl font-bold text-slate-800 mb-4">{t.savedItinerariesTitle}</h2>
         <div className="flex items-center gap-2">
             <input
                 type="text"
@@ -1079,9 +1095,9 @@ function SavedItineraries({ itineraries, onView, onDelete, t }) {
                     setSearchTerm(e.target.value);
                     setCurrentPage(1); // Reset to first page on new search
                 }}
-                className="flex-grow px-3 py-2 bg-slate-100/50 border border-white/50 rounded-xl focus:ring-2 focus:ring-sky-400 focus:border-sky-400 outline-none transition text-sm placeholder:text-slate-500"
+                className="flex-grow px-3 py-2 bg-white/50 border-0 rounded-xl focus:ring-2 focus:ring-violet-400 outline-none transition text-sm placeholder:text-slate-600/80"
             />
-            <button onClick={toggleSortOrder} title={t.sortByName} className="p-2 text-slate-600 hover:bg-slate-200/50 rounded-full transition">
+            <button onClick={toggleSortOrder} title={t.sortByName} className="p-2 text-slate-600 hover:bg-white/30 rounded-full transition">
                 {sortOrder === 'asc' ? <SortAscendingIcon className="h-5 w-5" /> : <SortDescendingIcon className="h-5 w-5" />}
             </button>
         </div>
@@ -1095,7 +1111,7 @@ function SavedItineraries({ itineraries, onView, onDelete, t }) {
             <div key={it.id} className="flex items-center justify-between p-3 bg-white/40 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 border border-white/30">
               <button
                 onClick={() => onView(it)}
-                className="font-semibold text-slate-800 truncate text-left hover:underline focus:outline-none focus:ring-1 focus:ring-sky-300 rounded-sm p-1 -m-1"
+                className="font-semibold text-slate-800 truncate text-left hover:text-purple-700 transition focus:outline-none focus:ring-1 focus:ring-sky-300 rounded-sm p-1 -m-1"
                 title={`${it.request.name}${stepsText}`}
               >
                 {it.request.name}
@@ -1113,11 +1129,11 @@ function SavedItineraries({ itineraries, onView, onDelete, t }) {
       </div>
 
       {totalPages > 1 && (
-        <div className="flex justify-between items-center mt-4 pt-4 border-t border-white/50">
+        <div className="flex justify-between items-center mt-4 pt-4 border-t border-white/20">
             <button 
                 onClick={() => handlePageChange(currentPage - 1)} 
                 disabled={currentPage === 1}
-                className="px-4 py-2 text-sm font-semibold bg-slate-200/80 text-slate-800 rounded-xl hover:bg-slate-300/80 disabled:bg-slate-100/50 disabled:text-slate-400 disabled:cursor-not-allowed transition"
+                className="px-4 py-2 text-sm font-semibold bg-white/30 text-slate-800 rounded-xl hover:bg-white/50 disabled:bg-white/10 disabled:text-slate-400 disabled:cursor-not-allowed transition"
             >
                 {t.previousPage}
             </button>
@@ -1127,7 +1143,7 @@ function SavedItineraries({ itineraries, onView, onDelete, t }) {
             <button 
                 onClick={() => handlePageChange(currentPage + 1)} 
                 disabled={currentPage === totalPages}
-                className="px-4 py-2 text-sm font-semibold bg-slate-200/80 text-slate-800 rounded-xl hover:bg-slate-300/80 disabled:bg-slate-100/50 disabled:text-slate-400 disabled:cursor-not-allowed transition"
+                className="px-4 py-2 text-sm font-semibold bg-white/30 text-slate-800 rounded-xl hover:bg-white/50 disabled:bg-white/10 disabled:text-slate-400 disabled:cursor-not-allowed transition"
             >
                 {t.nextPage}
             </button>
@@ -1154,8 +1170,6 @@ const createInitialRequest = (): ItineraryRequest => ({
   currentLocation: null,
 });
 
-const SUPPORTED_LANGUAGES: Language[] = ['fr', 'en', 'de', 'it', 'nl'];
-
 function App() {
   const [language, setLanguage] = useState<Language>(() => {
     const storedLang = localStorage.getItem(LANGUAGE_STORAGE_KEY);
@@ -1166,11 +1180,10 @@ function App() {
     if (SUPPORTED_LANGUAGES.includes(browserLang as Language)) {
       return browserLang as Language;
     }
-    return 'en'; // Default to English
+    return 'fr';
   });
-
-  const t = getTranslator(language);
   
+  const t = getTranslator(language);
   const [itineraryRequest, setItineraryRequest] = useState<ItineraryRequest>(createInitialRequest());
   const [itineraryResponse, setItineraryResponse] = useState<ItineraryResponse | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -1178,6 +1191,7 @@ function App() {
   const [savedItineraries, setSavedItineraries] = useState<SavedItinerary[]>([]);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [loadedItineraryId, setLoadedItineraryId] = useState<number | null>(null);
+  const resultsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     try {
@@ -1198,14 +1212,21 @@ function App() {
     }
   }, [savedItineraries]);
 
+  useEffect(() => {
+    if (itineraryResponse && !isLoading && resultsRef.current) {
+      setTimeout(() => {
+        resultsRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 100);
+    }
+  }, [itineraryResponse, isLoading]);
+  
   const handleLangChange = (lang: Language) => {
     setLanguage(lang);
     localStorage.setItem(LANGUAGE_STORAGE_KEY, lang);
   };
-  
+
   const handleRequestChange = (newRequest: ItineraryRequest) => {
     setItineraryRequest(newRequest);
-    // If form is changed, the displayed result is no longer valid
     if (itineraryResponse) {
       setItineraryResponse(null);
     }
@@ -1286,22 +1307,22 @@ function App() {
 
   const loadedItinerary = loadedItineraryId ? savedItineraries.find(it => it.id === loadedItineraryId) : null;
   const isUpdate = !!(loadedItinerary && itineraryRequest.name === loadedItinerary.request.name);
-  const isSavedItineraryLoaded = !!loadedItineraryId;
+  const isSavedItineraryLoaded = !!loadedItineraryId || (!!itineraryResponse && !isLoading);
 
   return (
     <div className="min-h-screen font-sans p-3 sm:p-4 md:p-8 text-slate-800">
       <div className="max-w-4xl mx-auto">
-        <header className="mb-8 text-center">
-            <div className="grid grid-cols-3 items-center">
-                <div className="flex-1"></div> {/* Spacer */}
-                <div className="text-center">
-                    <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-blue-900">JyVais</h1>
-                </div>
-                <div className="flex-1 flex justify-end">
+        <header className="mb-8">
+            <div className="relative text-center flex flex-col items-center gap-2">
+                <div className="absolute top-0 right-0 z-10">
                     <LanguageSwitcher currentLang={language} onLangChange={handleLangChange} />
                 </div>
+                <div className="flex items-center gap-4">
+                    <LogoIcon />
+                    <h1 className="text-5xl sm:text-6xl font-bold tracking-tight text-white">JyVais</h1>
+                </div>
+                <p className="text-lg text-violet-200">{t.tagline}</p>
             </div>
-            <p className="text-lg text-slate-600">{t.tagline}</p>
         </header>
 
         {successMessage && (
@@ -1311,7 +1332,7 @@ function App() {
         )}
 
         <main className="space-y-8">
-          <div className="bg-white/40 backdrop-blur-xl p-6 sm:p-8 rounded-[28px] shadow-2xl shadow-blue-500/10 border border-white/50">
+          <div className="bg-white/70 backdrop-blur-2xl p-6 sm:p-8 rounded-[28px] shadow-2xl shadow-violet-900/20 border border-white/30">
             <ItineraryForm
               request={itineraryRequest}
               onChange={handleRequestChange}
@@ -1323,10 +1344,10 @@ function App() {
             />
 
             {isLoading && (
-              <div className="mt-8 flex flex-col items-center justify-center text-center">
-                <SpinnerIcon className="h-12 w-12 animate-spin text-slate-700" />
+              <div className="mt-8 flex flex-col items-center justify-center text-center text-slate-800">
+                <SpinnerIcon className="h-12 w-12 animate-spin" />
                 <p className="mt-4 text-lg font-semibold">{t.loadingTitle}</p>
-                <p className="text-slate-600">{t.loadingSubtitle}</p>
+                <p>{t.loadingSubtitle}</p>
               </div>
             )}
 
@@ -1336,29 +1357,32 @@ function App() {
                 <p>{error}</p>
               </div>
             )}
-
-            {itineraryResponse && !isLoading && (
-              <ItineraryDisplay 
-                response={itineraryResponse} 
-                request={itineraryRequest}
-                onSave={handleSaveItinerary}
-                isUpdate={isUpdate}
-                t={t}
-              />
-            )}
+            <div ref={resultsRef}>
+              {itineraryResponse && !isLoading && (
+                <ItineraryDisplay 
+                  response={itineraryResponse} 
+                  request={itineraryRequest}
+                  onSave={handleSaveItinerary}
+                  isUpdate={isUpdate}
+                  t={t}
+                />
+              )}
+            </div>
           </div>
           
           {savedItineraries.length > 0 && (
-            <SavedItineraries
-              itineraries={savedItineraries}
-              onView={handleViewItinerary}
-              onDelete={handleDeleteItinerary}
-              t={t}
-            />
+            <div className="bg-white/70 backdrop-blur-xl rounded-[28px] shadow-2xl shadow-violet-500/20 border border-white/30">
+              <SavedItineraries
+                itineraries={savedItineraries}
+                onView={handleViewItinerary}
+                onDelete={handleDeleteItinerary}
+                t={t}
+              />
+            </div>
           )}
         </main>
         
-        <footer className="text-center mt-8 text-sm text-slate-500">
+        <footer className="text-center mt-8 text-sm text-violet-200/80">
             <p>{t.poweredBy}</p>
         </footer>
       </div>
