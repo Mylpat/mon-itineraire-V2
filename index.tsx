@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import ReactDOM from 'react-dom/client';
 import { GoogleGenAI } from "@google/genai";
@@ -75,7 +76,6 @@ const translations = {
     generationErrorTitle: "Erreur de génération",
     // Itinerary Display
     yourItinerary: "Votre itinéraire",
-    itineraryDetails: "Détails de l'itinéraire",
     itineraryReadyTitle: "Votre itinéraire est prêt !",
     itineraryReadyBody1: "Pour consulter les instructions détaillées et naviguer, veuillez ouvrir l'itinéraire directement dans Google Maps.",
     itineraryReadyBody2: "Vous pouvez utiliser le bouton",
@@ -102,10 +102,7 @@ const translations = {
     // Footer
     poweredBy: "Propulsé par Gemini & Google Maps",
     // Gemini Service
-    geminiSystemInstruction: `Tu es un assistant de voyage expert. Génère un itinéraire détaillé et formaté en Markdown en te basant sur la demande de l'utilisateur et les données de Google Maps.
-- Fournis des instructions claires, étape par étape, dans l'ordre.
-- Si le transport est "Transport en commun", suggère les lignes pertinentes (bus, métro, etc.).
-- Termine toujours par un résumé de la durée et de la distance estimées.`,
+    geminiSystemInstruction: "Tu es un assistant de voyage dont le seul rôle est de traiter une demande d'itinéraire en utilisant l'outil Google Maps. NE GÉNÈRE AUCUN TEXTE en réponse. Ta réponse doit être vide. L'interface utilisateur affichera les messages nécessaires.",
     geminiUserQueryIntro: "Je veux un itinéraire nommé",
     geminiUserQueryFrom: "pour aller de",
     geminiUserQueryTo: "à",
@@ -151,7 +148,6 @@ const translations = {
     generationErrorTitle: "Generation Error",
     // Itinerary Display
     yourItinerary: "Your itinerary",
-    itineraryDetails: "Itinerary Details",
     itineraryReadyTitle: "Your itinerary is ready!",
     itineraryReadyBody1: "To view detailed instructions and navigate, please open the itinerary directly in Google Maps.",
     itineraryReadyBody2: "You can use the",
@@ -178,10 +174,7 @@ const translations = {
     // Footer
     poweredBy: "Powered by Gemini & Google Maps",
     // Gemini Service
-    geminiSystemInstruction: `You are an expert travel assistant. Generate a detailed, Markdown-formatted itinerary based on the user's request and Google Maps data.
-- Provide clear, step-by-step instructions in order.
-- If the transport is "Public transit", suggest relevant lines (bus, metro, etc.).
-- Always end with a summary of the estimated duration and distance.`,
+    geminiSystemInstruction: "You are a travel assistant whose only role is to process an itinerary request using the Google Maps tool. DO NOT GENERATE ANY TEXT in response. Your response should be empty. The user interface will display the necessary messages.",
     geminiUserQueryIntro: "I want an itinerary named",
     geminiUserQueryFrom: "to go from",
     geminiUserQueryTo: "to",
@@ -222,7 +215,6 @@ const translations = {
     loadingSubtitle: "Die KI bereitet den besten Weg für Sie vor.",
     generationErrorTitle: "Fehler bei der Generierung",
     yourItinerary: "Ihre Route",
-    itineraryDetails: "Routendetails",
     itineraryReadyTitle: "Ihre Route ist fertig!",
     itineraryReadyBody1: "Um detaillierte Anweisungen anzuzeigen und zu navigieren, öffnen Sie die Route bitte direkt in Google Maps.",
     itineraryReadyBody2: "Sie können die Schaltfläche",
@@ -246,10 +238,7 @@ const translations = {
     page: "Seite",
     of: "von",
     poweredBy: "Unterstützt von Gemini & Google Maps",
-    geminiSystemInstruction: `Sie sind ein erfahrener Reiseassistent. Erstellen Sie eine detaillierte, im Markdown-Format formatierte Reiseroute basierend auf der Anfrage des Benutzers und den Daten von Google Maps.
-- Geben Sie klare, schrittweise Anweisungen in der richtigen Reihenfolge.
-- Wenn das Transportmittel "Öffentliche Verkehrsmittel" ist, schlagen Sie relevante Linien vor (Bus, U-Bahn usw.).
-- Beenden Sie immer mit einer Zusammenfassung der geschätzten Dauer und Entfernung.`,
+    geminiSystemInstruction: "Sie sind ein Reiseassistent, dessen einzige Aufgabe darin besteht, eine Routenanfrage mit dem Google Maps-Tool zu bearbeiten. GENERIEREN SIE KEINEN TEXT als Antwort. Ihre Antwort sollte leer sein. Die Benutzeroberfläche zeigt die erforderlichen Nachrichten an.",
     geminiUserQueryIntro: "Ich möchte eine Route namens",
     geminiUserQueryFrom: "um von",
     geminiUserQueryTo: "nach",
@@ -290,7 +279,6 @@ const translations = {
     loadingSubtitle: "L'IA sta preparando il percorso migliore per te.",
     generationErrorTitle: "Errore di generazione",
     yourItinerary: "Il tuo itinerario",
-    itineraryDetails: "Dettagli itinerario",
     itineraryReadyTitle: "Il tuo itinerario è pronto!",
     itineraryReadyBody1: "Per visualizzare le istruzioni dettagliate e navigare, apri l'itinerario direttamente in Google Maps.",
     itineraryReadyBody2: "Puoi usare il pulsante",
@@ -314,10 +302,7 @@ const translations = {
     page: "Pagina",
     of: "di",
     poweredBy: "Realizzato con Gemini & Google Maps",
-    geminiSystemInstruction: `Sei un assistente di viaggio esperto. Genera un itinerario dettagliato e formattato in Markdown basato sulla richiesta dell'utente e sui dati di Google Maps.
-- Fornisci istruzioni chiare, passo dopo passo, in ordine.
-- Se il trasporto è "Trasporto pubblico", suggerisci le linee pertinenti (autobus, metro, ecc.).
-- Termina sempre con un riepilogo della durata e della distanza stimate.`,
+    geminiSystemInstruction: "Sei un assistente di viaggio il cui unico ruolo è elaborare una richiesta di itinerario utilizzando lo strumento di Google Maps. NON GENERARE ALCUN TESTO in risposta. La tua risposta dovrebbe essere vuota. L'interfaccia utente visualizzerà i messaggi necessari.",
     geminiUserQueryIntro: "Voglio un itinerario chiamato",
     geminiUserQueryFrom: "per andare da",
     geminiUserQueryTo: "a",
@@ -358,7 +343,6 @@ const translations = {
     loadingSubtitle: "De AI bereidt het beste pad voor u voor.",
     generationErrorTitle: "Generatiefout",
     yourItinerary: "Uw route",
-    itineraryDetails: "Routedetails",
     itineraryReadyTitle: "Uw route is klaar!",
     itineraryReadyBody1: "Om gedetailleerde instructies te bekijken en te navigeren, opent u de route rechtstreeks in Google Maps.",
     itineraryReadyBody2: "U kunt de knop gebruiken",
@@ -382,10 +366,7 @@ const translations = {
     page: "Pagina",
     of: "van",
     poweredBy: "Aangedreven door Gemini & Google Maps",
-    geminiSystemInstruction: `U bent een deskundige reisassistent. Genereer een gedetailleerde, in Markdown opgemaakte reisroute op basis van het verzoek van de gebruiker en gegevens van Google Maps.
-- Geef duidelijke, stapsgewijze instructies in de juiste volgorde.
-- Als het vervoermiddel "Openbaar vervoer" is, stel dan relevante lijnen voor (bus, metro, enz.).
-- Eindig altijd met een samenvatting van de geschatte duur en afstand.`,
+    geminiSystemInstruction: "U bent een reisassistent wiens enige rol het is om een routeverzoek te verwerken met behulp van de Google Maps-tool. GENEREER GEEN TEKST als antwoord. Uw antwoord moet leeg zijn. De gebruikersinterface toont de benodigde berichten.",
     geminiUserQueryIntro: "Ik wil een route genaamd",
     geminiUserQueryFrom: "om van",
     geminiUserQueryTo: "naar",
@@ -412,12 +393,6 @@ const getTranslator = (lang: Language) => {
 // ==========================================================================================
 // FILE: services/geminiService.ts
 // ==========================================================================================
-if (!process.env.API_KEY) {
-    throw new Error("API_KEY environment variable not set");
-}
-  
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
-
 function buildUserQuery(request: ItineraryRequest, lang: Language): string {
     const t = getTranslator(lang);
     const parcoursValues = request.parcours.map(p => p.value);
@@ -436,6 +411,19 @@ function buildUserQuery(request: ItineraryRequest, lang: Language): string {
 
 async function generateItinerary(request: ItineraryRequest, lang: Language): Promise<ItineraryResponse> {
     const t = getTranslator(lang);
+
+    let apiKey;
+    try {
+      apiKey = process.env.API_KEY;
+    } catch (e) {
+      console.error("Could not access process.env.API_KEY", e);
+    }
+
+    if (!apiKey) {
+      throw new Error("API_KEY is not configured. Please set it in your deployment environment.");
+    }
+    
+    const ai = new GoogleGenAI({ apiKey });
     const userQuery = buildUserQuery(request, lang);
 
     try {
@@ -457,10 +445,6 @@ async function generateItinerary(request: ItineraryRequest, lang: Language): Pro
         });
 
         const description = response.text;
-        
-        if (!description) {
-            throw new Error("The API returned no description for the itinerary.");
-        }
 
         return { description, routeName: request.name };
 
@@ -943,7 +927,7 @@ function ItineraryForm({ request, onChange, onGenerate, isLoading, onReset, isSa
 // FILE: components/ItineraryDisplay.tsx
 // ==========================================================================================
 function ItineraryDisplay({ response, request, onSave, isUpdate, t }) {
-  const { routeName, description } = response;
+  const { routeName } = response;
   const { transportMode, parcours } = request;
 
   const parcoursValues = parcours.map(p => p.value);
@@ -979,15 +963,35 @@ function ItineraryDisplay({ response, request, onSave, isUpdate, t }) {
       
       <div className="space-y-6">
         <div className="bg-white/50 backdrop-blur-xl p-6 rounded-2xl shadow-lg border border-white/40">
-            <h3 className="text-xl font-semibold text-blue-900 mb-4 border-b pb-2 border-white/50">{t.itineraryDetails}</h3>
-            <div className="mt-4 text-slate-700 space-y-4 whitespace-pre-wrap">
-                {description}
-            </div>
-        </div>
-
-        <div className="bg-white/50 backdrop-blur-xl p-6 rounded-2xl shadow-lg border border-white/40">
             <h3 className="text-xl font-semibold text-blue-900 mb-4 border-b pb-2 border-white/50">{t.itineraryReadyTitle}</h3>
-            <div className="mt-4 text-slate-700 space-y-4">
+            
+            <div className="my-4 space-y-3 text-slate-800">
+                <div className="flex items-center gap-3">
+                    <LocationIcon className="h-6 w-6 text-green-600 shrink-0" />
+                    <div>
+                        <span className="text-xs font-semibold uppercase text-slate-500">{t.parcoursStart}</span>
+                        <p className="font-medium">{start}</p>
+                    </div>
+                </div>
+                {steps.map((step, index) => (
+                    <div key={index} className="flex items-center gap-3">
+                        <ArrowDownIcon className="h-5 w-5 text-slate-400 shrink-0 ml-0.5" />
+                        <div className="pl-0.5">
+                            <span className="text-xs font-semibold uppercase text-slate-500">{`${t.parcoursStep} ${index + 1}`}</span>
+                            <p className="font-medium">{step}</p>
+                        </div>
+                    </div>
+                ))}
+                <div className="flex items-center gap-3">
+                    <LocationIcon className="h-6 w-6 text-red-600 shrink-0" />
+                    <div>
+                        <span className="text-xs font-semibold uppercase text-slate-500">{t.parcoursEnd}</span>
+                        <p className="font-medium">{destination}</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div className="mt-4 pt-4 border-t border-white/50 text-slate-700 space-y-4">
                 <p className="text-lg">
                     {t.itineraryReadyBody1}
                 </p>
