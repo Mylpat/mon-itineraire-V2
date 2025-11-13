@@ -25,14 +25,13 @@ export default function ItineraryForm({ request, onChange, onGenerate, isLoading
   const { name, transportMode, parcours, currentLocation } = request;
 
   const handleParcoursChange = (index: number, value: string) => {
-    const newParcours = [...parcours];
-    newParcours[index] = value;
+    const newParcours = parcours.map((p, i) => i === index ? { ...p, value } : p);
     onChange({ ...request, parcours: newParcours });
   };
   
   const handleAddStep = () => {
     const newParcours = [...parcours];
-    newParcours.splice(parcours.length - 1, 0, '');
+    newParcours.splice(parcours.length - 1, 0, { id: Date.now(), value: '' });
     onChange({ ...request, parcours: newParcours });
   };
 
@@ -74,7 +73,8 @@ export default function ItineraryForm({ request, onChange, onGenerate, isLoading
         (position) => {
           const { latitude, longitude } = position.coords;
           const newParcours = [...parcours];
-          newParcours[0] = `Ma position actuelle (${latitude.toFixed(4)}, ${longitude.toFixed(4)})`;
+          const newText = t.currentLocationText(latitude.toFixed(4), longitude.toFixed(4));
+          newParcours[0] = { ...newParcours[0], value: newText };
           onChange({ ...request, parcours: newParcours, currentLocation: { latitude, longitude } });
         },
         () => {
@@ -88,7 +88,7 @@ export default function ItineraryForm({ request, onChange, onGenerate, isLoading
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!name || !parcours[0] || !parcours[parcours.length - 1]) {
+    if (!name || !parcours[0]?.value || !parcours[parcours.length - 1]?.value) {
       setError(t.formError);
       return;
     }
@@ -97,7 +97,9 @@ export default function ItineraryForm({ request, onChange, onGenerate, isLoading
   };
   
   const handlePrepareReturn = () => {
-    const returnSuffixes = [translations.fr.returnTripSuffix, translations.en.returnTripSuffix].join('|');
+    const returnSuffixes = (Object.keys(translations) as Array<keyof typeof translations>)
+      .map(lang => translations[lang].returnTripSuffix)
+      .join('|');
     const regex = new RegExp(` - (${returnSuffixes})$`);
     const baseName = name.replace(regex, '');
     const newName = `${baseName} - ${t.returnTripSuffix}`;
@@ -167,7 +169,7 @@ export default function ItineraryForm({ request, onChange, onGenerate, isLoading
 
           return (
             <div 
-              key={index} 
+              key={point.id} 
               className={`flex flex-col sm:flex-row sm:items-center sm:space-x-2 transition-opacity ${draggedIndex === index ? 'opacity-50' : ''}`}
               onDragOver={handleDragOver}
               onDrop={(e) => handleDrop(e, index)}
@@ -186,7 +188,7 @@ export default function ItineraryForm({ request, onChange, onGenerate, isLoading
                   <input
                     type="text"
                     id={`parcours-${index}`}
-                    value={point}
+                    value={point.value}
                     onChange={(e) => handleParcoursChange(index, e.target.value)}
                     placeholder={placeholder}
                     className={`${baseInputClass} pr-10`}

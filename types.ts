@@ -11,7 +11,7 @@ export interface Coordinates {
 export interface ItineraryRequest {
   name: string;
   transportMode: TransportMode;
-  parcours: string[];
+  parcours: { id: number; value: string }[];
   currentLocation: Coordinates | null;
 }
 

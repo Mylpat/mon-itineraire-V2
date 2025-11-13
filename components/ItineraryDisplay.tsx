@@ -14,12 +14,13 @@ interface ItineraryDisplayProps {
 }
 
 export default function ItineraryDisplay({ response, request, onSave, isUpdate, t }: ItineraryDisplayProps): React.ReactElement {
-  const { routeName } = response;
+  const { routeName, description } = response;
   const { transportMode, parcours } = request;
 
-  const start = parcours[0] || '';
-  const destination = parcours[parcours.length - 1] || '';
-  const steps = parcours.slice(1, -1).filter(s => s.trim() !== '');
+  const parcoursValues = parcours.map(p => p.value);
+  const start = parcoursValues[0] || '';
+  const destination = parcoursValues[parcoursValues.length - 1] || '';
+  const steps = parcoursValues.slice(1, -1).filter(s => s.trim() !== '');
 
   const waypoints = steps.join('|');
 
@@ -48,6 +49,13 @@ export default function ItineraryDisplay({ response, request, onSave, isUpdate, 
       <h2 className="text-3xl font-bold text-center text-blue-900 mb-6 sm:mb-8">{t.yourItinerary} : {routeName}</h2>
       
       <div className="space-y-6">
+        <div className="bg-white/50 backdrop-blur-xl p-6 rounded-2xl shadow-lg border border-white/40">
+            <h3 className="text-xl font-semibold text-blue-900 mb-4 border-b pb-2 border-white/50">{t.itineraryDetails}</h3>
+            <div className="mt-4 text-slate-700 space-y-4 whitespace-pre-wrap">
+                {description}
+            </div>
+        </div>
+
         <div className="bg-white/50 backdrop-blur-xl p-6 rounded-2xl shadow-lg border border-white/40">
             <h3 className="text-xl font-semibold text-blue-900 mb-4 border-b pb-2 border-white/50">{t.itineraryReadyTitle}</h3>
             <div className="mt-4 text-slate-700 space-y-4">

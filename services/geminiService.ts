@@ -1,3 +1,4 @@
+
 import { GoogleGenAI } from "@google/genai";
 import type { ItineraryRequest, ItineraryResponse } from '../types';
 import { getTranslator, type Language } from "../lib/i18n";
@@ -10,9 +11,10 @@ const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
 function buildUserQuery(request: ItineraryRequest, lang: Language): string {
     const t = getTranslator(lang);
-    const start = request.parcours[0];
-    const destination = request.parcours[request.parcours.length - 1];
-    const steps = request.parcours.slice(1, -1).filter(s => s.trim() !== '');
+    const parcoursValues = request.parcours.map(p => p.value);
+    const start = parcoursValues[0];
+    const destination = parcoursValues[parcoursValues.length - 1];
+    const steps = parcoursValues.slice(1, -1).filter(s => s.trim() !== '');
 
     const transportModeText = t.transportModes[request.transportMode].toLowerCase();
 

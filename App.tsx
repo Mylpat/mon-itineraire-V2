@@ -13,12 +13,15 @@ import SpinnerIcon from './components/icons/SpinnerIcon';
 const LOCAL_STORAGE_KEY = 'mon-itineraire-sauvegardes';
 const LANGUAGE_STORAGE_KEY = 'jyvais-language';
 
-const initialItineraryRequest: ItineraryRequest = {
+const createInitialRequest = (): ItineraryRequest => ({
   name: '',
   transportMode: TransportMode.CAR,
-  parcours: ['', ''],
+  parcours: [
+    { id: Date.now(), value: '' },
+    { id: Date.now() + 1, value: '' }
+  ],
   currentLocation: null,
-};
+});
 
 const SUPPORTED_LANGUAGES: Language[] = ['fr', 'en', 'de', 'it', 'nl'];
 
@@ -37,7 +40,7 @@ export default function App(): React.ReactElement {
 
   const t = getTranslator(language);
   
-  const [itineraryRequest, setItineraryRequest] = useState<ItineraryRequest>(initialItineraryRequest);
+  const [itineraryRequest, setItineraryRequest] = useState<ItineraryRequest>(createInitialRequest());
   const [itineraryResponse, setItineraryResponse] = useState<ItineraryResponse | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -95,7 +98,7 @@ export default function App(): React.ReactElement {
   };
   
   const handleNewItinerary = () => {
-    setItineraryRequest(initialItineraryRequest);
+    setItineraryRequest(createInitialRequest());
     setItineraryResponse(null);
     setError(null);
     setLoadedItineraryId(null);
