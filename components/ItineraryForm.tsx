@@ -7,6 +7,7 @@ import DepartIcon from './icons/DepartIcon';
 import DestinationIcon from './icons/DestinationIcon';
 import SendIcon from './icons/SendIcon';
 import CarIcon from './icons/CarIcon';
+import WalkIcon from './icons/WalkIcon';
 import DragHandleIcon from './icons/DragHandleIcon';
 import LocationIcon from './icons/LocationIcon';
 import PlusIcon from './icons/PlusIcon';
@@ -90,11 +91,6 @@ export default function ItineraryForm({ request, onChange, onGenerate, isLoading
     }
   };
   
-  const handleTransportToggle = () => {
-    const newMode = transportMode === TransportMode.CAR ? TransportMode.PEDESTRIAN : TransportMode.CAR;
-    onChange({ ...request, transportMode: newMode });
-  };
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!name || !parcours[0]?.value || !parcours[parcours.length - 1]?.value) {
@@ -131,8 +127,13 @@ export default function ItineraryForm({ request, onChange, onGenerate, isLoading
           {t.prepareReturn}
       </button>
   ) : null;
-
+  
   const baseInputClass = "w-full px-4 py-3 text-lg bg-white/50 border-0 rounded-xl focus:ring-2 focus:ring-violet-400 outline-none transition placeholder:text-slate-600/80 text-slate-900";
+
+  const transportOptions = [
+    { mode: TransportMode.CAR, icon: CarIcon, label: t.transportModes.CAR },
+    { mode: TransportMode.PEDESTRIAN, icon: WalkIcon, label: t.transportModes.PEDESTRIAN },
+  ];
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
@@ -160,14 +161,29 @@ export default function ItineraryForm({ request, onChange, onGenerate, isLoading
       </div>
 
       <div className="space-y-2">
-        <label htmlFor="transportMode" className="block text-sm font-medium text-slate-700">{t.transportModeLabel}</label>
-        <button type="button" onClick={handleTransportToggle} className={`${baseInputClass} flex items-center justify-between text-left`}>
-            <div className="flex items-center gap-3">
-                <span className="text-2xl">{transportMode === TransportMode.CAR ? '🚗' : '🚶‍♂️'}</span>
-                <span className="font-medium">{t.transportModes[transportMode]}</span>
+        <label className="block text-sm font-medium text-slate-700">{t.transportModeLabel}</label>
+        <div className="grid grid-cols-2 gap-2 sm:gap-3">
+          {transportOptions.map(({ mode, icon: Icon, label }) => (
+            <div key={mode}>
+              <input 
+                type="radio" 
+                id={`transport-${mode}`} 
+                name="transportMode" 
+                value={mode}
+                checked={transportMode === mode}
+                onChange={() => onChange({ ...request, transportMode: mode })}
+                className="sr-only peer"
+              />
+              <label 
+                htmlFor={`transport-${mode}`}
+                className="flex flex-col sm:flex-row items-center justify-center gap-2 p-2 text-slate-700 bg-white/50 rounded-xl border-2 border-transparent cursor-pointer transition-all peer-checked:border-violet-500 peer-checked:bg-violet-100/70 peer-checked:text-violet-800 peer-checked:shadow-md hover:bg-white/80"
+              >
+                <Icon className="h-6 w-6" />
+                <span className="font-semibold text-sm sm:text-base">{label}</span>
+              </label>
             </div>
-             <CarIcon className="h-6 w-6 text-slate-500" />
-        </button>
+          ))}
+        </div>
       </div>
       
       <div className="space-y-3">
@@ -180,16 +196,16 @@ export default function ItineraryForm({ request, onChange, onGenerate, isLoading
           const isDestination = index === parcours.length - 1;
           const isStep = !isStart && !isDestination;
 
-          let label = '';
+          let labelText = '';
           let placeholder = '';
           if (isStart) {
-            label = t.parcoursStart;
+            labelText = t.parcoursStart;
             placeholder = t.parcoursStartPlaceholder;
           } else if (isDestination) {
-            label = t.parcoursEnd;
+            labelText = t.parcoursEnd;
             placeholder = t.parcoursEndPlaceholder;
           } else {
-            label = `${t.parcoursStep} ${index}`;
+            labelText = `${t.parcoursStep} ${index}`;
             placeholder = `${t.parcoursStepPlaceholder} ${index}`;
           }
 
@@ -200,15 +216,13 @@ export default function ItineraryForm({ request, onChange, onGenerate, isLoading
               onDragOver={handleDragOver}
               onDrop={(e) => handleDrop(e, index)}
             >
-              {/* Label on left for desktop, on top for mobile */}
-              <div className="flex items-center gap-2 font-semibold text-slate-700 mb-1 sm:mb-0 sm:w-32 sm:shrink-0">
+              <div className="flex items-center gap-2 mb-1 sm:mb-0 sm:w-32 sm:shrink-0">
                   {isStart && <DepartIcon className="h-6 w-6" />}
                   {isDestination && <DestinationIcon className="h-6 w-6" />}
                   {isStep && <div className="w-6 h-6"></div>}
-                  <label htmlFor={`parcours-${index}`}>{label}</label>
+                  <label htmlFor={`parcours-${index}`} className="font-semibold text-slate-700">{labelText}</label>
               </div>
 
-              {/* Drag handle + input + button on right for desktop, below for mobile */}
               <div className="flex items-center gap-2 flex-grow">
                   <div
                       className="p-1 cursor-move touch-none"
@@ -239,7 +253,7 @@ export default function ItineraryForm({ request, onChange, onGenerate, isLoading
                           <TrashIcon className="h-5 w-5" />
                       </button>
                   ) : (
-                      <div className="w-[28px] shrink-0"></div> // Spacer to align fields if no trash icon
+                      <div className="w-[28px] shrink-0"></div>
                   )}
               </div>
             </div>

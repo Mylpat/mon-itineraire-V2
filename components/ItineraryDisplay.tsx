@@ -56,10 +56,10 @@ export default function ItineraryDisplay({ response, request, onSave, isUpdate, 
         <div className="bg-white/60 backdrop-blur-xl p-6 rounded-2xl shadow-lg border border-white/40">
             <h3 className="text-xl font-semibold text-slate-900 mb-4 border-b pb-2 border-white/50">{t.itineraryReadyTitle}</h3>
             
-            <div className="my-4 space-y-3 text-slate-800">
+            <div className="my-4 space-y-3">
                 <div className="flex items-center gap-3">
-                    <DepartIcon className="h-6 w-6 text-green-600 shrink-0" />
-                    <div>
+                    <DepartIcon className="h-6 w-6 shrink-0" />
+                    <div className="text-slate-800">
                         <span className="text-xs font-semibold uppercase text-slate-500">{t.parcoursStart}</span>
                         <p className="font-medium">{start}</p>
                     </div>
@@ -67,15 +67,15 @@ export default function ItineraryDisplay({ response, request, onSave, isUpdate, 
                 {steps.map((step, index) => (
                     <div key={index} className="flex items-center gap-3 pl-1">
                         <ArrowDownIcon className="h-5 w-5 text-slate-400 shrink-0" />
-                        <div>
+                        <div className="text-slate-800">
                             <span className="text-xs font-semibold uppercase text-slate-500">{`${t.parcoursStep} ${index + 1}`}</span>
                             <p className="font-medium">{step}</p>
                         </div>
                     </div>
                 ))}
                 <div className="flex items-center gap-3">
-                    <DestinationIcon className="h-6 w-6 text-red-600 shrink-0" />
-                    <div>
+                    <DestinationIcon className="h-6 w-6 shrink-0" />
+                    <div className="text-slate-800">
                         <span className="text-xs font-semibold uppercase text-slate-500">{t.parcoursEnd}</span>
                         <p className="font-medium">{destination}</p>
                     </div>
