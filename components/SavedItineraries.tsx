@@ -1,22 +1,22 @@
-
 import React, { useState, useMemo } from 'react';
 import type { SavedItinerary } from '../types';
 import { translations } from '../lib/i18n';
+
 import EyeIcon from './icons/EyeIcon';
 import TrashIcon from './icons/TrashIcon';
 import SortAscendingIcon from './icons/SortAscendingIcon';
 import SortDescendingIcon from './icons/SortDescendingIcon';
 
 interface SavedItinerariesProps {
-  itineraries: SavedItinerary[];
-  onView: (itinerary: SavedItinerary) => void;
-  onDelete: (id: number) => void;
-  t: typeof translations.fr;
+    itineraries: SavedItinerary[];
+    onView: (itinerary: SavedItinerary) => void;
+    onDelete: (id: number) => void;
+    t: typeof translations.fr;
 }
 
 const ITEMS_PER_PAGE = 5;
 
-export default function SavedItineraries({ itineraries, onView, onDelete, t }: SavedItinerariesProps): React.ReactElement {
+export default function SavedItineraries({ itineraries, onView, onDelete, t }: SavedItinerariesProps) {
   const [searchTerm, setSearchTerm] = useState('');
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
   const [currentPage, setCurrentPage] = useState(1);
@@ -49,9 +49,9 @@ export default function SavedItineraries({ itineraries, onView, onDelete, t }: S
   };
 
   return (
-    <div className="p-6 sm:p-8 bg-white/40 backdrop-blur-xl rounded-[28px] shadow-2xl shadow-blue-500/10 border border-white/50">
+    <div className="p-6 sm:p-8 bg-white/60 backdrop-blur-xl rounded-[28px] shadow-2xl shadow-violet-500/20 border border-white/30">
       <div className="mb-4">
-        <h2 className="text-2xl font-bold text-slate-900 mb-4">{t.savedItinerariesTitle}</h2>
+        <h2 className="text-2xl font-bold text-slate-800 mb-4">{t.savedItinerariesTitle}</h2>
         <div className="flex items-center gap-2">
             <input
                 type="text"
@@ -61,9 +61,9 @@ export default function SavedItineraries({ itineraries, onView, onDelete, t }: S
                     setSearchTerm(e.target.value);
                     setCurrentPage(1); // Reset to first page on new search
                 }}
-                className="flex-grow px-3 py-2 bg-slate-100/50 border border-white/50 rounded-xl focus:ring-2 focus:ring-sky-400 focus:border-sky-400 outline-none transition text-sm placeholder:text-slate-500"
+                className="flex-grow px-3 py-2 bg-white/50 border-0 rounded-xl focus:ring-2 focus:ring-violet-400 outline-none transition text-sm placeholder:text-slate-600/80"
             />
-            <button onClick={toggleSortOrder} title={t.sortByName} className="p-2 text-slate-600 hover:bg-slate-200/50 rounded-full transition">
+            <button onClick={toggleSortOrder} title={t.sortByName} className="p-2 text-slate-600 hover:bg-white/30 rounded-full transition">
                 {sortOrder === 'asc' ? <SortAscendingIcon className="h-5 w-5" /> : <SortDescendingIcon className="h-5 w-5" />}
             </button>
         </div>
@@ -77,7 +77,7 @@ export default function SavedItineraries({ itineraries, onView, onDelete, t }: S
             <div key={it.id} className="flex items-center justify-between p-3 bg-white/40 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 border border-white/30">
               <button
                 onClick={() => onView(it)}
-                className="font-semibold text-slate-800 truncate text-left hover:underline focus:outline-none focus:ring-1 focus:ring-sky-300 rounded-sm p-1 -m-1"
+                className="font-semibold text-slate-800 truncate text-left hover:text-purple-700 transition focus:outline-none focus:ring-1 focus:ring-sky-300 rounded-sm p-1 -m-1"
                 title={`${it.request.name}${stepsText}`}
               >
                 {it.request.name}
@@ -95,11 +95,11 @@ export default function SavedItineraries({ itineraries, onView, onDelete, t }: S
       </div>
 
       {totalPages > 1 && (
-        <div className="flex justify-between items-center mt-4 pt-4 border-t border-white/50">
+        <div className="flex justify-between items-center mt-4 pt-4 border-t border-white/20">
             <button 
                 onClick={() => handlePageChange(currentPage - 1)} 
                 disabled={currentPage === 1}
-                className="px-4 py-2 text-sm font-semibold bg-slate-200/80 text-slate-800 rounded-xl hover:bg-slate-300/80 disabled:bg-slate-100/50 disabled:text-slate-400 disabled:cursor-not-allowed transition"
+                className="px-4 py-2 text-sm font-semibold bg-white/30 text-slate-800 rounded-xl hover:bg-white/50 disabled:bg-white/10 disabled:text-slate-400 disabled:cursor-not-allowed transition"
             >
                 {t.previousPage}
             </button>
@@ -109,7 +109,7 @@ export default function SavedItineraries({ itineraries, onView, onDelete, t }: S
             <button 
                 onClick={() => handlePageChange(currentPage + 1)} 
                 disabled={currentPage === totalPages}
-                className="px-4 py-2 text-sm font-semibold bg-slate-200/80 text-slate-800 rounded-xl hover:bg-slate-300/80 disabled:bg-slate-100/50 disabled:text-slate-400 disabled:cursor-not-allowed transition"
+                className="px-4 py-2 text-sm font-semibold bg-white/30 text-slate-800 rounded-xl hover:bg-white/50 disabled:bg-white/10 disabled:text-slate-400 disabled:cursor-not-allowed transition"
             >
                 {t.nextPage}
             </button>

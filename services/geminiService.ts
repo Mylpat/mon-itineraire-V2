@@ -1,13 +1,6 @@
-
 import { GoogleGenAI } from "@google/genai";
 import type { ItineraryRequest, ItineraryResponse } from '../types';
-import { getTranslator, type Language } from "../lib/i18n";
-
-if (!process.env.API_KEY) {
-    throw new Error("API_KEY environment variable not set");
-}
-  
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+import { getTranslator, type Language, translations } from "../lib/i18n";
 
 function buildUserQuery(request: ItineraryRequest, lang: Language): string {
     const t = getTranslator(lang);
@@ -27,6 +20,18 @@ function buildUserQuery(request: ItineraryRequest, lang: Language): string {
 
 export async function generateItinerary(request: ItineraryRequest, lang: Language): Promise<ItineraryResponse> {
     const t = getTranslator(lang);
+    let apiKey;
+    try {
+      apiKey = process.env.API_KEY;
+    } catch (e) {
+      console.error("Could not access process.env.API_KEY", e);
+    }
+
+    if (!apiKey) {
+      throw new Error("API_KEY is not configured. Please set it in your deployment environment.");
+    }
+    
+    const ai = new GoogleGenAI({ apiKey });
     const userQuery = buildUserQuery(request, lang);
 
     try {
@@ -48,11 +53,6 @@ export async function generateItinerary(request: ItineraryRequest, lang: Languag
         });
 
         const description = response.text;
-        
-        if (!description) {
-            throw new Error("The API returned no description for the itinerary.");
-        }
-
         return { description, routeName: request.name };
 
     } catch (error) {

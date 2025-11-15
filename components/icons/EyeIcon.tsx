@@ -1,4 +1,3 @@
-
 import React from 'react';
 
 export default function EyeIcon({ className }: { className?: string }): React.ReactElement {

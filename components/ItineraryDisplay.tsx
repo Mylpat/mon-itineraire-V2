@@ -1,20 +1,24 @@
-
 import React from 'react';
 import type { ItineraryRequest, ItineraryResponse } from '../types';
-import { translations } from '../lib/i18n';
 import { TransportMode } from '../types';
+import { translations } from '../lib/i18n';
+
+import DepartIcon from './icons/DepartIcon';
+import DestinationIcon from './icons/DestinationIcon';
+import ArrowDownIcon from './icons/ArrowDownIcon';
 import SaveIcon from './icons/SaveIcon';
 
+
 interface ItineraryDisplayProps {
-  response: ItineraryResponse;
-  request: ItineraryRequest;
-  onSave: () => void;
-  isUpdate: boolean;
-  t: typeof translations.fr;
+    response: ItineraryResponse;
+    request: ItineraryRequest;
+    onSave: () => void;
+    isUpdate: boolean;
+    t: typeof translations.fr;
 }
 
-export default function ItineraryDisplay({ response, request, onSave, isUpdate, t }: ItineraryDisplayProps): React.ReactElement {
-  const { routeName, description } = response;
+export default function ItineraryDisplay({ response, request, onSave, isUpdate, t }: ItineraryDisplayProps) {
+  const { routeName } = response;
   const { transportMode, parcours } = request;
 
   const parcoursValues = parcours.map(p => p.value);
@@ -45,30 +49,50 @@ export default function ItineraryDisplay({ response, request, onSave, isUpdate, 
   const mailtoLink = `mailto:?subject=${encodeURIComponent(t.mailtoSubject)} ${encodeURIComponent(routeName)}&body=${encodeURIComponent(t.mailtoBody(routeName, mapUrl))}`;
 
   return (
-    <div className="mt-8 pt-8 border-t border-white/50">
-      <h2 className="text-3xl font-bold text-center text-blue-900 mb-6 sm:mb-8">{t.yourItinerary} : {routeName}</h2>
+    <div className="mt-8 pt-8 border-t border-white/20">
+      <h2 className="text-3xl font-bold text-center text-slate-800 mb-6 sm:mb-8">{t.yourItinerary} : {routeName}</h2>
       
       <div className="space-y-6">
-        <div className="bg-white/50 backdrop-blur-xl p-6 rounded-2xl shadow-lg border border-white/40">
-            <h3 className="text-xl font-semibold text-blue-900 mb-4 border-b pb-2 border-white/50">{t.itineraryDetails}</h3>
-            <div className="mt-4 text-slate-700 space-y-4 whitespace-pre-wrap">
-                {description}
+        <div className="bg-white/60 backdrop-blur-xl p-6 rounded-2xl shadow-lg border border-white/40">
+            <h3 className="text-xl font-semibold text-slate-900 mb-4 border-b pb-2 border-white/50">{t.itineraryReadyTitle}</h3>
+            
+            <div className="my-4 space-y-3 text-slate-800">
+                <div className="flex items-center gap-3">
+                    <DepartIcon className="h-6 w-6 text-green-600 shrink-0" />
+                    <div>
+                        <span className="text-xs font-semibold uppercase text-slate-500">{t.parcoursStart}</span>
+                        <p className="font-medium">{start}</p>
+                    </div>
+                </div>
+                {steps.map((step, index) => (
+                    <div key={index} className="flex items-center gap-3 pl-1">
+                        <ArrowDownIcon className="h-5 w-5 text-slate-400 shrink-0" />
+                        <div>
+                            <span className="text-xs font-semibold uppercase text-slate-500">{`${t.parcoursStep} ${index + 1}`}</span>
+                            <p className="font-medium">{step}</p>
+                        </div>
+                    </div>
+                ))}
+                <div className="flex items-center gap-3">
+                    <DestinationIcon className="h-6 w-6 text-red-600 shrink-0" />
+                    <div>
+                        <span className="text-xs font-semibold uppercase text-slate-500">{t.parcoursEnd}</span>
+                        <p className="font-medium">{destination}</p>
+                    </div>
+                </div>
             </div>
-        </div>
-
-        <div className="bg-white/50 backdrop-blur-xl p-6 rounded-2xl shadow-lg border border-white/40">
-            <h3 className="text-xl font-semibold text-blue-900 mb-4 border-b pb-2 border-white/50">{t.itineraryReadyTitle}</h3>
-            <div className="mt-4 text-slate-700 space-y-4">
-                <p className="text-lg">
+            
+            <div className="mt-4 pt-4 border-t border-white/50 text-slate-700 space-y-4">
+                <p>
                     {t.itineraryReadyBody1}
                 </p>
-                <p className="text-md">
+                <p>
                     {t.itineraryReadyBody2} <span className="font-bold">"{t.openInMapsButton}"</span>, le <span className="font-bold">QR code</span> à scanner, ou le lien <span className="font-bold">envoyé par e-mail</span>.
                 </p>
             </div>
         </div>
         
-        <div className="bg-white/50 backdrop-blur-xl p-6 rounded-2xl shadow-lg border border-white/40">
+        <div className="bg-white/60 backdrop-blur-xl p-6 rounded-2xl shadow-lg border border-white/40">
             <div className="flex flex-col md:flex-row items-center gap-6">
                 <div className="text-center flex-shrink-0">
                     <img src={qrCodeUrl} alt="QR Code pour l'itinéraire" className="rounded-xl border-4 border-white shadow-sm mx-auto" />

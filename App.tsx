@@ -1,13 +1,13 @@
-
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { GoogleGenAI } from "@google/genai";
+import { TransportMode, type ItineraryRequest, type ItineraryResponse, type SavedItinerary, type Coordinates } from './types';
+import { getTranslator, SUPPORTED_LANGUAGES, type Language } from './lib/i18n';
+import { generateItinerary } from './services/geminiService';
+import LanguageSwitcher from './components/LanguageSwitcher';
 import ItineraryForm from './components/ItineraryForm';
 import ItineraryDisplay from './components/ItineraryDisplay';
 import SavedItineraries from './components/SavedItineraries';
-import LanguageSwitcher from './components/LanguageSwitcher';
-import { generateItinerary } from './services/geminiService';
-import { getTranslator, type Language } from './lib/i18n';
-import type { ItineraryRequest, ItineraryResponse, SavedItinerary } from './types';
-import { TransportMode } from './types';
+import LogoIcon from './components/icons/LogoIcon';
 import SpinnerIcon from './components/icons/SpinnerIcon';
 
 const LOCAL_STORAGE_KEY = 'mon-itineraire-sauvegardes';
@@ -23,9 +23,7 @@ const createInitialRequest = (): ItineraryRequest => ({
   currentLocation: null,
 });
 
-const SUPPORTED_LANGUAGES: Language[] = ['fr', 'en', 'de', 'it', 'nl'];
-
-export default function App(): React.ReactElement {
+export default function App() {
   const [language, setLanguage] = useState<Language>(() => {
     const storedLang = localStorage.getItem(LANGUAGE_STORAGE_KEY);
     if (storedLang && SUPPORTED_LANGUAGES.includes(storedLang as Language)) {
@@ -35,11 +33,10 @@ export default function App(): React.ReactElement {
     if (SUPPORTED_LANGUAGES.includes(browserLang as Language)) {
       return browserLang as Language;
     }
-    return 'en'; // Default to English
+    return 'fr';
   });
-
-  const t = getTranslator(language);
   
+  const t = getTranslator(language);
   const [itineraryRequest, setItineraryRequest] = useState<ItineraryRequest>(createInitialRequest());
   const [itineraryResponse, setItineraryResponse] = useState<ItineraryResponse | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -47,6 +44,7 @@ export default function App(): React.ReactElement {
   const [savedItineraries, setSavedItineraries] = useState<SavedItinerary[]>([]);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [loadedItineraryId, setLoadedItineraryId] = useState<number | null>(null);
+  const resultsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     try {
@@ -67,14 +65,21 @@ export default function App(): React.ReactElement {
     }
   }, [savedItineraries]);
 
+  useEffect(() => {
+    if (itineraryResponse && !isLoading && resultsRef.current) {
+      setTimeout(() => {
+        resultsRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 100);
+    }
+  }, [itineraryResponse, isLoading]);
+  
   const handleLangChange = (lang: Language) => {
     setLanguage(lang);
     localStorage.setItem(LANGUAGE_STORAGE_KEY, lang);
   };
-  
+
   const handleRequestChange = (newRequest: ItineraryRequest) => {
     setItineraryRequest(newRequest);
-    // If form is changed, the displayed result is no longer valid
     if (itineraryResponse) {
       setItineraryResponse(null);
     }
@@ -155,22 +160,32 @@ export default function App(): React.ReactElement {
 
   const loadedItinerary = loadedItineraryId ? savedItineraries.find(it => it.id === loadedItineraryId) : null;
   const isUpdate = !!(loadedItinerary && itineraryRequest.name === loadedItinerary.request.name);
-  const isSavedItineraryLoaded = !!loadedItineraryId;
+  const isSavedItineraryLoaded = !!loadedItineraryId || (!!itineraryResponse && !isLoading);
+  const taglineParts = t.tagline.split('|');
 
   return (
     <div className="min-h-screen font-sans p-3 sm:p-4 md:p-8 text-slate-800">
       <div className="max-w-4xl mx-auto">
-        <header className="mb-8 text-center">
-            <div className="grid grid-cols-3 items-center">
-                <div className="flex-1"></div> {/* Spacer */}
-                <div className="text-center">
-                    <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-blue-900">JyVais</h1>
-                </div>
-                <div className="flex-1 flex justify-end">
+        <header className="mb-8">
+            <div className="relative text-center flex flex-col items-center gap-2">
+                <div className="absolute top-0 right-0 z-10">
                     <LanguageSwitcher currentLang={language} onLangChange={handleLangChange} />
                 </div>
+                <div className="flex items-center gap-4">
+                    <LogoIcon />
+                    <h1 className="text-5xl sm:text-6xl font-bold tracking-tight text-white">JyVais</h1>
+                </div>
+                <p className="text-lg text-violet-200 max-w-xs sm:max-w-none mx-auto">
+                  {taglineParts[0]}
+                  {taglineParts.length > 1 && (
+                      <>
+                          <br className="sm:hidden" />
+                          <span className="hidden sm:inline"> </span>
+                          {taglineParts[1]}
+                      </>
+                  )}
+                </p>
             </div>
-            <p className="text-lg text-slate-600">{t.tagline}</p>
         </header>
 
         {successMessage && (
@@ -180,7 +195,7 @@ export default function App(): React.ReactElement {
         )}
 
         <main className="space-y-8">
-          <div className="bg-white/40 backdrop-blur-xl p-6 sm:p-8 rounded-[28px] shadow-2xl shadow-blue-500/10 border border-white/50">
+          <div className="bg-white/70 backdrop-blur-2xl p-6 sm:p-8 rounded-[28px] shadow-2xl shadow-violet-900/20 border border-white/30">
             <ItineraryForm
               request={itineraryRequest}
               onChange={handleRequestChange}
@@ -192,10 +207,10 @@ export default function App(): React.ReactElement {
             />
 
             {isLoading && (
-              <div className="mt-8 flex flex-col items-center justify-center text-center">
-                <SpinnerIcon className="h-12 w-12 animate-spin text-slate-700" />
+              <div className="mt-8 flex flex-col items-center justify-center text-center text-slate-800">
+                <SpinnerIcon className="h-12 w-12 animate-spin" />
                 <p className="mt-4 text-lg font-semibold">{t.loadingTitle}</p>
-                <p className="text-slate-600">{t.loadingSubtitle}</p>
+                <p>{t.loadingSubtitle}</p>
               </div>
             )}
 
@@ -205,29 +220,30 @@ export default function App(): React.ReactElement {
                 <p>{error}</p>
               </div>
             )}
-
-            {itineraryResponse && !isLoading && (
-              <ItineraryDisplay 
-                response={itineraryResponse} 
-                request={itineraryRequest}
-                onSave={handleSaveItinerary}
-                isUpdate={isUpdate}
-                t={t}
-              />
-            )}
+            <div ref={resultsRef}>
+              {itineraryResponse && !isLoading && (
+                <ItineraryDisplay 
+                  response={itineraryResponse} 
+                  request={itineraryRequest}
+                  onSave={handleSaveItinerary}
+                  isUpdate={isUpdate}
+                  t={t}
+                />
+              )}
+            </div>
           </div>
           
           {savedItineraries.length > 0 && (
-            <SavedItineraries
-              itineraries={savedItineraries}
-              onView={handleViewItinerary}
-              onDelete={handleDeleteItinerary}
-              t={t}
-            />
+              <SavedItineraries
+                itineraries={savedItineraries}
+                onView={handleViewItinerary}
+                onDelete={handleDeleteItinerary}
+                t={t}
+              />
           )}
         </main>
         
-        <footer className="text-center mt-8 text-sm text-slate-500">
+        <footer className="text-center mt-8 text-sm text-violet-200/80">
             <p>{t.poweredBy}</p>
         </footer>
       </div>

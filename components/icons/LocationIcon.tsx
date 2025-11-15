@@ -1,4 +1,3 @@
-
 import React from 'react';
 
 export default function LocationIcon({ className }: { className?: string }): React.ReactElement {
