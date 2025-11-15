@@ -39,7 +39,7 @@ interface SavedItinerary {
 // ==========================================================================================
 const translations = {
   fr: {
-    tagline: "Créez vos itinéraires Google Maps en toute simplicité",
+    tagline: "Créez vos itinéraires Google Maps|en toute simplicité",
     saveSuccess: "Itinéraire sauvegardé avec succès !",
     updateSuccess: "Sauvegarde modifiée avec succès !",
     itineraryNameLabel: "Nom de l'itinéraire",
@@ -102,7 +102,7 @@ const translations = {
     createItineraryTitle: "Créer un itinéraire",
   },
   en: {
-    tagline: "Create your Google Maps routes with ease.",
+    tagline: "Create your Google Maps routes|with ease.",
     saveSuccess: "Itinerary saved successfully!",
     updateSuccess: "Save updated successfully!",
     itineraryNameLabel: "Itinerary Name",
@@ -196,7 +196,7 @@ const translations = {
     generationErrorTitle: "Fehler bei der Generierung",
     yourItinerary: "Ihre Route",
     itineraryReadyTitle: "Ihre Route ist fertig!",
-    itineraryReadyBody1: "Um detaillierte Anweisungen anzuzeigen und zu navigeren, öffnen Sie die Route bitte direkt in Google Maps.",
+    itineraryReadyBody1: "Um detaillierte Anweisungen anzuzeigen und zu navigieren, öffnen Sie die Route bitte direkt in Google Maps.",
     itineraryReadyBody2: "Sie können die Schaltfläche verwenden",
     openInMapsButton: "In Google Maps öffnen",
     qrCodeText: "Scannen, um auf Ihrem Handy zu öffnen.",
@@ -291,7 +291,7 @@ const translations = {
     createItineraryTitle: "Crea un itinerario",
   },
   nl: {
-    tagline: "Maak eenvoudig uw Google Maps-routes.",
+    tagline: "Maak eenvoudig uw|Google Maps-routes.",
     saveSuccess: "Route succesvol opgeslagen!",
     updateSuccess: "Opslag succesvol bijgewerkt!",
     itineraryNameLabel: "Naam van de route",
@@ -434,15 +434,23 @@ async function generateItinerary(request: ItineraryRequest, lang: Language): Pro
 // ==========================================================================================
 function LogoIcon({ className }: { className?: string }): React.ReactElement {
     return (
-        <div className={`inline-flex items-center justify-center w-12 h-12 bg-white rounded-xl shadow-md ${className}`}>
-             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M7.5 5.5C8.32843 5.5 9 6.17157 9 7C9 7.82843 8.32843 8.5 7.5 8.5C6.67157 8.5 6 7.82843 6 7C6 6.17157 6.67157 5.5 7.5 5.5Z" stroke="#A855F7" strokeWidth="1.5"/>
-                <text x="7.5" y="7.25" textAnchor="middle" alignmentBaseline="central" fill="#A855F7" fontSize="3" fontWeight="bold">A</text>
-                <path d="M16.5 15.5C17.3284 15.5 18 16.1716 18 17C18 17.8284 17.3284 18.5 16.5 18.5C15.6716 18.5 15 17.8284 15 17C15 16.1716 15.6716 15.5 16.5 15.5Z" stroke="#A855F7" strokeWidth="1.5"/>
-                <text x="16.5" y="17.25" textAnchor="middle" alignmentBaseline="central" fill="#A855F7" fontSize="3" fontWeight="bold">B</text>
-                <path d="M7.5 8.5C9.66667 10.5 14.3333 13.5 16.5 15.5" stroke="#A855F7" strokeWidth="1.5" strokeLinecap="round" strokeDasharray="2 2"/>
-            </svg>
-        </div>
+        <svg viewBox="0 0 100 100" className={`w-16 h-16 ${className}`} xmlns="http://www.w3.org/2000/svg" fill="none">
+            <rect width="100" height="100" rx="20" fill="#FBF9F7"/>
+            <path stroke="#E6D8D4" strokeWidth="2" d="M25 85L35 75M75 15L65 25M25 15L75 65M65 75L75 85M25 45L45 25M15 25L25 35"/>
+            <path d="M76 56C76 65.9411 67.9411 74 58 74C48.0589 74 40 65.9411 40 56C40 46.0589 58 28 58 28C58 28 76 46.0589 76 56Z" fill="#5E99F1"/>
+            <path d="M76 56C76 65.9411 67.9411 74 58 74C48.0589 74 40 65.9411 40 56C40 46.0589 58 28 58 28C58 28 76 46.0589 76 56Z" stroke="white" strokeWidth="2"/>
+            <foreignObject x="40" y="49" width="36" height="30">
+                {/* FIX: Removed 'xmlns' attribute from <p> tag to resolve TypeScript error. Modern browsers can render HTML within <foreignObject> without it. */}
+                <p className="text-white font-bold text-lg text-center">B</p>
+            </foreignObject>
+            <path d="M52 38C52 45.732 45.732 52 38 52C30.268 52 24 45.732 24 38C24 30.268 38 16 38 16C38 16 52 30.268 52 38Z" fill="#F26659"/>
+            <path d="M52 38C52 45.732 45.732 52 38 52C30.268 52 24 45.732 24 38C24 30.268 38 16 38 16C38 16 52 30.268 52 38Z" stroke="white" strokeWidth="2"/>
+            <foreignObject x="24" y="31" width="28" height="30">
+                {/* FIX: Removed 'xmlns' attribute from <p> tag to resolve TypeScript error. Modern browsers can render HTML within <foreignObject> without it. */}
+                <p className="text-white font-bold text-lg text-center">A</p>
+            </foreignObject>
+            <path d="M42.5 48.5C46.6667 53.3333 52.8 54.6 55 54C57.2 53.4 57.5 50.5 54 48.5C50.5 46.5 45.3333 46.8333 42.5 48.5Z" stroke="#5E99F1" strokeWidth="3" strokeLinecap="round"/>
+        </svg>
     );
 }
 function DepartIcon({ className }: { className?: string }): React.ReactElement {
@@ -1308,6 +1316,7 @@ function App() {
   const loadedItinerary = loadedItineraryId ? savedItineraries.find(it => it.id === loadedItineraryId) : null;
   const isUpdate = !!(loadedItinerary && itineraryRequest.name === loadedItinerary.request.name);
   const isSavedItineraryLoaded = !!loadedItineraryId || (!!itineraryResponse && !isLoading);
+  const taglineParts = t.tagline.split('|');
 
   return (
     <div className="min-h-screen font-sans p-3 sm:p-4 md:p-8 text-slate-800">
@@ -1321,7 +1330,16 @@ function App() {
                     <LogoIcon />
                     <h1 className="text-5xl sm:text-6xl font-bold tracking-tight text-white">JyVais</h1>
                 </div>
-                <p className="text-lg text-violet-200">{t.tagline}</p>
+                <p className="text-lg text-violet-200 max-w-xs sm:max-w-none mx-auto">
+                  {taglineParts[0]}
+                  {taglineParts.length > 1 && (
+                      <>
+                          <br className="sm:hidden" />
+                          <span className="hidden sm:inline"> </span>
+                          {taglineParts[1]}
+                      </>
+                  )}
+                </p>
             </div>
         </header>
 
@@ -1371,14 +1389,12 @@ function App() {
           </div>
           
           {savedItineraries.length > 0 && (
-            <div className="bg-white/70 backdrop-blur-xl rounded-[28px] shadow-2xl shadow-violet-500/20 border border-white/30">
               <SavedItineraries
                 itineraries={savedItineraries}
                 onView={handleViewItinerary}
                 onDelete={handleDeleteItinerary}
                 t={t}
               />
-            </div>
           )}
         </main>
         
@@ -1392,7 +1408,7 @@ function App() {
 
 
 // ==========================================================================================
-// FILE: index.tsx (Original content, now the entry point)
+// RENDER THE APP
 // ==========================================================================================
 const rootElement = document.getElementById('root');
 if (!rootElement) {
