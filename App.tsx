@@ -66,12 +66,12 @@ export default function App() {
   }, [savedItineraries]);
 
   useEffect(() => {
-    if (itineraryResponse && !isLoading && resultsRef.current) {
+    if ((itineraryResponse || error || isLoading) && resultsRef.current) {
       setTimeout(() => {
         resultsRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }, 100);
     }
-  }, [itineraryResponse, isLoading]);
+  }, [itineraryResponse, error, isLoading]);
   
   const handleLangChange = (lang: Language) => {
     setLanguage(lang);
@@ -164,9 +164,9 @@ export default function App() {
   const taglineParts = t.tagline.split('|');
 
   return (
-    <div className="min-h-screen font-sans p-3 sm:p-4 md:p-8 text-slate-800">
+    <div className="min-h-screen font-sans p-3 sm:p-4 md:p-8 text-[#5D0079]">
       <div className="max-w-4xl mx-auto">
-        <header className="mb-8">
+        <header className="mb-4">
             <div className="relative text-center flex flex-col items-center gap-2">
                 <div className="absolute top-0 right-0 z-10">
                     <LanguageSwitcher currentLang={language} onLangChange={handleLangChange} />
@@ -194,7 +194,7 @@ export default function App() {
           </div>
         )}
 
-        <main className="space-y-8">
+        <main className="space-y-6">
           <div className="bg-white/70 backdrop-blur-2xl p-6 sm:p-8 rounded-[28px] shadow-2xl shadow-violet-900/20 border border-white/30">
             <ItineraryForm
               request={itineraryRequest}
@@ -205,33 +205,36 @@ export default function App() {
               isSavedItineraryLoaded={isSavedItineraryLoaded}
               t={t}
             />
+          </div>
 
-            {isLoading && (
-              <div className="mt-8 flex flex-col items-center justify-center text-center text-slate-800">
-                <SpinnerIcon className="h-12 w-12 animate-spin" />
-                <p className="mt-4 text-lg font-semibold">{t.loadingTitle}</p>
-                <p>{t.loadingSubtitle}</p>
-              </div>
-            )}
+          {(isLoading || error || itineraryResponse) && (
+            <div ref={resultsRef} className="bg-white/70 backdrop-blur-2xl p-6 sm:p-8 rounded-[28px] shadow-2xl shadow-violet-900/20 border border-white/30">
+              {isLoading && (
+                <div className="flex flex-col items-center justify-center text-center text-[#5D0079]">
+                  <SpinnerIcon className="h-12 w-12 animate-spin" />
+                  <p className="mt-4 text-lg font-semibold">{t.loadingTitle}</p>
+                  <p>{t.loadingSubtitle}</p>
+                </div>
+              )}
 
-            {error && (
-              <div className="mt-8 p-4 bg-red-500/20 text-red-800 border border-red-500/30 rounded-2xl text-center">
-                <p className="font-bold">{t.generationErrorTitle}</p>
-                <p>{error}</p>
-              </div>
-            )}
-            <div ref={resultsRef}>
+              {error && (
+                <div className="p-4 bg-red-500/20 text-red-800 border border-red-500/30 rounded-2xl text-center">
+                  <p className="font-bold">{t.generationErrorTitle}</p>
+                  <p>{error}</p>
+                </div>
+              )}
+              
               {itineraryResponse && !isLoading && (
-                <ItineraryDisplay 
-                  response={itineraryResponse} 
-                  request={itineraryRequest}
-                  onSave={handleSaveItinerary}
-                  isUpdate={isUpdate}
-                  t={t}
-                />
+                  <ItineraryDisplay 
+                    response={itineraryResponse} 
+                    request={itineraryRequest}
+                    onSave={handleSaveItinerary}
+                    isUpdate={isUpdate}
+                    t={t}
+                  />
               )}
             </div>
-          </div>
+          )}
           
           {savedItineraries.length > 0 && (
               <SavedItineraries

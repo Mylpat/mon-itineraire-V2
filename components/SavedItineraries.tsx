@@ -51,7 +51,7 @@ export default function SavedItineraries({ itineraries, onView, onDelete, t }: S
   return (
     <div className="p-6 sm:p-8 bg-white/60 backdrop-blur-xl rounded-[28px] shadow-2xl shadow-violet-500/20 border border-white/30">
       <div className="mb-4">
-        <h2 className="text-2xl font-bold text-slate-800 mb-4">{t.savedItinerariesTitle}</h2>
+        <h2 className="text-2xl font-bold text-[#5D0079] mb-4">{t.savedItinerariesTitle}</h2>
         <div className="flex items-center gap-2">
             <input
                 type="text"
@@ -61,9 +61,9 @@ export default function SavedItineraries({ itineraries, onView, onDelete, t }: S
                     setSearchTerm(e.target.value);
                     setCurrentPage(1); // Reset to first page on new search
                 }}
-                className="flex-grow px-3 py-2 bg-white/50 border-0 rounded-xl focus:ring-2 focus:ring-violet-400 outline-none transition text-sm placeholder:text-slate-600/80"
+                className="flex-grow px-3 py-2 bg-white/50 border-0 rounded-xl focus:ring-2 focus:ring-violet-400 outline-none transition text-sm placeholder:text-[#5D0079]/80"
             />
-            <button onClick={toggleSortOrder} title={t.sortByName} className="p-2 text-slate-600 hover:bg-white/30 rounded-full transition">
+            <button onClick={toggleSortOrder} title={t.sortByName} className="p-2 text-[#5D0079] hover:bg-white/30 rounded-full transition">
                 {sortOrder === 'asc' ? <SortAscendingIcon className="h-5 w-5" /> : <SortDescendingIcon className="h-5 w-5" />}
             </button>
         </div>
@@ -77,11 +77,11 @@ export default function SavedItineraries({ itineraries, onView, onDelete, t }: S
             <div key={it.id} className="flex items-center justify-between p-3 bg-white/40 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 border border-white/30">
               <button
                 onClick={() => onView(it)}
-                className="font-semibold text-slate-800 truncate text-left hover:text-purple-700 transition focus:outline-none focus:ring-1 focus:ring-sky-300 rounded-sm p-1 -m-1"
+                className="font-semibold text-[#5D0079] truncate text-left hover:text-purple-700 transition focus:outline-none focus:ring-1 focus:ring-sky-300 rounded-sm p-1 -m-1"
                 title={`${it.request.name}${stepsText}`}
               >
                 {it.request.name}
-                {stepsText && <span className="font-normal text-slate-600">{stepsText}</span>}
+                {stepsText && <span className="font-normal text-[#5D0079]">{stepsText}</span>}
               </button>
               <div className="flex items-center space-x-1 sm:space-x-2 flex-shrink-0">
                 <button onClick={() => onView(it)} title={t.viewAndLoad} className="p-2 text-sky-600 hover:bg-sky-100/50 rounded-full transition"><EyeIcon className="h-5 w-5"/></button>
@@ -90,7 +90,7 @@ export default function SavedItineraries({ itineraries, onView, onDelete, t }: S
             </div>
           );
         }) : (
-            <p className="text-center text-slate-500 pt-10">{t.noItinerariesFound}</p>
+            <p className="text-center text-[#5D0079] pt-10">{t.noItinerariesFound}</p>
         )}
       </div>
 
@@ -99,17 +99,17 @@ export default function SavedItineraries({ itineraries, onView, onDelete, t }: S
             <button 
                 onClick={() => handlePageChange(currentPage - 1)} 
                 disabled={currentPage === 1}
-                className="px-4 py-2 text-sm font-semibold bg-white/30 text-slate-800 rounded-xl hover:bg-white/50 disabled:bg-white/10 disabled:text-slate-400 disabled:cursor-not-allowed transition"
+                className="px-4 py-2 text-sm font-semibold bg-white/30 text-[#5D0079] rounded-xl hover:bg-white/50 disabled:bg-white/10 disabled:text-[#5D0079]/50 disabled:cursor-not-allowed transition"
             >
                 {t.previousPage}
             </button>
-            <span className="text-sm text-slate-600">
+            <span className="text-sm text-[#5D0079]">
                 {t.page} {currentPage} {t.of} {totalPages}
             </span>
             <button 
                 onClick={() => handlePageChange(currentPage + 1)} 
                 disabled={currentPage === totalPages}
-                className="px-4 py-2 text-sm font-semibold bg-white/30 text-slate-800 rounded-xl hover:bg-white/50 disabled:bg-white/10 disabled:text-slate-400 disabled:cursor-not-allowed transition"
+                className="px-4 py-2 text-sm font-semibold bg-white/30 text-[#5D0079] rounded-xl hover:bg-white/50 disabled:bg-white/10 disabled:text-[#5D0079]/50 disabled:cursor-not-allowed transition"
             >
                 {t.nextPage}
             </button>

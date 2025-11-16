@@ -12,7 +12,7 @@ import DragHandleIcon from './icons/DragHandleIcon';
 import LocationIcon from './icons/LocationIcon';
 import PlusIcon from './icons/PlusIcon';
 import ReturnIcon from './icons/ReturnIcon';
-import TrashIcon from './icons/TrashIcon';
+import CrossIcon from './icons/CrossIcon'; // Remplacer TrashIcon par CrossIcon
 
 interface ItineraryFormProps {
     request: ItineraryRequest;
@@ -121,14 +121,14 @@ export default function ItineraryForm({ request, onChange, onGenerate, isLoading
       <button 
           type="button" 
           onClick={handlePrepareReturn} 
-          className="inline-flex items-center gap-2 text-slate-800 font-semibold hover:text-slate-900 transition py-2 px-4 bg-amber-300/50 hover:bg-amber-400/80 rounded-lg shadow-sm"
+          className="inline-flex items-center gap-2 text-[#5D0079] font-semibold hover:text-[#5D0079] transition py-2 px-4 bg-amber-300/50 hover:bg-amber-400/80 rounded-lg shadow-sm"
       >
           <ReturnIcon className="h-5 w-5" />
           {t.prepareReturn}
       </button>
   ) : null;
   
-  const baseInputClass = "w-full px-4 py-3 text-lg bg-white/50 border-0 rounded-xl focus:ring-2 focus:ring-violet-400 outline-none transition placeholder:text-slate-600/80 text-slate-900";
+  const baseInputClass = "w-full px-4 py-1.5 text-sm bg-white/50 border-0 rounded-xl focus:ring-2 focus:ring-violet-400 outline-none transition placeholder:text-[#5D0079]/80 text-[#5D0079]";
 
   const transportOptions = [
     { mode: TransportMode.CAR, icon: CarIcon, label: t.transportModes.CAR },
@@ -136,14 +136,14 @@ export default function ItineraryForm({ request, onChange, onGenerate, isLoading
   ];
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form onSubmit={handleSubmit} className="space-y-4">
        <div className="flex items-center gap-3">
-            <LocationIcon className="h-6 w-6 text-slate-800" />
-            <h2 className="text-2xl font-bold text-slate-800">{t.createItineraryTitle}</h2>
+            <LocationIcon className="h-6 w-6 text-[#5D0079]" />
+            <h2 className="text-2xl font-bold text-[#5D0079]">{t.createItineraryTitle}</h2>
         </div>
 
       <div className="space-y-2">
-        <label htmlFor="name" className="block text-sm font-medium text-slate-700">{t.itineraryNameLabel}</label>
+        <label htmlFor="name" className="block text-sm font-medium text-[#5D0079]">{t.itineraryNameLabel}</label>
         <div className="relative">
             <input
                 type="text"
@@ -154,14 +154,14 @@ export default function ItineraryForm({ request, onChange, onGenerate, isLoading
                 className={`${baseInputClass} pr-10`}
                 required
             />
-            <div className="absolute inset-y-0 right-0 px-3 flex items-center pointer-events-none text-slate-500">
-                <svg className="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M12 21a9 9 0 100-18 9 9 0 000 18z" /><path strokeLinecap="round" strokeLinejoin="round" d="M12 3.532a9.001 9.001 0 010 16.936m0-16.936a9 9 0 000 16.936" /></svg>
+            <div className="absolute inset-y-0 right-0 px-3 flex items-center pointer-events-none text-[#5D0079]/70">
+                <svg className="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M12 21a9 9 0 100-18 9 9 0 000 18z" /><path strokeLinecap="round" strokeLinejoin="round" d="M12 3.532a9.001 a9.001 0 010 16.936m0-16.936a9 9 0 000 16.936" /></svg>
             </div>
         </div>
       </div>
 
       <div className="space-y-2">
-        <label className="block text-sm font-medium text-slate-700">{t.transportModeLabel}</label>
+        <label className="block text-sm font-medium text-[#5D0079]">{t.transportModeLabel}</label>
         <div className="grid grid-cols-2 gap-2 sm:gap-3">
           {transportOptions.map(({ mode, icon: Icon, label }) => (
             <div key={mode}>
@@ -176,7 +176,7 @@ export default function ItineraryForm({ request, onChange, onGenerate, isLoading
               />
               <label 
                 htmlFor={`transport-${mode}`}
-                className="flex flex-col sm:flex-row items-center justify-center gap-2 p-2 text-slate-700 bg-white/50 rounded-xl border-2 border-transparent cursor-pointer transition-all peer-checked:border-violet-500 peer-checked:bg-violet-100/70 peer-checked:text-violet-800 peer-checked:shadow-md hover:bg-white/80"
+                className="flex flex-row items-center justify-center gap-2 p-2 text-[#5D0079] bg-white/50 rounded-xl border-2 border-transparent cursor-pointer transition-all peer-checked:border-violet-500 peer-checked:bg-violet-100/70 peer-checked:text-violet-800 peer-checked:shadow-md hover:bg-white/80"
               >
                 <Icon className="h-6 w-6" />
                 <span className="font-semibold text-sm sm:text-base">{label}</span>
@@ -188,8 +188,8 @@ export default function ItineraryForm({ request, onChange, onGenerate, isLoading
       
       <div className="space-y-3">
         <div>
-            <h3 className="block text-sm font-medium text-slate-700">{t.parcoursLabel}</h3>
-            <p className="text-xs text-slate-600">{t.parcoursSublabel}</p>
+            <h3 className="block text-sm font-medium text-[#5D0079]">{t.parcoursLabel}</h3>
+            <p className="text-xs text-[#5D0079]">{t.parcoursSublabel}</p>
         </div>
         {parcours.map((point, index) => {
           const isStart = index === 0;
@@ -212,25 +212,25 @@ export default function ItineraryForm({ request, onChange, onGenerate, isLoading
           return (
              <div
               key={point.id}
-              className={`flex flex-col sm:flex-row sm:items-center sm:gap-2 transition-opacity ${draggedIndex === index ? 'opacity-50' : ''}`}
+              className={`space-y-1 transition-opacity ${draggedIndex === index ? 'opacity-50' : ''}`}
               onDragOver={handleDragOver}
               onDrop={(e) => handleDrop(e, index)}
             >
-              <div className="flex items-center gap-2 mb-1 sm:mb-0 sm:w-32 sm:shrink-0">
-                  {isStart && <DepartIcon className="h-6 w-6" />}
-                  {isDestination && <DestinationIcon className="h-6 w-6" />}
-                  {isStep && <div className="w-6 h-6"></div>}
-                  <label htmlFor={`parcours-${index}`} className="font-semibold text-slate-700">{labelText}</label>
+              <div className="flex items-center gap-2">
+                {isStart && <DepartIcon className="h-5 w-5" />}
+                {isDestination && <DestinationIcon className="h-5 w-5" />}
+                {isStep && <div className="w-5 h-5 flex items-center justify-center font-mono text-xs text-[#5D0079] border border-[#5D0079]/50 rounded-full shrink-0">{index}</div>}
+                <label htmlFor={`parcours-${index}`} className="block text-sm font-medium text-[#5D0079]">{labelText}</label>
               </div>
 
-              <div className="flex items-center gap-2 flex-grow">
+              <div className="flex items-center gap-2">
                   <div
                       className="p-1 cursor-move touch-none"
                       draggable
                       onDragStart={(e) => handleDragStart(e, index)}
                       onDragEnd={handleDragEnd}
                   >
-                      <DragHandleIcon className="h-6 w-6 text-slate-500 hover:text-slate-700" />
+                      <DragHandleIcon className="h-6 w-6 text-[#5D0079]/80 hover:text-[#5D0079]" />
                   </div>
                   <div className="relative flex-grow">
                       <input
@@ -247,20 +247,18 @@ export default function ItineraryForm({ request, onChange, onGenerate, isLoading
                               <SendIcon className="h-5 w-5" />
                           </button>
                       )}
+                      {isStep && (
+                          <button type="button" onClick={() => handleRemoveStep(index)} className="absolute inset-y-0 right-0 px-3 flex items-center text-red-500 hover:text-red-700 transition">
+                              <CrossIcon className="h-5 w-5" />
+                          </button>
+                      )}
                   </div>
-                  {isStep ? (
-                      <button type="button" onClick={() => handleRemoveStep(index)} className="p-1 text-red-500 hover:text-red-700 transition">
-                          <TrashIcon className="h-5 w-5" />
-                      </button>
-                  ) : (
-                      <div className="w-[28px] shrink-0"></div>
-                  )}
               </div>
             </div>
           );
         })}
-        <div className="pl-12 flex items-center flex-wrap gap-4">
-          <button type="button" onClick={handleAddStep} className="inline-flex items-center gap-2 text-slate-800 font-semibold hover:text-slate-900 transition py-2 px-4 bg-white/50 hover:bg-white/80 rounded-lg shadow-sm">
+        <div className="pl-10 flex items-center flex-wrap gap-4">
+          <button type="button" onClick={handleAddStep} className="inline-flex items-center gap-2 text-[#5D0079] font-semibold hover:text-[#5D0079] transition py-2 px-4 bg-white/50 hover:bg-white/80 rounded-lg shadow-sm">
             <PlusIcon className="h-5 w-5" /> {t.addStep}
           </button>
           {prepareReturnButton}
@@ -269,11 +267,11 @@ export default function ItineraryForm({ request, onChange, onGenerate, isLoading
       
       {error && <p className="text-red-600 text-sm text-center">{error}</p>}
 
-      <div className="flex flex-col sm:flex-row items-center gap-4 pt-4">
-        <button type="submit" disabled={isLoading} className="flex-grow w-full flex justify-center items-center bg-white text-purple-700 font-bold py-4 px-4 rounded-xl hover:bg-purple-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition-transform transform hover:scale-105 disabled:bg-gray-400 disabled:scale-100 shadow-lg">
+      <div className="flex flex-col sm:flex-row items-center gap-4 pt-2">
+        <button type="submit" disabled={isLoading} className="flex-grow w-full flex justify-center items-center bg-white text-purple-700 font-bold py-3 px-4 rounded-xl hover:bg-purple-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition-transform transform hover:scale-105 disabled:bg-gray-400 disabled:scale-100 shadow-lg">
           {isLoading ? t.generating : t.generate}
         </button>
-        <button type="button" onClick={onReset} className="flex-shrink-0 bg-purple-200/20 text-white font-bold py-4 px-8 rounded-xl hover:bg-purple-200/40 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-400 transition">
+        <button type="button" onClick={onReset} className="w-full sm:w-auto flex-shrink-0 bg-violet-200 text-violet-800 font-bold py-3 px-8 rounded-xl hover:bg-violet-300 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-violet-400">
           {t.reset}
         </button>
       </div>

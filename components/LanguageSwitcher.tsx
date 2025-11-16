@@ -60,7 +60,7 @@ export default function LanguageSwitcher({ currentLang, onLangChange }: Language
               <button
                 key={langCode}
                 onClick={() => { onLangChange(langCode); setIsOpen(false); }}
-                className="flex items-center gap-3 w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                className="flex items-center gap-3 w-full text-left px-4 py-2 text-sm text-[#5D0079] hover:bg-gray-100"
                 role="menuitem"
               >
                 <FlagComponent className="h-5 w-5 rounded-full" />

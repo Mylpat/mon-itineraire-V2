@@ -1,6 +1,8 @@
+import type { ItineraryRequest } from '../types';
+
 export const translations = {
   fr: {
-    tagline: "Créez vos itinéraires Google Maps|en toute simplicité",
+    tagline: "Vos itinéraires, simplement.",
     saveSuccess: "Itinéraire sauvegardé avec succès !",
     updateSuccess: "Sauvegarde modifiée avec succès !",
     itineraryNameLabel: "Nom de l'itinéraire",
@@ -36,8 +38,28 @@ export const translations = {
     openInMapsButton: "Ouvrir dans Google Maps",
     qrCodeText: "Flashez pour ouvrir sur votre mobile.",
     sendByEmail: "Envoyer par e-mail",
-    mailtoSubject: "Itinéraire :",
-    mailtoBody: (routeName: string, mapUrl: string) => `Bonjour,\n\nVoici le lien vers l'itinéraire "${routeName}":\n${mapUrl}`,
+    mailtoSubject: (routeName: string) => `Itinéraire : ${routeName}`,
+    emailBodyTitle: "Votre itinéraire",
+    emailBodyDeparture: "Départ",
+    emailBodyStep: "Étape",
+    emailBodyDestination: "Destination",
+    emailBodyLinkText: "Pour consulter les instructions détaillées et naviguer, veuillez ouvrir l'itinéraire directement dans Google Maps ici",
+    mailtoBody: (request: ItineraryRequest, mapUrl: string) => {
+        const t = translations.fr;
+        const start = request.parcours[0]?.value || '';
+        const destination = request.parcours[request.parcours.length - 1]?.value || '';
+        const steps = request.parcours.slice(1, -1).filter(s => s.value.trim() !== '');
+
+        let body = `${t.emailBodyTitle} "${request.name}"\n\n`;
+        body += `${t.emailBodyDeparture} : ${start}\n`;
+        steps.forEach((step, index) => {
+          body += `${t.emailBodyStep} ${index + 1} : ${step.value}\n`;
+        });
+        body += `${t.emailBodyDestination} : ${destination}\n\n`;
+        body += `${t.emailBodyLinkText} : ${mapUrl}`;
+        
+        return body;
+    },
     saveItinerary: "Sauvegarder l'itinéraire",
     updateItinerary: "Modifier sauvegarde",
     savedItinerariesTitle: "Mes itinéraires sauvegardés",
@@ -63,7 +85,7 @@ export const translations = {
     createItineraryTitle: "Créer un itinéraire",
   },
   en: {
-    tagline: "Create your Google Maps routes|with ease.",
+    tagline: "Your routes, simplified.",
     saveSuccess: "Itinerary saved successfully!",
     updateSuccess: "Save updated successfully!",
     itineraryNameLabel: "Itinerary Name",
@@ -99,8 +121,28 @@ export const translations = {
     openInMapsButton: "Open in Google Maps",
     qrCodeText: "Scan to open on your mobile.",
     sendByEmail: "Send by e-mail",
-    mailtoSubject: "Itinerary:",
-    mailtoBody: (routeName: string, mapUrl: string) => `Hello,\n\nHere is the link for the itinerary "${routeName}":\n${mapUrl}`,
+    mailtoSubject: (routeName: string) => `Itinerary: ${routeName}`,
+    emailBodyTitle: "Your itinerary",
+    emailBodyDeparture: "Departure",
+    emailBodyStep: "Step",
+    emailBodyDestination: "Destination",
+    emailBodyLinkText: "To view detailed instructions and navigate, please open the itinerary directly in Google Maps here",
+    mailtoBody: (request: ItineraryRequest, mapUrl: string) => {
+        const t = translations.en;
+        const start = request.parcours[0]?.value || '';
+        const destination = request.parcours[request.parcours.length - 1]?.value || '';
+        const steps = request.parcours.slice(1, -1).filter(s => s.value.trim() !== '');
+
+        let body = `${t.emailBodyTitle} "${request.name}"\n\n`;
+        body += `${t.emailBodyDeparture} : ${start}\n`;
+        steps.forEach((step, index) => {
+          body += `${t.emailBodyStep} ${index + 1} : ${step.value}\n`;
+        });
+        body += `${t.emailBodyDestination} : ${destination}\n\n`;
+        body += `${t.emailBodyLinkText} : ${mapUrl}`;
+        
+        return body;
+    },
     saveItinerary: "Save Itinerary",
     updateItinerary: "Update Save",
     savedItinerariesTitle: "My saved itineraries",
@@ -126,7 +168,7 @@ export const translations = {
     createItineraryTitle: "Create an itinerary",
   },
   de: {
-    tagline: "Erstellen Sie Ihre Google Maps-Routen ganz einfach.",
+    tagline: "Ihre Routen, einfach erstellt.",
     saveSuccess: "Route erfolgreich gespeichert!",
     updateSuccess: "Speicherung erfolgreich aktualisiert!",
     itineraryNameLabel: "Name der Route",
@@ -162,8 +204,28 @@ export const translations = {
     openInMapsButton: "In Google Maps öffnen",
     qrCodeText: "Scannen, um auf Ihrem Handy zu öffnen.",
     sendByEmail: "Per E-Mail senden",
-    mailtoSubject: "Route:",
-    mailtoBody: (routeName: string, mapUrl: string) => `Hallo,\n\nhier ist der Link zur Route "${routeName}":\n${mapUrl}`,
+    mailtoSubject: (routeName: string) => `Route: ${routeName}`,
+    emailBodyTitle: "Ihre Route",
+    emailBodyDeparture: "Start",
+    emailBodyStep: "Etappe",
+    emailBodyDestination: "Ziel",
+    emailBodyLinkText: "Um detaillierte Anweisungen anzuzeigen und zu navigieren, öffnen Sie die Route bitte direkt in Google Maps hier",
+    mailtoBody: (request: ItineraryRequest, mapUrl: string) => {
+        const t = translations.de;
+        const start = request.parcours[0]?.value || '';
+        const destination = request.parcours[request.parcours.length - 1]?.value || '';
+        const steps = request.parcours.slice(1, -1).filter(s => s.value.trim() !== '');
+
+        let body = `${t.emailBodyTitle} "${request.name}"\n\n`;
+        body += `${t.emailBodyDeparture} : ${start}\n`;
+        steps.forEach((step, index) => {
+          body += `${t.emailBodyStep} ${index + 1} : ${step.value}\n`;
+        });
+        body += `${t.emailBodyDestination} : ${destination}\n\n`;
+        body += `${t.emailBodyLinkText} : ${mapUrl}`;
+        
+        return body;
+    },
     saveItinerary: "Route speichern",
     updateItinerary: "Speicherung aktualisieren",
     savedItinerariesTitle: "Meine gespeicherten Routen",
@@ -189,7 +251,7 @@ export const translations = {
     createItineraryTitle: "Route erstellen",
   },
   it: {
-    tagline: "Crea i tuoi percorsi su Google Maps con facilità.",
+    tagline: "I tuoi percorsi, semplici.",
     saveSuccess: "Itinerario salvato con successo!",
     updateSuccess: "Salvataggio aggiornato con successo!",
     itineraryNameLabel: "Nome itinerario",
@@ -225,8 +287,28 @@ export const translations = {
     openInMapsButton: "Apri in Google Maps",
     qrCodeText: "Scansiona per aprire sul tuo cellulare.",
     sendByEmail: "Invia per e-mail",
-    mailtoSubject: "Itinerario:",
-    mailtoBody: (routeName: string, mapUrl: string) => `Ciao,\n\nEcco il link per l'itinerario "${routeName}":\n${mapUrl}`,
+    mailtoSubject: (routeName: string) => `Itinerario: ${routeName}`,
+    emailBodyTitle: "Il tuo itinerario",
+    emailBodyDeparture: "Partenza",
+    emailBodyStep: "Tappa",
+    emailBodyDestination: "Destinazione",
+    emailBodyLinkText: "Per visualizzare le istruzioni dettagliate e navigare, apri l'itinerario direttamente in Google Maps qui",
+    mailtoBody: (request: ItineraryRequest, mapUrl: string) => {
+        const t = translations.it;
+        const start = request.parcours[0]?.value || '';
+        const destination = request.parcours[request.parcours.length - 1]?.value || '';
+        const steps = request.parcours.slice(1, -1).filter(s => s.value.trim() !== '');
+
+        let body = `${t.emailBodyTitle} "${request.name}"\n\n`;
+        body += `${t.emailBodyDeparture} : ${start}\n`;
+        steps.forEach((step, index) => {
+          body += `${t.emailBodyStep} ${index + 1} : ${step.value}\n`;
+        });
+        body += `${t.emailBodyDestination} : ${destination}\n\n`;
+        body += `${t.emailBodyLinkText} : ${mapUrl}`;
+        
+        return body;
+    },
     saveItinerary: "Salva Itinerario",
     updateItinerary: "Aggiorna Salvataggio",
     savedItinerariesTitle: "I miei itinerari salvati",
@@ -252,7 +334,7 @@ export const translations = {
     createItineraryTitle: "Crea un itinerario",
   },
   nl: {
-    tagline: "Maak eenvoudig uw|Google Maps-routes.",
+    tagline: "Uw routes, eenvoudig.",
     saveSuccess: "Route succesvol opgeslagen!",
     updateSuccess: "Opslag succesvol bijgewerkt!",
     itineraryNameLabel: "Naam van de route",
@@ -288,8 +370,28 @@ export const translations = {
     openInMapsButton: "Openen in Google Maps",
     qrCodeText: "Scan om te openen op uw mobiel.",
     sendByEmail: "Verstuur per e-mail",
-    mailtoSubject: "Route:",
-    mailtoBody: (routeName: string, mapUrl: string) => `Hallo,\n\nHier is de link voor de route "${routeName}":\n${mapUrl}`,
+    mailtoSubject: (routeName: string) => `Route: ${routeName}`,
+    emailBodyTitle: "Uw route",
+    emailBodyDeparture: "Start",
+    emailBodyStep: "Etappe",
+    emailBodyDestination: "Bestemming",
+    emailBodyLinkText: "Om gedetailleerde instructies te bekijken en te navigeren, opent u de route rechtstreeks in Google Maps hier",
+    mailtoBody: (request: ItineraryRequest, mapUrl: string) => {
+        const t = translations.nl;
+        const start = request.parcours[0]?.value || '';
+        const destination = request.parcours[request.parcours.length - 1]?.value || '';
+        const steps = request.parcours.slice(1, -1).filter(s => s.value.trim() !== '');
+
+        let body = `${t.emailBodyTitle} "${request.name}"\n\n`;
+        body += `${t.emailBodyDeparture} : ${start}\n`;
+        steps.forEach((step, index) => {
+          body += `${t.emailBodyStep} ${index + 1} : ${step.value}\n`;
+        });
+        body += `${t.emailBodyDestination} : ${destination}\n\n`;
+        body += `${t.emailBodyLinkText} : ${mapUrl}`;
+        
+        return body;
+    },
     saveItinerary: "Route opslaan",
     updateItinerary: "Opslag bijwerken",
     savedItinerariesTitle: "Mijn opgeslagen routes",
