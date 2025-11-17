@@ -12,7 +12,28 @@ import DragHandleIcon from './icons/DragHandleIcon';
 import LocationIcon from './icons/LocationIcon';
 import PlusIcon from './icons/PlusIcon';
 import ReturnIcon from './icons/ReturnIcon';
-import CrossIcon from './icons/CrossIcon'; // Remplacer TrashIcon par CrossIcon
+import CrossIcon from './icons/CrossIcon';
+import MicrophoneIcon from './icons/MicrophoneIcon';
+
+// FIX: Define SpeechRecognition interface to resolve type error.
+interface SpeechRecognition {
+  lang: string;
+  interimResults: boolean;
+  maxAlternatives: number;
+  onstart: () => void;
+  onresult: (event: any) => void;
+  onerror: (event: any) => void;
+  onend: () => void;
+  start: () => void;
+  stop: () => void;
+}
+
+declare global {
+  interface Window {
+    SpeechRecognition: any;
+    webkitSpeechRecognition: any;
+  }
+}
 
 interface ItineraryFormProps {
     request: ItineraryRequest;
@@ -27,6 +48,8 @@ interface ItineraryFormProps {
 export default function ItineraryForm({ request, onChange, onGenerate, isLoading, onReset, isSavedItineraryLoaded, t }: ItineraryFormProps) {
   const [error, setError] = React.useState<string | null>(null);
   const [draggedIndex, setDraggedIndex] = React.useState<number | null>(null);
+  const [voiceInputTarget, setVoiceInputTarget] = React.useState<string | null>(null);
+  const recognitionRef = React.useRef<SpeechRecognition | null>(null);
   const { name, transportMode, parcours } = request;
 
   const handleParcoursChange = (index: number, value: string) => {
@@ -100,6 +123,54 @@ export default function ItineraryForm({ request, onChange, onGenerate, isLoading
     setError(null);
     onGenerate(request);
   };
+  
+  const handleVoiceInput = (targetId: string) => {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SpeechRecognition) {
+      alert("Speech recognition is not supported in this browser.");
+      return;
+    }
+
+    if (recognitionRef.current && voiceInputTarget) {
+      recognitionRef.current.stop();
+      return;
+    }
+
+    const recognition = new SpeechRecognition();
+    recognition.lang = t.langCode;
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
+    recognitionRef.current = recognition;
+
+    recognition.onstart = () => {
+      setVoiceInputTarget(targetId);
+    };
+
+    recognition.onresult = (event) => {
+      const transcript = event.results[0][0].transcript;
+      if (targetId === 'name') {
+        onChange({ ...request, name: transcript });
+      } else if (targetId.startsWith('parcours-')) {
+        const index = parseInt(targetId.split('-')[1], 10);
+        if (!isNaN(index)) {
+          handleParcoursChange(index, transcript);
+        }
+      }
+    };
+    
+    recognition.onerror = (event) => {
+      console.error("Speech recognition error", event.error);
+      setVoiceInputTarget(null);
+      recognitionRef.current = null;
+    };
+
+    recognition.onend = () => {
+      setVoiceInputTarget(null);
+      recognitionRef.current = null;
+    };
+    
+    recognition.start();
+  };
 
   const handlePrepareReturn = () => {
     const returnSuffixes = (Object.keys(translations) as Array<keyof typeof translations>)
@@ -151,11 +222,16 @@ export default function ItineraryForm({ request, onChange, onGenerate, isLoading
                 value={name}
                 onChange={(e) => onChange({ ...request, name: e.target.value })}
                 placeholder={t.itineraryNamePlaceholder}
-                className={`${baseInputClass} pr-10`}
+                className={`${baseInputClass} pr-20`}
                 required
             />
-            <div className="absolute inset-y-0 right-0 px-3 flex items-center pointer-events-none text-[#5D0079]/70">
-                <svg className="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M12 21a9 9 0 100-18 9 9 0 000 18z" /><path strokeLinecap="round" strokeLinejoin="round" d="M12 3.532a9.001 a9.001 0 010 16.936m0-16.936a9 9 0 000 16.936" /></svg>
+            <div className="absolute inset-y-0 right-0 pr-3 flex items-center space-x-1">
+                <button type="button" onClick={() => handleVoiceInput('name')} className={`p-1 rounded-full transition ${voiceInputTarget === 'name' ? 'bg-red-500/20 text-red-600 animate-pulse' : 'text-purple-600 hover:text-purple-800'}`} title={t.voiceInputTooltip}>
+                    <MicrophoneIcon className="h-5 w-5" />
+                </button>
+                <div className="pointer-events-none text-[#5D0079]/70">
+                    <svg className="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M12 21a9 9 0 100-18 9 9 0 000 18z" /><path strokeLinecap="round" strokeLinejoin="round" d="M12 3.532a9.001 a9.001 0 010 16.936m0-16.936a9 9 0 000 16.936" /></svg>
+                </div>
             </div>
         </div>
       </div>
@@ -195,6 +271,7 @@ export default function ItineraryForm({ request, onChange, onGenerate, isLoading
           const isStart = index === 0;
           const isDestination = index === parcours.length - 1;
           const isStep = !isStart && !isDestination;
+          const voiceInputId = `parcours-${index}`;
 
           let labelText = '';
           let placeholder = '';
@@ -239,19 +316,24 @@ export default function ItineraryForm({ request, onChange, onGenerate, isLoading
                           value={point.value}
                           onChange={(e) => handleParcoursChange(index, e.target.value)}
                           placeholder={placeholder}
-                          className={`${baseInputClass} pr-12`}
+                          className={`${baseInputClass} pr-24`}
                           required={isStart || isDestination}
                       />
-                      {isStart && (
-                          <button type="button" onClick={handleGeolocate} className="absolute inset-y-0 right-0 px-3 flex items-center text-purple-600 hover:text-purple-800 transition" title={t.useCurrentLocation}>
-                              <SendIcon className="h-5 w-5" />
+                      <div className="absolute inset-y-0 right-0 pr-3 flex items-center space-x-1">
+                          <button type="button" onClick={() => handleVoiceInput(voiceInputId)} className={`p-1 rounded-full transition ${voiceInputTarget === voiceInputId ? 'bg-red-500/20 text-red-600 animate-pulse' : 'text-purple-600 hover:text-purple-800'}`} title={t.voiceInputTooltip}>
+                              <MicrophoneIcon className="h-5 w-5" />
                           </button>
-                      )}
-                      {isStep && (
-                          <button type="button" onClick={() => handleRemoveStep(index)} className="absolute inset-y-0 right-0 px-3 flex items-center text-red-500 hover:text-red-700 transition">
-                              <CrossIcon className="h-5 w-5" />
-                          </button>
-                      )}
+                          {isStart && (
+                              <button type="button" onClick={handleGeolocate} className="text-purple-600 hover:text-purple-800 transition" title={t.useCurrentLocation}>
+                                  <SendIcon className="h-5 w-5" />
+                              </button>
+                          )}
+                          {isStep && (
+                              <button type="button" onClick={() => handleRemoveStep(index)} className="text-red-500 hover:text-red-700 transition">
+                                  <CrossIcon className="h-5 w-5" />
+                              </button>
+                          )}
+                      </div>
                   </div>
               </div>
             </div>

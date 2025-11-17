@@ -2,6 +2,8 @@ import type { ItineraryRequest } from '../types';
 
 export const translations = {
   fr: {
+    langCode: 'fr-FR',
+    voiceInputTooltip: "Saisie vocale",
     tagline: "Vos itinéraires, simplement.",
     saveSuccess: "Itinéraire sauvegardé avec succès !",
     updateSuccess: "Sauvegarde modifiée avec succès !",
@@ -85,6 +87,8 @@ export const translations = {
     createItineraryTitle: "Créer un itinéraire",
   },
   en: {
+    langCode: 'en-US',
+    voiceInputTooltip: "Voice input",
     tagline: "Your routes, simplified.",
     saveSuccess: "Itinerary saved successfully!",
     updateSuccess: "Save updated successfully!",
@@ -168,6 +172,8 @@ export const translations = {
     createItineraryTitle: "Create an itinerary",
   },
   de: {
+    langCode: 'de-DE',
+    voiceInputTooltip: "Spracheingabe",
     tagline: "Ihre Routen, einfach erstellt.",
     saveSuccess: "Route erfolgreich gespeichert!",
     updateSuccess: "Speicherung erfolgreich aktualisiert!",
@@ -251,6 +257,8 @@ export const translations = {
     createItineraryTitle: "Route erstellen",
   },
   it: {
+    langCode: 'it-IT',
+    voiceInputTooltip: "Input vocale",
     tagline: "I tuoi percorsi, semplici.",
     saveSuccess: "Itinerario salvato con successo!",
     updateSuccess: "Salvataggio aggiornato con successo!",
@@ -334,6 +342,8 @@ export const translations = {
     createItineraryTitle: "Crea un itinerario",
   },
   nl: {
+    langCode: 'nl-NL',
+    voiceInputTooltip: "Spraakinvoer",
     tagline: "Uw routes, eenvoudig.",
     saveSuccess: "Route succesvol opgeslagen!",
     updateSuccess: "Opslag succesvol bijgewerkt!",
